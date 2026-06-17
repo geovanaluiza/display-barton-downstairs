@@ -21,7 +21,7 @@ const admission = {
   tagline: 'Welcome to Northwest. We are so glad you are here.',
   building: 'Barton Hall',
   room: '',
-  direction: 'Head down the hall. The Office of Admissions is on your right.',
+  direction: 'The Office of Admissions is on your right.',
   hours: [
     { day: 'Monday',     time: '8:00 AM – 5:00 PM' },
     { day: 'Tuesday',    time: '8:00 AM – 5:00 PM' },
@@ -79,11 +79,10 @@ const admission = {
           <span class="hero-accent">Admissions.</span>
         </h1>
         <p class="hero-blurb">
-          Welcome to Northwest. Head down the hall
-          — we are waiting for you.
+          Welcome to Northwest. We are waiting for you.
         </p>
         <div class="hero-meta">
-          <span><strong>↗</strong> Down the hall on your right</span>
+          <span><strong>↗</strong> On your right</span>
           <span class="dot" />
           <span>Office of Admissions</span>
         </div>
@@ -155,7 +154,7 @@ const admission = {
         <div class="ds-arrow">→</div>
         <div class="ds-step">
           <span class="ds-num">2</span>
-          <span class="ds-text">Walk <strong>down the hall</strong></span>
+          <span class="ds-text">Walk <strong>straight ahead</strong></span>
         </div>
         <div class="ds-arrow">→</div>
         <div class="ds-step">
