@@ -60,13 +60,31 @@ const admission = {
         </div>
       </div>
 
-      <!-- The massive right arrow -->
-      <div class="big-arrow" aria-hidden="true">
-        <span class="arrow-bar" />
-        <span class="arrow-head">
-          <span class="arrow-tip" />
-        </span>
-        <span class="arrow-bar arrow-bar--bottom" />
+      <!-- Wayfinding sign: static arrow + caption "This way to Admissions Office" -->
+      <div class="big-arrow" role="img" aria-label="This way to Admissions Office">
+        <div class="arrow-icon">
+          <svg viewBox="0 0 320 200" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <defs>
+              <linearGradient id="arrowGrad" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0%"   stop-color="#fbd945" />
+                <stop offset="100%" stop-color="#ffbc2d" />
+              </linearGradient>
+            </defs>
+            <!-- Arrow shape: shaft + head as one continuous outlined path -->
+            <path
+              d="M 20 100 L 220 100 L 220 30 L 310 100 L 220 170 L 220 100"
+              fill="url(#arrowGrad)"
+              stroke="#00263d"
+              stroke-width="10"
+              stroke-linejoin="round"
+              stroke-linecap="round"
+            />
+          </svg>
+        </div>
+        <div class="arrow-caption">
+          <span class="caption-line">This way to</span>
+          <span class="caption-name">Admissions Office</span>
+        </div>
       </div>
 
       <div class="hero-content">
@@ -142,24 +160,6 @@ const admission = {
               <div class="contact-value">{{ admission.building }}<br/>2nd Floor</div>
             </div>
           </div>
-        </div>
-      </div>
-
-      <!-- Direction strip -->
-      <div class="direction-strip">
-        <div class="ds-step">
-          <span class="ds-num">1</span>
-          <span class="ds-text">Step out of the elevator and head <strong>right</strong></span>
-        </div>
-        <div class="ds-arrow">→</div>
-        <div class="ds-step">
-          <span class="ds-num">2</span>
-          <span class="ds-text">Walk <strong>straight ahead</strong></span>
-        </div>
-        <div class="ds-arrow">→</div>
-        <div class="ds-step">
-          <span class="ds-num">3</span>
-          <span class="ds-text">We are glad to see you</span>
         </div>
       </div>
 
@@ -282,63 +282,62 @@ const admission = {
   color: var(--nu-wisp);
 }
 
-/* The HUGE right arrow — bottom-right corner */
+/* === WAYFINDING ARROW: static sign-style indicator (no interactive track) === */
 .big-arrow {
   position: absolute;
-  bottom: 4%; right: 2%;
-  transform: translate(0, 0);
-  display: flex; align-items: center;
+  bottom: 6%; right: 4%;
   z-index: 3;
-  filter: drop-shadow(0 16px 32px rgba(0, 0, 0, 0.45));
-  animation: fadeUp 1s var(--ease-out-soft) 0.5s both, slideRight 4s ease-in-out 1.5s infinite;
-  opacity: 0.95;
+  display: flex; flex-direction: column; align-items: flex-end;
+  gap: 16px;
+  animation: fadeUp 1s var(--ease-out-soft) 0.5s both;
+  /* Subtle bounce to draw attention — clearly NOT a draggable control */
+  animation: fadeUp 1s var(--ease-out-soft) 0.5s both, nudge 3.6s ease-in-out 1.4s infinite;
+  pointer-events: none;
 }
-@keyframes slideRight {
+@keyframes nudge {
   0%, 100% { transform: translate(0, 0); }
-  50%      { transform: translate(20px, 0); }
+  50%      { transform: translate(-14px, 0); }
 }
-.arrow-bar {
+
+.arrow-icon {
+  width: 420px;
+  filter: drop-shadow(0 18px 40px rgba(0, 0, 0, 0.55));
+  animation: pulse-tip 2s ease-in-out infinite;
+}
+.arrow-icon svg {
+  width: 100%; height: auto;
   display: block;
-  width: 560px; height: 60px;
-  background: linear-gradient(90deg, var(--nu-tour) 0%, var(--nu-amber) 100%);
-  border-radius: 6px;
-  position: relative;
-  box-shadow: 0 12px 32px rgba(251, 217, 69, 0.4);
 }
-.arrow-bar::before {
-  content: '';
-  position: absolute; inset: 6px 0 6px 0;
-  background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.5) 50%, transparent 100%);
-  background-size: 60px 100%;
-  background-repeat: no-repeat;
-  animation: shimmer 2.2s linear infinite;
+
+.arrow-caption {
+  display: flex; flex-direction: column;
+  align-items: flex-end;
+  text-align: right;
+  color: var(--nu-wisp);
+  background: rgba(0, 38, 61, 0.78);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  padding: 14px 22px;
+  border-radius: 16px;
+  border: 1px solid rgba(251, 217, 69, 0.5);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.45);
 }
-@keyframes shimmer {
-  0%   { background-position: -60px 0; }
-  100% { background-position: calc(100% + 60px) 0; }
+.caption-line {
+  font-size: 13px; font-weight: 700;
+  letter-spacing: 0.28em; text-transform: uppercase;
+  color: var(--nu-tour);
+  margin-bottom: 4px;
 }
-.arrow-head {
-  position: relative;
-  width: 0; height: 0;
-  border-top:    160px solid transparent;
-  border-bottom: 160px solid transparent;
-  border-left:   220px solid var(--nu-amber);
-  margin-left: -2px;
-  filter: drop-shadow(0 16px 40px rgba(255, 188, 45, 0.5));
+.caption-name {
+  font-family: var(--font-serif);
+  font-size: 32px; line-height: 1.05;
+  color: var(--nu-wisp);
+  letter-spacing: -0.01em;
 }
-.arrow-tip {
-  position: absolute;
-  top: 50%; left: -220px;
-  transform: translate(0, -50%);
-  width: 56px; height: 56px;
-  background: var(--nu-tour);
-  border-radius: 50%;
-  box-shadow: 0 0 0 14px rgba(251, 217, 69, 0.3);
-  animation: pulse-tip 1.6s ease-in-out infinite;
-}
+
 @keyframes pulse-tip {
-  0%, 100% { box-shadow: 0 0 0 16px rgba(251, 217, 69, 0.3); }
-  50%      { box-shadow: 0 0 0 40px rgba(251, 217, 69, 0); }
+  0%, 100% { filter: drop-shadow(0 18px 40px rgba(0, 0, 0, 0.55)); }
+  50%      { filter: drop-shadow(0 18px 40px rgba(251, 217, 69, 0.7)); }
 }
 
 /* Hero text content (left side) */
@@ -426,24 +425,28 @@ const admission = {
 
 /* ============ INFO SECTION ============ */
 .info {
-  padding: 80px;
+  padding: 100px 80px;
   background: var(--nu-powder);
 }
 .info-grid {
   display: grid;
-  grid-template-columns: 1fr 1.5fr 1fr;
-  gap: 24px;
-  margin-bottom: 56px;
+  grid-template-columns: 1fr 1.2fr 1fr;
+  gap: 32px;
+  margin-bottom: 72px;
+  align-items: stretch;
 }
 .info-card {
   position: relative;
   background: var(--nu-wisp);
   border-radius: 28px;
-  padding: 36px 32px 40px;
+  padding: 44px 36px 48px;
   box-shadow: 0 8px 24px rgba(0, 38, 61, 0.10);
   border: 1px solid var(--nu-cloud);
   animation: fadeUp 0.7s var(--ease-out-soft) both;
   display: flex; flex-direction: column;
+  align-items: stretch;
+  min-width: 0;
+  overflow: hidden;
 }
 .info-card:nth-child(1) { animation-delay: 0.1s; }
 .info-card:nth-child(2) { animation-delay: 0.2s; }
@@ -486,7 +489,7 @@ const admission = {
 .hours-time {
   font-family: var(--font-serif);
   color: var(--nu-midnight);
-  font-size: 18px;
+  font-size: 16px;
   font-variant-numeric: tabular-nums;
   white-space: nowrap;
   text-align: right;
@@ -565,56 +568,12 @@ const admission = {
 }
 .contact-value {
   font-family: var(--font-serif);
-  font-size: 22px;
+  font-size: 18px;
   color: var(--nu-midnight);
   font-weight: 700;
-}
-
-/* DIRECTION STRIP */
-.direction-strip {
-  display: flex; align-items: stretch;
-  background: linear-gradient(135deg, var(--nu-navy) 0%, var(--nu-blue) 100%);
-  border-radius: 28px;
-  padding: 32px 40px;
-  gap: 24px;
-  align-items: center;
-  box-shadow: 0 16px 40px rgba(0, 38, 61, 0.25);
-  animation: fadeUp 0.7s var(--ease-out-soft) 0.4s both;
-}
-.ds-step {
-  flex: 1;
-  display: flex; align-items: center; gap: 18px;
-  color: var(--nu-wisp);
-}
-.ds-num {
-  width: 56px; height: 56px;
-  border-radius: 50%;
-  background: var(--nu-tour);
-  color: var(--nu-midnight);
-  display: flex; align-items: center; justify-content: center;
-  font-family: var(--font-serif);
-  font-size: 28px; font-weight: 700;
-  flex-shrink: 0;
-  box-shadow: 0 4px 12px rgba(251, 217, 69, 0.4);
-}
-.ds-text {
-  font-size: 19px; line-height: 1.4;
-  color: var(--nu-wisp);
-}
-.ds-text strong {
-  color: var(--nu-tour);
-  font-weight: 800;
-}
-.ds-arrow {
-  font-size: 56px;
-  color: var(--nu-tour);
-  font-family: var(--font-serif);
-  flex-shrink: 0;
-  animation: bounce-arrow 1.4s ease-in-out infinite;
-}
-@keyframes bounce-arrow {
-  0%, 100% { transform: translateX(0); }
-  50%      { transform: translateX(10px); }
+  word-break: break-word;
+  overflow-wrap: break-word;
+  line-height: 1.2;
 }
 
 .bottom-hint {
@@ -646,7 +605,5 @@ const admission = {
   .you-are-here { top: auto; bottom: 30px; left: 32px; }
   .info { padding: 40px 24px; }
   .info-grid { grid-template-columns: 1fr; gap: 20px; }
-  .direction-strip { flex-direction: column; padding: 24px; gap: 16px; }
-  .ds-arrow { transform: rotate(90deg); }
 }
 </style>
