@@ -60,22 +60,22 @@ const admission = {
         </div>
       </div>
 
-      <!-- Wayfinding sign: static arrow + caption "This way to Admissions Office" -->
+      <!-- Wayfinding sign: solid arrowhead + caption "This way to Admissions Office" -->
       <div class="big-arrow" role="img" aria-label="This way to Admissions Office">
         <div class="arrow-icon">
-          <svg viewBox="0 0 320 200" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <svg viewBox="0 0 320 320" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
             <defs>
               <linearGradient id="arrowGrad" x1="0" y1="0" x2="1" y2="0">
                 <stop offset="0%"   stop-color="#fbd945" />
                 <stop offset="100%" stop-color="#ffbc2d" />
               </linearGradient>
             </defs>
-            <!-- Arrow shape: shaft + head as one continuous outlined path -->
-            <path
-              d="M 20 100 L 220 100 L 220 30 L 310 100 L 220 170 L 220 100"
+            <!-- Solid triangle arrowhead only (no shaft/track) -->
+            <polygon
+              points="40,40 40,280 290,160"
               fill="url(#arrowGrad)"
               stroke="#00263d"
-              stroke-width="10"
+              stroke-width="14"
               stroke-linejoin="round"
               stroke-linecap="round"
             />
@@ -282,15 +282,13 @@ const admission = {
   color: var(--nu-wisp);
 }
 
-/* === WAYFINDING ARROW: static sign-style indicator (no interactive track) === */
+/* === WAYFINDING ARROW: static sign-style indicator (solid triangle, no track) === */
 .big-arrow {
   position: absolute;
   bottom: 6%; right: 4%;
   z-index: 3;
-  display: flex; flex-direction: column; align-items: flex-end;
-  gap: 16px;
-  animation: fadeUp 1s var(--ease-out-soft) 0.5s both;
-  /* Subtle bounce to draw attention — clearly NOT a draggable control */
+  display: flex; flex-direction: row; align-items: center;
+  gap: 28px;
   animation: fadeUp 1s var(--ease-out-soft) 0.5s both, nudge 3.6s ease-in-out 1.4s infinite;
   pointer-events: none;
 }
@@ -300,7 +298,8 @@ const admission = {
 }
 
 .arrow-icon {
-  width: 420px;
+  width: 320px;
+  flex-shrink: 0;
   filter: drop-shadow(0 18px 40px rgba(0, 0, 0, 0.55));
   animation: pulse-tip 2s ease-in-out infinite;
 }
@@ -311,33 +310,33 @@ const admission = {
 
 .arrow-caption {
   display: flex; flex-direction: column;
-  align-items: flex-end;
-  text-align: right;
+  align-items: flex-start;
+  text-align: left;
   color: var(--nu-wisp);
-  background: rgba(0, 38, 61, 0.78);
+  background: rgba(0, 38, 61, 0.82);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
-  padding: 14px 22px;
-  border-radius: 16px;
-  border: 1px solid rgba(251, 217, 69, 0.5);
-  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.45);
+  padding: 18px 26px;
+  border-radius: 18px;
+  border: 1px solid rgba(251, 217, 69, 0.55);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5);
 }
 .caption-line {
-  font-size: 13px; font-weight: 700;
+  font-size: 14px; font-weight: 700;
   letter-spacing: 0.28em; text-transform: uppercase;
   color: var(--nu-tour);
-  margin-bottom: 4px;
+  margin-bottom: 6px;
 }
 .caption-name {
   font-family: var(--font-serif);
-  font-size: 32px; line-height: 1.05;
+  font-size: 36px; line-height: 1.05;
   color: var(--nu-wisp);
   letter-spacing: -0.01em;
 }
 
 @keyframes pulse-tip {
   0%, 100% { filter: drop-shadow(0 18px 40px rgba(0, 0, 0, 0.55)); }
-  50%      { filter: drop-shadow(0 18px 40px rgba(251, 217, 69, 0.7)); }
+  50%      { filter: drop-shadow(0 18px 40px rgba(251, 217, 69, 0.75)); }
 }
 
 /* Hero text content (left side) */
@@ -484,12 +483,13 @@ const admission = {
   color: var(--nu-navy);
   letter-spacing: 0.02em;
   white-space: nowrap;
-  font-size: 17px;
+  font-size: 16px;
+  flex-shrink: 0;
 }
 .hours-time {
   font-family: var(--font-serif);
   color: var(--nu-midnight);
-  font-size: 16px;
+  font-size: 15px;
   font-variant-numeric: tabular-nums;
   white-space: nowrap;
   text-align: right;
