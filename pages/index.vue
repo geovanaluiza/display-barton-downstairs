@@ -626,10 +626,13 @@ const admission = {
 }
 .hours-closed {
   margin-top: 14px;
-  font-size: 11px;
+  padding-top: 18px;
+  border-top: 1px solid var(--nu-cloud);
+  font-size: 13px;
   color: var(--nu-navy);
-  opacity: 0.6;
+  opacity: 0.65;
   letter-spacing: 0.04em;
+  font-weight: 600;
 }
 
 /* === WHAT TO EXPECT (icons + labels + summary) === */
@@ -673,10 +676,13 @@ const admission = {
   line-height: 1.1;
 }
 .expect-summary {
-  font-size: 15px; line-height: 1.55;
+  font-size: 13px;
+  line-height: 1.5;
   color: var(--nu-navy);
-  font-weight: 500;
-  padding-top: 24px;
+  opacity: 0.65;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  padding-top: 18px;
   border-top: 1px solid var(--nu-cloud);
   margin-top: auto;
 }
@@ -728,11 +734,11 @@ const admission = {
   margin-top: 22px;
   padding-top: 22px;
   border-top: 1px solid var(--nu-cloud);
-  font-family: var(--font-serif);
-  font-size: 17px;
-  color: var(--nu-midnight);
-  font-weight: 700;
-  letter-spacing: 0.02em;
+  font-size: 13px;
+  color: var(--nu-navy);
+  opacity: 0.65;
+  font-weight: 600;
+  letter-spacing: 0.04em;
   text-align: center;
 }
 
