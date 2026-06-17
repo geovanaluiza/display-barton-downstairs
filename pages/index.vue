@@ -578,6 +578,11 @@ const admission = {
 .info-card:nth-child(1) { animation-delay: 0.1s; }
 .info-card:nth-child(2) { animation-delay: 0.2s; }
 .info-card:nth-child(3) { animation-delay: 0.3s; }
+.info-card.contact-card {
+  padding-left: 18px;
+  padding-right: 54px;
+}
+.info-card:nth-child(3) { animation-delay: 0.3s; }
 .info-eyebrow {
   font-size: 13px; font-weight: 700;
   letter-spacing: 0.32em; text-transform: uppercase;
