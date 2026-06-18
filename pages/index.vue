@@ -482,7 +482,9 @@ const admission = {
   z-index: 4;
   display: flex; flex-direction: column;
   align-items: center;
-  width: min(820px, 78%);
+  width: min(820px, 90%);
+  max-width: calc(100% - 64px);
+  box-sizing: border-box;
   padding: 64px 72px 56px;
   /* Glassmorphism: dark navy with subtle transparency */
   background: linear-gradient(180deg,

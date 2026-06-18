@@ -46,4 +46,11 @@ onUnmounted(() => {
   background: #000;
   overflow: hidden;
 }
+.stage {
+  position: absolute;
+  top: 0; left: 0;
+  width: 1080px;
+  height: 1920px;
+  transform-origin: top left;
+}
 </style>
