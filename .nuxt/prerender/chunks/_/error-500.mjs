@@ -1,4 +1,4 @@
-import { escapeHtml } from 'file:///Users/swmarketing/kilo-code/barton-2floor-rightarrow/node_modules/@vue/shared/dist/shared.cjs.prod.js';
+import { escapeHtml } from 'file:///Users/swmarketing/kilo-code/barton-2floor-downstairs/node_modules/@vue/shared/dist/shared.cjs.prod.js';
 
 const _messages = { "appName": "Nuxt", "version": "", "statusCode": 500, "statusMessage": "Server error", "description": "This page is temporarily unavailable." };
 const template = (messages) => {

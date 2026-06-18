@@ -1,24 +1,24 @@
-import process from 'node:process';globalThis._importMeta_=globalThis._importMeta_||{url:"file:///_entry.js",env:process.env};import { defineEventHandler, handleCacheHeaders, splitCookiesString, createEvent, fetchWithEvent, isEvent, eventHandler, setHeaders, sendRedirect, proxyRequest, getRequestHeader, setResponseHeaders, setResponseStatus, send, getRequestHeaders, setResponseHeader, appendResponseHeader, getRequestURL, getResponseHeader, removeResponseHeader, createError, createApp, createRouter as createRouter$1, toNodeListener, lazyEventHandler, getResponseStatus } from 'file:///Users/swmarketing/kilo-code/barton-2floor-rightarrow/node_modules/h3/dist/index.mjs';
-import destr from 'file:///Users/swmarketing/kilo-code/barton-2floor-rightarrow/node_modules/destr/dist/index.mjs';
-import { createHooks } from 'file:///Users/swmarketing/kilo-code/barton-2floor-rightarrow/node_modules/hookable/dist/index.mjs';
-import { createFetch, Headers as Headers$1 } from 'file:///Users/swmarketing/kilo-code/barton-2floor-rightarrow/node_modules/ofetch/dist/node.mjs';
-import { fetchNodeRequestHandler, callNodeRequestHandler } from 'file:///Users/swmarketing/kilo-code/barton-2floor-rightarrow/node_modules/node-mock-http/dist/index.mjs';
-import { parseURL, withoutBase, joinURL, getQuery, withQuery, decodePath, withLeadingSlash, withoutTrailingSlash } from 'file:///Users/swmarketing/kilo-code/barton-2floor-rightarrow/node_modules/ufo/dist/index.mjs';
-import { createStorage, defineDriver, prefixStorage } from 'file:///Users/swmarketing/kilo-code/barton-2floor-rightarrow/node_modules/unstorage/dist/index.mjs';
-import unstorage_47drivers_47fs from 'file:///Users/swmarketing/kilo-code/barton-2floor-rightarrow/node_modules/unstorage/drivers/fs.mjs';
-import fsDriver from 'file:///Users/swmarketing/kilo-code/barton-2floor-rightarrow/node_modules/unstorage/drivers/fs-lite.mjs';
-import lruCache from 'file:///Users/swmarketing/kilo-code/barton-2floor-rightarrow/node_modules/unstorage/drivers/lru-cache.mjs';
-import { digest } from 'file:///Users/swmarketing/kilo-code/barton-2floor-rightarrow/node_modules/ohash/dist/index.mjs';
-import { klona } from 'file:///Users/swmarketing/kilo-code/barton-2floor-rightarrow/node_modules/klona/dist/index.mjs';
-import defu, { defuFn } from 'file:///Users/swmarketing/kilo-code/barton-2floor-rightarrow/node_modules/defu/dist/defu.mjs';
-import { snakeCase } from 'file:///Users/swmarketing/kilo-code/barton-2floor-rightarrow/node_modules/scule/dist/index.mjs';
-import { getContext } from 'file:///Users/swmarketing/kilo-code/barton-2floor-rightarrow/node_modules/unctx/dist/index.mjs';
-import { toRouteMatcher, createRouter } from 'file:///Users/swmarketing/kilo-code/barton-2floor-rightarrow/node_modules/radix3/dist/index.mjs';
+import process from 'node:process';globalThis._importMeta_=globalThis._importMeta_||{url:"file:///_entry.js",env:process.env};import { defineEventHandler, handleCacheHeaders, splitCookiesString, createEvent, fetchWithEvent, isEvent, eventHandler, setHeaders, sendRedirect, proxyRequest, getRequestHeader, setResponseHeaders, setResponseStatus, send, getRequestHeaders, setResponseHeader, appendResponseHeader, getRequestURL, getResponseHeader, removeResponseHeader, createError, createApp, createRouter as createRouter$1, toNodeListener, lazyEventHandler, getResponseStatus } from 'file:///Users/swmarketing/kilo-code/barton-2floor-downstairs/node_modules/h3/dist/index.mjs';
+import destr from 'file:///Users/swmarketing/kilo-code/barton-2floor-downstairs/node_modules/destr/dist/index.mjs';
+import { createHooks } from 'file:///Users/swmarketing/kilo-code/barton-2floor-downstairs/node_modules/hookable/dist/index.mjs';
+import { createFetch, Headers as Headers$1 } from 'file:///Users/swmarketing/kilo-code/barton-2floor-downstairs/node_modules/ofetch/dist/node.mjs';
+import { fetchNodeRequestHandler, callNodeRequestHandler } from 'file:///Users/swmarketing/kilo-code/barton-2floor-downstairs/node_modules/node-mock-http/dist/index.mjs';
+import { parseURL, withoutBase, joinURL, getQuery, withQuery, decodePath, withLeadingSlash, withoutTrailingSlash } from 'file:///Users/swmarketing/kilo-code/barton-2floor-downstairs/node_modules/ufo/dist/index.mjs';
+import { createStorage, defineDriver, prefixStorage } from 'file:///Users/swmarketing/kilo-code/barton-2floor-downstairs/node_modules/unstorage/dist/index.mjs';
+import unstorage_47drivers_47fs from 'file:///Users/swmarketing/kilo-code/barton-2floor-downstairs/node_modules/unstorage/drivers/fs.mjs';
+import fsDriver from 'file:///Users/swmarketing/kilo-code/barton-2floor-downstairs/node_modules/unstorage/drivers/fs-lite.mjs';
+import lruCache from 'file:///Users/swmarketing/kilo-code/barton-2floor-downstairs/node_modules/unstorage/drivers/lru-cache.mjs';
+import { digest } from 'file:///Users/swmarketing/kilo-code/barton-2floor-downstairs/node_modules/ohash/dist/index.mjs';
+import { klona } from 'file:///Users/swmarketing/kilo-code/barton-2floor-downstairs/node_modules/klona/dist/index.mjs';
+import defu, { defuFn } from 'file:///Users/swmarketing/kilo-code/barton-2floor-downstairs/node_modules/defu/dist/defu.mjs';
+import { snakeCase } from 'file:///Users/swmarketing/kilo-code/barton-2floor-downstairs/node_modules/scule/dist/index.mjs';
+import { getContext } from 'file:///Users/swmarketing/kilo-code/barton-2floor-downstairs/node_modules/unctx/dist/index.mjs';
+import { toRouteMatcher, createRouter } from 'file:///Users/swmarketing/kilo-code/barton-2floor-downstairs/node_modules/radix3/dist/index.mjs';
 import { promises } from 'node:fs';
 import { fileURLToPath } from 'node:url';
-import { dirname, resolve } from 'file:///Users/swmarketing/kilo-code/barton-2floor-rightarrow/node_modules/pathe/dist/index.mjs';
+import { dirname, resolve } from 'file:///Users/swmarketing/kilo-code/barton-2floor-downstairs/node_modules/pathe/dist/index.mjs';
 
-const serverAssets = [{"baseName":"server","dir":"/Users/swmarketing/kilo-code/barton-2floor-rightarrow/server/assets"}];
+const serverAssets = [{"baseName":"server","dir":"/Users/swmarketing/kilo-code/barton-2floor-downstairs/server/assets"}];
 
 const assets$1 = createStorage();
 
@@ -37,7 +37,7 @@ const normalizeFsKey = item => decodeURIComponent(item.replaceAll(':', '_'));
 /**
  * @param {{ base: string }} opts
  */
-const _47Users_47swmarketing_47kilo_45code_47barton_452floor_45rightarrow_47node_modules_47nuxt_47dist_47core_47runtime_47nitro_47utils_47cache_45driver_46js = defineDriver((opts) => {
+const _47Users_47swmarketing_47kilo_45code_47barton_452floor_45downstairs_47node_modules_47nuxt_47dist_47core_47runtime_47nitro_47utils_47cache_45driver_46js = defineDriver((opts) => {
   const fs = fsDriver({ base: opts.base });
   const lru = lruCache({ max: 1000 });
 
@@ -62,12 +62,12 @@ const storage = createStorage({});
 
 storage.mount('/assets', assets$1);
 
-storage.mount('internal:nuxt:prerender', _47Users_47swmarketing_47kilo_45code_47barton_452floor_45rightarrow_47node_modules_47nuxt_47dist_47core_47runtime_47nitro_47utils_47cache_45driver_46js({"driver":"/Users/swmarketing/kilo-code/barton-2floor-rightarrow/node_modules/nuxt/dist/core/runtime/nitro/utils/cache-driver.js","base":"/Users/swmarketing/kilo-code/barton-2floor-rightarrow/.nuxt/cache/nitro/prerender"}));
+storage.mount('internal:nuxt:prerender', _47Users_47swmarketing_47kilo_45code_47barton_452floor_45downstairs_47node_modules_47nuxt_47dist_47core_47runtime_47nitro_47utils_47cache_45driver_46js({"driver":"/Users/swmarketing/kilo-code/barton-2floor-downstairs/node_modules/nuxt/dist/core/runtime/nitro/utils/cache-driver.js","base":"/Users/swmarketing/kilo-code/barton-2floor-downstairs/.nuxt/cache/nitro/prerender"}));
 storage.mount('data', fsDriver({"driver":"fsLite","base":"./.data/kv"}));
-storage.mount('root', unstorage_47drivers_47fs({"driver":"fs","readOnly":true,"base":"/Users/swmarketing/kilo-code/barton-2floor-rightarrow","watchOptions":{"ignored":[null]}}));
-storage.mount('src', unstorage_47drivers_47fs({"driver":"fs","readOnly":true,"base":"/Users/swmarketing/kilo-code/barton-2floor-rightarrow/server","watchOptions":{"ignored":[null]}}));
-storage.mount('build', unstorage_47drivers_47fs({"driver":"fs","readOnly":false,"base":"/Users/swmarketing/kilo-code/barton-2floor-rightarrow/.nuxt"}));
-storage.mount('cache', unstorage_47drivers_47fs({"driver":"fs","readOnly":false,"base":"/Users/swmarketing/kilo-code/barton-2floor-rightarrow/.nuxt/cache"}));
+storage.mount('root', unstorage_47drivers_47fs({"driver":"fs","readOnly":true,"base":"/Users/swmarketing/kilo-code/barton-2floor-downstairs","watchOptions":{"ignored":[null]}}));
+storage.mount('src', unstorage_47drivers_47fs({"driver":"fs","readOnly":true,"base":"/Users/swmarketing/kilo-code/barton-2floor-downstairs/server","watchOptions":{"ignored":[null]}}));
+storage.mount('build', unstorage_47drivers_47fs({"driver":"fs","readOnly":false,"base":"/Users/swmarketing/kilo-code/barton-2floor-downstairs/.nuxt"}));
+storage.mount('cache', unstorage_47drivers_47fs({"driver":"fs","readOnly":false,"base":"/Users/swmarketing/kilo-code/barton-2floor-downstairs/.nuxt/cache"}));
 
 function useStorage(base = "") {
   return base ? prefixStorage(storage, base) : storage;
@@ -640,7 +640,7 @@ function _expandFromEnv(value) {
 const _inlineRuntimeConfig = {
   "app": {
     "baseURL": "/",
-    "buildId": "8f34884b-4edf-4517-aaf8-b563b215e780",
+    "buildId": "fe7c9031-e752-4a7c-98c5-22ca5f16f6b0",
     "buildAssetsDir": "/_nuxt/",
     "cdnURL": ""
   },
@@ -991,7 +991,7 @@ function getAsset (id) {
 
 const METHODS = /* @__PURE__ */ new Set(["HEAD", "GET"]);
 const EncodingMap = { gzip: ".gz", br: ".br" };
-const _0zsPIH = eventHandler((event) => {
+const _HMWx_8 = eventHandler((event) => {
   if (event.method && !METHODS.has(event.method)) {
     return;
   }
@@ -1057,12 +1057,12 @@ const _0zsPIH = eventHandler((event) => {
 
 const _SxA8c9 = defineEventHandler(() => {});
 
-const _lazy_0OXMC5 = () => import('../_/renderer.mjs');
+const _lazy_4JWjDD = () => import('../_/renderer.mjs');
 
 const handlers = [
-  { route: '', handler: _0zsPIH, lazy: false, middleware: true, method: undefined },
+  { route: '', handler: _HMWx_8, lazy: false, middleware: true, method: undefined },
   { route: '/__nuxt_island/**', handler: _SxA8c9, lazy: false, middleware: false, method: undefined },
-  { route: '/**', handler: _lazy_0OXMC5, lazy: true, middleware: false, method: undefined }
+  { route: '/**', handler: _lazy_4JWjDD, lazy: true, middleware: false, method: undefined }
 ];
 
 function createNitroApp() {
