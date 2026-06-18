@@ -119,6 +119,21 @@ const admission = {
         </div>
       </div>
 
+      <!-- HERO TEXT (top of the screen, above the wayfinding card) -->
+      <div class="hero-content">
+        <div class="hero-eyebrow">
+          <span class="ey-dot" />
+          Barton Hall Lobby
+        </div>
+        <h1 class="hero-title">
+          Office of<br/>
+          <span class="hero-accent">Admissions.</span>
+        </h1>
+        <p class="hero-blurb">
+          Welcome to Northwest. We are waiting for you.
+        </p>
+      </div>
+
       <!-- CENTERED WAYFINDING CARD — go up one floor -->
       <div class="wayfinding-card">
         <div class="wayfinding-arrow-up">
@@ -473,11 +488,68 @@ const admission = {
 }
 
 /* ================================================================ */
+/*  HERO TEXT (above the wayfinding card)                           */
+/* ================================================================ */
+.hero-content {
+  position: absolute;
+  top: 8%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 3;
+  display: flex; flex-direction: column;
+  align-items: center;
+  text-align: center;
+  width: min(900px, 86%);
+  color: var(--nu-wisp);
+  pointer-events: none;
+  animation: fadeUpCentered 0.9s var(--ease-out-soft) 0.1s both;
+}
+.hero-eyebrow {
+  display: inline-flex; align-items: center; gap: 10px;
+  color: var(--nu-tour);
+  font-size: 18px; font-weight: 700;
+  letter-spacing: 0.28em; text-transform: uppercase;
+  margin-bottom: 18px;
+}
+.ey-dot {
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  background: var(--nu-tour);
+  box-shadow: 0 0 0 4px rgba(251, 217, 69, 0.25);
+  animation: pulse 1.8s ease-in-out infinite;
+}
+@keyframes pulse {
+  0%, 100% { box-shadow: 0 0 0 4px rgba(251, 217, 69, 0.25); }
+  50%      { box-shadow: 0 0 0 12px rgba(251, 217, 69, 0); }
+}
+.hero-title {
+  font-family: var(--font-serif);
+  font-size: 80px;
+  line-height: 0.98;
+  color: var(--nu-wisp);
+  margin: 0 0 18px;
+  letter-spacing: -0.02em;
+  text-shadow: 0 4px 24px rgba(0, 0, 0, 0.5);
+}
+.hero-accent {
+  color: var(--nu-tour);
+  font-style: italic;
+}
+.hero-blurb {
+  font-size: 22px;
+  line-height: 1.4;
+  color: var(--nu-skylight);
+  margin: 0;
+  max-width: 48ch;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.5);
+}
+
+/* ================================================================ */
 /*  CENTERED WAYFINDING CARD — go up one floor (Main Lobby)         */
 /* ================================================================ */
 .wayfinding-card {
   position: absolute;
-  top: 50%; left: 50%;
+  top: 58%; left: 50%;
   transform: translate(-50%, -50%);
   z-index: 4;
   display: flex; flex-direction: column;
