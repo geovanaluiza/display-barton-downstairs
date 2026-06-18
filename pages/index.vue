@@ -132,6 +132,11 @@ const admission = {
         <p class="hero-blurb">
           Welcome to Northwest. We are waiting for you.
         </p>
+        <div class="hero-meta">
+          <span><strong>↗</strong> Up one floor</span>
+          <span class="dot" />
+          <span>Office of Admissions</span>
+        </div>
       </div>
 
       <!-- CENTERED WAYFINDING CARD — go up one floor -->
@@ -539,9 +544,34 @@ const admission = {
   font-size: 22px;
   line-height: 1.4;
   color: var(--nu-skylight);
-  margin: 0;
+  margin: 0 0 20px;
   max-width: 48ch;
   text-shadow: 0 2px 12px rgba(0, 0, 0, 0.5);
+}
+.hero-meta {
+  display: inline-flex; align-items: center; gap: 14px;
+  font-size: 16px; font-weight: 600;
+  color: var(--nu-wisp);
+  background: rgba(0, 38, 61, 0.55);
+  padding: 12px 20px;
+  border-radius: 999px;
+  border: 1.5px solid rgba(251, 217, 69, 0.5);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+  margin-top: 4px;
+}
+.hero-meta strong {
+  color: var(--nu-tour);
+  font-family: var(--font-serif);
+  font-size: 22px;
+  margin-right: 4px;
+}
+.hero-meta .dot {
+  width: 4px; height: 4px;
+  border-radius: 50%;
+  background: var(--nu-tour);
+  opacity: 0.7;
 }
 
 /* ================================================================ */
