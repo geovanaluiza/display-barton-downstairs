@@ -145,76 +145,45 @@ const admission = {
         </div>
       </div>
 
-      <!-- FLOATING CARDS OVERLAY — anchored to bottom of hero photo -->
+      <!-- FLOATING CARDS OVERLAY — 5 equal icon-only cards at bottom -->
       <div class="cards-overlay">
-        <div class="info-grid">
-          <!-- HOURS (compact, status-focused) -->
-          <div class="info-card hours-card">
-            <div class="info-eyebrow">Office Hours</div>
-            <div class="hours-status">
-              <span class="status-dot" />
-              <span class="status-text">Open today until 5 PM</span>
-            </div>
-            <button class="hours-toggle" type="button" @click="hoursExpanded = !hoursExpanded">
-              {{ hoursExpanded ? 'Hide full schedule' : 'See full schedule' }}
-            </button>
-            <transition name="expand">
-              <div v-if="hoursExpanded" class="hours-detail">
-                <div class="hours-row">
-                  <span class="hours-day-name">Mon &ndash; Thu</span>
-                  <span class="hours-time-text">8:00 AM &ndash; 5:00 PM</span>
-                </div>
-                <div class="hours-row">
-                  <span class="hours-day-name">Friday</span>
-                  <span class="hours-time-text">8:00 AM &ndash; 4:00 PM</span>
-                </div>
-                <div class="hours-closed">Closed weekends</div>
-              </div>
-            </transition>
-          </div>
+        <div class="quick-grid">
+          <!-- 5 equal-sized glass icon-only cards (steps on click) -->
+          <button class="quick-card" type="button" @click="openContact('call')" aria-label="Call us">
+            <svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
+            </svg>
+          </button>
 
-          <!-- PRIMARY CTA — Schedule a Tour -->
-          <div class="info-card expect-card expect-card--primary">
-            <div class="info-eyebrow">What to expect</div>
-            <button class="primary-cta" type="button" @click="openHelp('visit')">
-              <span class="primary-cta-icon">◈</span>
-              <span class="primary-cta-text">
-                <span class="primary-cta-line">Schedule a</span>
-                <span class="primary-cta-line primary-cta-line--bold">Campus Tour</span>
-              </span>
-              <span class="primary-cta-arrow">&rarr;</span>
-            </button>
-            <ul class="expect-icons">
-              <li v-for="(w, i) in admission.what" :key="i"
-                  class="expect-icon-item"
-                  role="button"
-                  tabindex="0"
-                  @click="openHelp(w.key)"
-                  @keydown.enter="openHelp(w.key)"
-                  @keydown.space.prevent="openHelp(w.key)"
-              >
-                <span class="expect-icon-mark">{{ w.icon }}</span>
-                <span class="expect-icon-label">{{ w.label }}</span>
-                <span class="expect-icon-info" aria-hidden="true">i</span>
-              </li>
-            </ul>
-          </div>
+          <button class="quick-card" type="button" @click="openContact('email')" aria-label="Email us">
+            <svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+              <polyline points="22,6 12,13 2,6" />
+            </svg>
+          </button>
 
-          <!-- CONTACT (secondary) -->
-          <div class="info-card contact-card">
-            <div class="info-eyebrow">Reach us</div>
-            <div class="contact-grid">
-              <button class="contact-mini" type="button" @click="openContact('call')" title="Show phone number">
-                <span class="contact-mini-icon">☎</span>
-                <span class="contact-mini-label">Call</span>
-              </button>
-              <button class="contact-mini" type="button" @click="openContact('email')" title="Show email">
-                <span class="contact-mini-icon">✉</span>
-                <span class="contact-mini-label">Email</span>
-              </button>
-            </div>
-            <div class="contact-detail">Barton Hall &middot; 2nd Floor</div>
-          </div>
+          <button class="quick-card" type="button" @click="openHelp('apply')" aria-label="Apply">
+            <svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+              <polyline points="14 2 14 8 20 8" />
+              <line x1="9" y1="13" x2="15" y2="13" />
+              <line x1="9" y1="17" x2="15" y2="17" />
+            </svg>
+          </button>
+
+          <button class="quick-card" type="button" @click="openHelp('visit')" aria-label="Campus tour">
+            <svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+              <circle cx="12" cy="10" r="3" />
+            </svg>
+          </button>
+
+          <button class="quick-card" type="button" @click="openHoursModal" aria-label="Office hours">
+            <svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="10" />
+              <polyline points="12 6 12 12 16 14" />
+            </svg>
+          </button>
         </div>
       </div>
     </section>
@@ -339,35 +308,97 @@ const admission = {
 /* ================================================================ */
 /*  CARDS OVERLAY — floating glass cards in last 25% of hero height  */
 /* ================================================================ */
+/* ================================================================ */
+/*  CARDS OVERLAY — 5 equal glass icon cards at bottom of hero        */
+/* ================================================================ */
 .cards-overlay {
   position: absolute;
   left: 0; right: 0;
-  bottom: 0;
-  height: 25%;
-  min-height: 420px;
-  max-height: 520px;
+  bottom: 13%;
   z-index: 6;
-  padding: 28px 56px 40px;
+  padding: 24px 56px;
+  display: flex; align-items: center; justify-content: center;
 }
-.cards-overlay .info-grid {
+.quick-grid {
   display: grid;
-  grid-template-columns: 1fr 1.2fr 1fr;
+  grid-template-columns: repeat(5, 1fr);
   gap: 22px;
-  align-items: stretch;
-  margin: 0;
+  width: 100%;
+  max-width: 1400px;
 }
-.cards-overlay .info-card {
-  background: rgba(255, 255, 255, 0.92);
-  backdrop-filter: blur(20px) saturate(160%);
-  -webkit-backdrop-filter: blur(20px) saturate(160%);
-  border: 1px solid rgba(255, 255, 255, 0.6);
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
-  border-radius: 28px;
-  padding: 22px 22px 20px;
+.quick-card {
+  position: relative;
+  display: flex; align-items: center; justify-content: center;
+  padding: 32px 16px;
+  /* Sutil glassmorphism — transparente, sem competir com a seta */
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 22px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.18);
+  color: var(--nu-wisp);
+  cursor: pointer;
+  font-family: inherit;
+  overflow: hidden;
+  transition: transform 0.4s var(--ease-out-soft),
+              background 0.4s,
+              border-color 0.4s,
+              box-shadow 0.4s;
+  /* Movimento sutil — só 3px, lento e discreto */
+  animation: cardFloat 7s ease-in-out infinite;
 }
-.cards-overlay .info-card.expect-card--primary {
-  background: linear-gradient(160deg, rgba(255, 255, 255, 0.94) 0%, rgba(253, 247, 232, 0.94) 100%);
-  border-color: var(--nu-tour);
+.quick-card:nth-child(1) { animation-delay: 0s; }
+.quick-card:nth-child(2) { animation-delay: 0.7s; }
+.quick-card:nth-child(3) { animation-delay: 1.4s; }
+.quick-card:nth-child(4) { animation-delay: 2.1s; }
+.quick-card:nth-child(5) { animation-delay: 2.8s; }
+@keyframes cardFloat {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-3px); }
+}
+/* Shine sweep on hover (discreto) */
+.quick-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: -120%;
+  width: 50%; height: 100%;
+  background: linear-gradient(115deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.18) 50%,
+    transparent 100%);
+  transform: skewX(-20deg);
+  transition: left 0.8s var(--ease-out-soft);
+  pointer-events: none;
+}
+.quick-card:hover {
+  transform: translateY(-6px) scale(1.03);
+  background: rgba(255, 255, 255, 0.14);
+  border-color: rgba(251, 217, 69, 0.5);
+  box-shadow:
+    0 14px 32px rgba(0, 0, 0, 0.28),
+    0 0 0 1px rgba(251, 217, 69, 0.35);
+}
+.quick-card:hover::before { left: 130%; }
+.quick-card:active { transform: translateY(-2px) scale(1.0); }
+
+/* === Uniform SVG icons (same size + color across all 5 quick cards + meta) === */
+.icon-svg {
+  width: 64px;
+  height: 64px;
+  color: var(--nu-tour);
+  opacity: 0.85;
+  filter: drop-shadow(0 2px 6px rgba(251, 217, 69, 0.28));
+  transition: transform 0.4s var(--ease-out-soft),
+              opacity 0.3s,
+              filter 0.3s,
+              color 0.3s;
+}
+.quick-card:hover .icon-svg {
+  transform: scale(1.12) rotate(-6deg);
+  opacity: 1;
+  color: var(--nu-amber);
+  filter: drop-shadow(0 3px 10px rgba(255, 188, 45, 0.4));
 }
 
 /* "You are here" pin (top-left of hero) */
