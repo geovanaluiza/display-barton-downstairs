@@ -50,7 +50,7 @@ const admission = {
   tagline: 'Welcome to Northwest. We are so glad you are here.',
   building: 'Barton Hall',
   room: '',
-  direction: 'The Office of Admissions is on your right.',
+  direction: 'The Office of Admissions is on the 2nd floor — go up one level.',
   hours: [
     { day: 'Monday',     time: '8:00 AM – 5:00 PM' },
     { day: 'Tuesday',    time: '8:00 AM – 5:00 PM' },
@@ -108,62 +108,40 @@ const admission = {
       <div class="hero-veil" />
       <div class="hero-bottom-grad" />
 
-      <!-- "You are here" pin -->
+      <!-- "You are here" pin (Main Lobby) -->
       <div class="you-are-here">
         <div class="here-pulse" />
         <div class="here-ping" />
         <div class="here-dot" />
         <div class="here-label">
           <span class="here-eyebrow">You are here</span>
-          <span class="here-name">Barton 2nd Floor</span>
+          <span class="here-name">Barton Main Lobby</span>
         </div>
       </div>
 
-      <!-- Wayfinding sign: solid gold arrow (rectangle shaft + triangle head) -->
-      <div class="big-arrow" role="img" aria-label="This way to Admissions Office">
-        <div class="arrow-icon">
-          <svg viewBox="0 0 1120 640" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <!-- CENTERED WAYFINDING CARD — go up one floor -->
+      <div class="wayfinding-card">
+        <div class="wayfinding-arrow-up">
+          <svg viewBox="0 0 320 320" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
             <defs>
-              <linearGradient id="arrowGrad" x1="0" y1="0" x2="1" y2="0">
+              <linearGradient id="upGrad" x1="0" y1="0" x2="0" y2="1">
                 <stop offset="0%"   stop-color="#fbd945" />
                 <stop offset="100%" stop-color="#ffbc2d" />
               </linearGradient>
             </defs>
-            <!-- Solid gold rectangle shaft (left) -->
-            <rect
-              x="40" y="200"
-              width="760" height="240"
-              fill="url(#arrowGrad)"
-            />
-            <!-- Solid gold triangle arrowhead (right) -->
+            <!-- Up-pointing triangle -->
             <polygon
-              points="560,80 560,560 1060,320"
-              fill="url(#arrowGrad)"
+              points="160,40 40,200 100,200 100,280 220,280 220,200 280,200"
+              fill="url(#upGrad)"
             />
           </svg>
         </div>
-        <div class="arrow-caption">
-          <span class="caption-line">This way to</span>
-          <span class="caption-name">Admissions Office</span>
-        </div>
-      </div>
-
-      <div class="hero-content">
-        <div class="hero-eyebrow">
-          <span class="ey-dot" />
-          Barton Hall Lobby
-        </div>
-        <h1 class="hero-title">
-          Office of<br/>
-          <span class="hero-accent">Admissions.</span>
-        </h1>
-        <p class="hero-blurb">
-          Welcome to Northwest. We are waiting for you.
-        </p>
-        <div class="hero-meta">
-          <span><strong>↗</strong> On your right</span>
-          <span class="dot" />
-          <span>Office of Admissions</span>
+        <div class="wayfinding-eyebrow">This way to</div>
+        <h2 class="wayfinding-title">Admissions Office</h2>
+        <div class="wayfinding-divider" />
+        <div class="wayfinding-location">
+          <span class="wayfinding-floor">2nd Floor</span>
+          <span class="wayfinding-up">↑</span>
         </div>
       </div>
 
@@ -463,149 +441,88 @@ const admission = {
   color: var(--nu-wisp);
 }
 
-/* === WAYFINDING ARROW: static sign-style indicator (solid triangle, no track) === */
-.big-arrow {
+/* ================================================================ */
+/*  CENTERED WAYFINDING CARD — go up one floor (Main Lobby)         */
+/* ================================================================ */
+.wayfinding-card {
   position: absolute;
-  top: 58%; right: 1%;
-  transform: translateY(-50%);
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
   z-index: 4;
-  display: flex; flex-direction: row; align-items: center;
-  gap: 28px;
-  animation: fadeUp 1s var(--ease-out-soft) 0.5s both, nudgeY 3.6s ease-in-out 1.4s infinite;
-  pointer-events: none;
+  display: flex; flex-direction: column;
+  align-items: center;
+  width: min(820px, 78%);
+  padding: 64px 72px 56px;
+  /* Glassmorphism: dark navy with subtle transparency */
+  background: linear-gradient(180deg,
+    rgba(0, 38, 61, 0.78) 0%,
+    rgba(0, 38, 61, 0.88) 100%);
+  backdrop-filter: blur(20px) saturate(160%);
+  -webkit-backdrop-filter: blur(20px) saturate(160%);
+  border-radius: 32px;
+  /* Thin gold border */
+  border: 1.5px solid rgba(251, 217, 69, 0.45);
+  box-shadow:
+    0 30px 80px rgba(0, 0, 0, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  text-align: center;
+  animation: fadeUp 1s var(--ease-out-soft) 0.4s both;
 }
-@keyframes nudgeY {
-  0%, 100% { transform: translate(0, -50%); }
-  50%      { transform: translate(-14px, -50%); }
+.wayfinding-arrow-up {
+  width: 120px;
+  height: 120px;
+  margin-bottom: 32px;
+  filter: drop-shadow(0 8px 20px rgba(251, 217, 69, 0.4));
+  animation: floatY 3s ease-in-out infinite;
 }
-@keyframes nudge {
-  0%, 100% { transform: translate(0, 0); }
-  50%      { transform: translate(-14px, 0); }
-}
-
-.arrow-icon {
-  width: 1000px;
-  flex-shrink: 0;
-  filter: drop-shadow(0 18px 40px rgba(0, 0, 0, 0.55));
-  animation: pulse-tip 2s ease-in-out infinite;
-}
-.arrow-icon svg {
-  width: 100%; height: auto;
+.wayfinding-arrow-up svg {
+  width: 100%; height: 100%;
   display: block;
 }
-
-.arrow-caption {
-  display: flex; flex-direction: column;
-  align-items: flex-start;
-  text-align: left;
-  color: var(--nu-wisp);
-  background: rgba(0, 38, 61, 0.82);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  padding: 24px 32px;
-  border-radius: 20px;
-  border: 1px solid rgba(251, 217, 69, 0.55);
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5);
-}
-.caption-line {
+.wayfinding-eyebrow {
   font-size: 18px; font-weight: 700;
-  letter-spacing: 0.28em; text-transform: uppercase;
+  letter-spacing: 0.42em; text-transform: uppercase;
   color: var(--nu-tour);
-  margin-bottom: 10px;
+  margin-bottom: 18px;
 }
-.caption-name {
+.wayfinding-title {
   font-family: var(--font-serif);
-  font-size: 64px; line-height: 1.05;
+  font-size: 88px; line-height: 1;
   color: var(--nu-wisp);
+  margin: 0 0 28px;
   letter-spacing: -0.01em;
+  text-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+}
+.wayfinding-divider {
+  width: 80px;
+  height: 1px;
+  background: linear-gradient(90deg,
+    transparent 0%,
+    var(--nu-tour) 50%,
+    transparent 100%);
+  margin: 0 auto 24px;
+}
+.wayfinding-location {
+  display: flex; align-items: center;
+  justify-content: center;
+  gap: 12px;
+  color: var(--nu-tour);
+}
+.wayfinding-floor {
+  font-family: var(--font-serif);
+  font-size: 36px; font-weight: 700;
+  letter-spacing: 0.02em;
+  line-height: 1;
+}
+.wayfinding-up {
+  font-size: 44px; font-weight: 700;
+  line-height: 1;
+  animation: floatY 2.4s ease-in-out infinite;
 }
 
-@keyframes pulse-tip {
-  0%, 100% { filter: drop-shadow(0 18px 40px rgba(0, 0, 0, 0.55)); }
-  50%      { filter: drop-shadow(0 18px 40px rgba(251, 217, 69, 0.75)); }
-}
-
-/* Hero text content (left side) */
-.hero-content {
-  position: absolute;
-  inset: 0;
-  padding: 280px 80px 460px;
-  display: flex; flex-direction: column;
-  justify-content: flex-start;
-  color: var(--nu-wisp);
-  max-width: 60%;
-  z-index: 2;
-}
-.hero-eyebrow {
-  display: inline-flex; align-items: center; gap: 10px;
-  color: var(--nu-tour);
-  font-size: 18px; font-weight: 700;
-  letter-spacing: 0.28em; text-transform: uppercase;
-  margin-bottom: 24px;
-  animation: fadeUp 0.7s var(--ease-out-soft) 0.1s both;
-}
-.ey-dot {
-  width: 10px; height: 10px;
-  border-radius: 50%;
-  background: var(--nu-tour);
-  box-shadow: 0 0 0 4px rgba(251, 217, 69, 0.25);
-  animation: pulse 1.8s ease-in-out infinite;
-}
-@keyframes pulse {
-  0%, 100% { box-shadow: 0 0 0 4px rgba(251, 217, 69, 0.25); }
-  50%      { box-shadow: 0 0 0 12px rgba(251, 217, 69, 0); }
-}
-.hero-title {
-  font-family: var(--font-serif);
-  font-size: 108px;
-  line-height: 0.98;
-  color: var(--nu-wisp);
-  margin: 0 0 32px;
-  letter-spacing: -0.02em;
-  text-shadow: 0 4px 24px rgba(0, 0, 0, 0.5);
-  animation: fadeUp 0.8s var(--ease-out-soft) 0.2s both;
-}
-.hero-accent {
-  color: var(--nu-tour);
-  font-style: italic;
-}
-.hero-blurb {
-  font-size: 28px;
-  line-height: 1.4;
-  color: var(--nu-skylight);
-  margin: 0 0 32px;
-  max-width: 22ch;
-  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.5);
-  animation: fadeUp 0.8s var(--ease-out-soft) 0.3s both;
-}
-.hero-blurb strong {
-  color: var(--nu-tour);
-  font-weight: 800;
-}
-.hero-meta {
-  display: flex; align-items: center; gap: 18px;
-  font-size: 16px; font-weight: 600;
-  color: var(--nu-wisp);
-  background: rgba(0, 38, 61, 0.55);
-  padding: 14px 22px;
-  border-radius: 999px;
-  border: 1px solid rgba(251, 217, 69, 0.4);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  align-self: flex-start;
-  animation: fadeUp 0.8s var(--ease-out-soft) 0.4s both;
-}
-.hero-meta strong {
-  color: var(--nu-tour);
-  font-family: var(--font-serif);
-  font-size: 22px;
-  margin-right: 4px;
-}
-.hero-meta .dot {
-  width: 4px; height: 4px;
-  border-radius: 50%;
-  background: var(--nu-tour);
-  opacity: 0.7;
+@keyframes floatY {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-8px); }
 }
 
 /* ============ INFO SECTION ============ */
