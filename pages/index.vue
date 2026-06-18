@@ -359,13 +359,17 @@ const admission = {
 }
 
 /* ================================================================ */
-/*  CARDS OVERLAY — floating glass cards anchored to bottom of hero */
+/*  CARDS OVERLAY — floating glass cards in last 25% of hero height  */
 /* ================================================================ */
 .cards-overlay {
   position: absolute;
-  left: 0; right: 0; bottom: 0;
+  left: 0; right: 0;
+  bottom: 0;
+  height: 25%;
+  min-height: 420px;
+  max-height: 520px;
   z-index: 6;
-  padding: 40px 56px 56px;
+  padding: 28px 56px 40px;
 }
 .cards-overlay .info-grid {
   display: grid;
@@ -462,7 +466,7 @@ const admission = {
 /* === WAYFINDING ARROW: static sign-style indicator (solid triangle, no track) === */
 .big-arrow {
   position: absolute;
-  top: 50%; right: 3%;
+  top: 42%; right: 3%;
   transform: translateY(-50%);
   z-index: 4;
   display: flex; flex-direction: row; align-items: center;
