@@ -499,7 +499,10 @@ const admission = {
     0 30px 80px rgba(0, 0, 0, 0.5),
     inset 0 1px 0 rgba(255, 255, 255, 0.08);
   text-align: center;
-  animation: fadeUp 1s var(--ease-out-soft) 0.4s both;
+  /* fadeUpCentered preserves translateX(-50%) so the card stays
+     horizontally centered. Regular fadeUp would override the
+     transform to translateY(0) and break the centering. */
+  animation: fadeUpCentered 1s var(--ease-out-soft) 0.4s both;
 }
 .wayfinding-arrow-up {
   width: 120px;
@@ -873,6 +876,14 @@ const admission = {
 @keyframes fadeUp {
   from { opacity: 0; transform: translateY(12px); }
   to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Centered variant: preserves translateX(-50%) so the element
+   stays horizontally centered. Used for absolute-centered elements
+   like .wayfinding-card. */
+@keyframes fadeUpCentered {
+  from { opacity: 0; transform: translate(-50%, calc(-50% + 12px)); }
+  to   { opacity: 1; transform: translate(-50%, -50%); }
 }
 
 /* ================================================================ */
