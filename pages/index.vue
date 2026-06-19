@@ -458,14 +458,14 @@ const admission = {
   text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
 }
 .here-eyebrow {
-  font-size: 12px; font-weight: 700;
+  font-size: 15px; font-weight: 700;
   letter-spacing: 0.32em; text-transform: uppercase;
   color: var(--nu-tour);
-  margin-bottom: 2px;
+  margin-bottom: 3px;
 }
 .here-name {
   font-family: var(--font-serif);
-  font-size: 22px;
+  font-size: 28px;
   color: var(--nu-wisp);
 }
 
@@ -487,29 +487,29 @@ const admission = {
   animation: fadeUpCentered 0.9s var(--ease-out-soft) 0.1s both;
 }
 .hero-eyebrow {
-  display: inline-flex; align-items: center; gap: 10px;
+  display: inline-flex; align-items: center; gap: 12px;
   color: var(--nu-tour);
-  font-size: 18px; font-weight: 700;
+  font-size: 24px; font-weight: 700;
   letter-spacing: 0.28em; text-transform: uppercase;
-  margin-bottom: 18px;
+  margin-bottom: 24px;
 }
 .ey-dot {
-  width: 10px; height: 10px;
+  width: 14px; height: 14px;
   border-radius: 50%;
   background: var(--nu-tour);
-  box-shadow: 0 0 0 4px rgba(251, 217, 69, 0.25);
+  box-shadow: 0 0 0 5px rgba(251, 217, 69, 0.25);
   animation: pulse 1.8s ease-in-out infinite;
 }
 @keyframes pulse {
-  0%, 100% { box-shadow: 0 0 0 4px rgba(251, 217, 69, 0.25); }
-  50%      { box-shadow: 0 0 0 12px rgba(251, 217, 69, 0); }
+  0%, 100% { box-shadow: 0 0 0 5px rgba(251, 217, 69, 0.25); }
+  50%      { box-shadow: 0 0 0 16px rgba(251, 217, 69, 0); }
 }
 .hero-title {
   font-family: var(--font-serif);
-  font-size: 80px;
+  font-size: 112px;
   line-height: 0.98;
   color: var(--nu-wisp);
-  margin: 0 0 18px;
+  margin: 0 0 24px;
   letter-spacing: -0.02em;
   text-shadow: 0 4px 24px rgba(0, 0, 0, 0.5);
 }
@@ -518,19 +518,19 @@ const admission = {
   font-style: italic;
 }
 .hero-blurb {
-  font-size: 22px;
+  font-size: 30px;
   line-height: 1.4;
   color: var(--nu-skylight);
-  margin: 0 0 20px;
+  margin: 0 0 24px;
   max-width: 48ch;
   text-shadow: 0 2px 12px rgba(0, 0, 0, 0.5);
 }
 .hero-meta {
-  display: inline-flex; align-items: center; gap: 14px;
-  font-size: 16px; font-weight: 600;
+  display: inline-flex; align-items: center; gap: 16px;
+  font-size: 22px; font-weight: 600;
   color: var(--nu-wisp);
   background: rgba(0, 38, 61, 0.55);
-  padding: 12px 20px;
+  padding: 16px 26px;
   border-radius: 999px;
   border: 1.5px solid rgba(251, 217, 69, 0.5);
   backdrop-filter: blur(10px);
@@ -541,7 +541,7 @@ const admission = {
 .hero-meta strong {
   color: var(--nu-tour);
   font-family: var(--font-serif);
-  font-size: 22px;
+  font-size: 30px;
   margin-right: 4px;
 }
 .hero-meta .dot {
@@ -1195,8 +1195,10 @@ const admission = {
 @media (max-width: 720px) {
   .hero { height: auto; padding-bottom: 60px; }
   .hero-content { max-width: 100%; padding: 60px 32px; }
-  .hero-title { font-size: 64px; }
-  .hero-blurb { font-size: 20px; }
+  .hero-title { font-size: 80px; }
+  .hero-blurb { font-size: 24px; }
+  .hero-eyebrow { font-size: 18px; }
+  .hero-meta { font-size: 18px; padding: 12px 20px; }
   .big-arrow { display: none; }
   .you-are-here { top: auto; bottom: 30px; left: 32px; }
   .info { padding: 40px 24px; }
