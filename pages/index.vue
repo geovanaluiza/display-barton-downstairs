@@ -473,7 +473,7 @@ const admission = {
 /* ================================================================ */
 .hero-content {
   position: absolute;
-  top: 11%;
+  top: 18%;
   left: 50%;
   transform: translateX(-50%);
   z-index: 3;
