@@ -1,6 +1,11 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from 'vue'
 
+// Phase 3: report this display's health + current page to Supabase
+// every 30s. See composables/useDisplayHeartbeat.ts.
+import { useDisplayHeartbeat } from '~/composables/useDisplayHeartbeat'
+useDisplayHeartbeat()
+
 const TARGET_W = 1080
 const TARGET_H = 1920
 const stageEl = ref<HTMLElement | null>(null)
