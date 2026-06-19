@@ -159,7 +159,6 @@ const admission = {
         <div class="wayfinding-divider" />
         <div class="wayfinding-location">
           <span class="wayfinding-floor">2nd Floor</span>
-          <span class="wayfinding-up">↑</span>
         </div>
       </div>
 
@@ -628,11 +627,6 @@ const admission = {
   font-size: 36px; font-weight: 700;
   letter-spacing: 0.02em;
   line-height: 1;
-}
-.wayfinding-up {
-  font-size: 44px; font-weight: 700;
-  line-height: 1;
-  animation: floatY 2.4s ease-in-out infinite;
 }
 
 @keyframes floatY {
