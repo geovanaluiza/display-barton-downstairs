@@ -108,10 +108,8 @@ const admission = {
       <div class="hero-veil" />
       <div class="hero-bottom-grad" />
 
-      <!-- "You are here" pin (Main Lobby) -->
+      <!-- "You are here" pin (Main Lobby) — static dot, no animation rings -->
       <div class="you-are-here">
-        <div class="here-pulse" />
-        <div class="here-ping" />
         <div class="here-dot" />
         <div class="here-label">
           <span class="here-eyebrow">You are here</span>
@@ -421,19 +419,20 @@ const admission = {
   filter: drop-shadow(0 3px 10px rgba(255, 188, 45, 0.4));
 }
 
-/* "You are here" pin — positioned at the TOP-LEFT, far above
-   the centered hero text. The centered title has 86% max-width
-   but starts at left:7% padding, so the badge needs to be even
-   further left (left:3%) to never touch the title text. */
+/* "You are here" pin — positioned at the TOP-LEFT, with enough
+   vertical separation from the centered 'BARTON HALL LOBBY'
+   eyebrow (which starts at top: 8% = 154px). The badge sits at
+   top: 4.5% and ends at ~230px, leaving 100+px before the
+   eyebrow starts. */
 .you-are-here {
   position: absolute;
-  top: 3%;
+  top: 4.5%;
   left: 3%;
   z-index: 5;
-  display: flex; align-items: center; gap: 14px;
+  display: flex; align-items: center; gap: 12px;
   animation: fadeUp 0.8s var(--ease-out-soft) 0.4s both;
   background: rgba(0, 38, 61, 0.7);
-  padding: 10px 18px 10px 14px;
+  padding: 8px 18px 8px 10px;
   border-radius: 999px;
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
@@ -441,44 +440,17 @@ const admission = {
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
   max-width: 280px;
 }
+/* Static location dot (no animation rings — those created a
+   distracting halo/circle artifact on top of the text) */
 .here-dot {
   position: relative;
-  width: 22px; height: 22px;
+  flex-shrink: 0;
+  width: 14px; height: 14px;
   border-radius: 50%;
   background: var(--nu-tour);
-  border: 4px solid var(--nu-wisp);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  border: 2px solid var(--nu-wisp);
+  box-shadow: 0 0 0 3px rgba(251, 217, 69, 0.25);
   z-index: 2;
-}
-.here-pulse {
-  position: absolute;
-  top: 50%; left: 50%;
-  transform: translate(-50%, -50%);
-  width: 22px; height: 22px;
-  border-radius: 50%;
-  background: var(--nu-tour);
-  opacity: 0.7;
-  animation: pulse-here 1.6s ease-out infinite;
-  z-index: 1;
-}
-@keyframes pulse-here {
-  0%   { transform: translate(-50%, -50%) scale(1);   opacity: 0.6; }
-  100% { transform: translate(-50%, -50%) scale(2.4); opacity: 0; }
-}
-.here-ping {
-  position: absolute;
-  top: 50%; left: 50%;
-  transform: translate(-50%, -50%);
-  width: 60px; height: 60px;
-  border-radius: 50%;
-  border: 2px solid var(--nu-tour);
-  opacity: 0;
-  animation: ping 2.2s ease-out infinite;
-  z-index: 1;
-}
-@keyframes ping {
-  0%   { transform: translate(-50%, -50%) scale(0.6); opacity: 0.7; }
-  100% { transform: translate(-50%, -50%) scale(2.0); opacity: 0; }
 }
 .here-label {
   display: flex; flex-direction: column;
@@ -502,7 +474,7 @@ const admission = {
 /* ================================================================ */
 .hero-content {
   position: absolute;
-  top: 8%;
+  top: 11%;
   left: 50%;
   transform: translateX(-50%);
   z-index: 3;
