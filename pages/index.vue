@@ -421,10 +421,14 @@ const admission = {
   filter: drop-shadow(0 3px 10px rgba(255, 188, 45, 0.4));
 }
 
-/* "You are here" pin (top-left of hero) */
+/* "You are here" pin — positioned at the TOP-LEFT, far above
+   the centered hero text. The centered title has 86% max-width
+   but starts at left:7% padding, so the badge needs to be even
+   further left (left:3%) to never touch the title text. */
 .you-are-here {
   position: absolute;
-  top: 10%; left: 6%;
+  top: 3%;
+  left: 3%;
   z-index: 5;
   display: flex; align-items: center; gap: 14px;
   animation: fadeUp 0.8s var(--ease-out-soft) 0.4s both;
@@ -435,6 +439,7 @@ const admission = {
   -webkit-backdrop-filter: blur(12px);
   border: 1px solid rgba(251, 217, 69, 0.5);
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+  max-width: 280px;
 }
 .here-dot {
   position: relative;
