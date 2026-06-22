@@ -1,10 +1,26 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from 'vue'
 
+// Phase 4.5: monitor URL + visibility + focus + auto-recovery.
+// Must run BEFORE the heartbeat so the first heartbeat carries
+// the security verdict.
+import { startSecurityMonitor } from '~/lib/securityMonitor'
+
 // Phase 3: report this display's health + current page to Supabase
 // every 30s. See composables/useDisplayHeartbeat.ts.
 import { useDisplayHeartbeat } from '~/composables/useDisplayHeartbeat'
 useDisplayHeartbeat()
+
+// Phase 4: subscribe to dashboard commands (reload / go_home /
+// blackout / emergency_message) and execute them. See
+// composables/useCommandListener.ts.
+import { useCommandListener } from '~/composables/useCommandListener'
+useCommandListener()
+
+// Phase 4 overlays — rendered outside the .stage so they cover the
+// full viewport (including the letterbox) and survive route changes.
+import BlackoutOverlay from '~/components/BlackoutOverlay.vue'
+import EmergencyOverlay from '~/components/EmergencyOverlay.vue'
 
 const TARGET_W = 1080
 const TARGET_H = 1920
@@ -28,6 +44,7 @@ onMounted(() => {
   fit()
   window.addEventListener('resize', fit)
   window.addEventListener('orientationchange', fit)
+  startSecurityMonitor()
 })
 onUnmounted(() => {
   window.removeEventListener('resize', fit)
@@ -42,6 +59,12 @@ onUnmounted(() => {
         <NuxtPage />
       </NuxtLayout>
     </div>
+
+    <!-- Phase 4 overlays: rendered outside the scaled stage so they
+         always cover the full viewport. Blackout sits below emergency
+         so an active emergency overlay hides the blackout marker. -->
+    <BlackoutOverlay />
+    <EmergencyOverlay />
   </div>
 </template>
 

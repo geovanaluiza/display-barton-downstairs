@@ -1,4 +1,5 @@
 import { getSupabase, isSupabaseConfigured } from './supabase'
+import { getSecurityVerdict } from './securityState'
 
 /**
  * The unique id of this display in the Supabase `displays` table.
@@ -18,23 +19,37 @@ export type HeartbeatPayload = {
   current_url: string
   software_version: string
   last_touch: string
+  // Phase 4.5 — security snapshot
+  security_status: 'secure' | 'warning' | 'critical'
+  security_message: string | null
+  is_visible: boolean
+  has_focus: boolean
 }
 
 /**
  * Builds a fresh heartbeat payload from the current browser state.
  * Falls back gracefully in SSR / pre-render contexts.
+ *
+ * Phase 4.5: the security verdict is included on every heartbeat so
+ * the dashboard sees status changes without needing a separate
+ * event stream.
  */
 export function buildPayload(currentPath: string, lastTouch: number): HeartbeatPayload {
   const path = currentPath || '/'
   const url = typeof window !== 'undefined'
     ? window.location.href
     : path
+  const verdict = getSecurityVerdict()
   return {
     status: 'online',
     current_page: path,
     current_url: url,
     software_version: DISPLAY_VERSION,
     last_touch: new Date(lastTouch).toISOString(),
+    security_status: verdict.status,
+    security_message: verdict.message,
+    is_visible: verdict.is_visible,
+    has_focus: verdict.has_focus,
   }
 }
 
