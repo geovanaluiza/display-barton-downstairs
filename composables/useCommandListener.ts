@@ -1,4 +1,4 @@
-import { onMounted, onUnmounted, ref } from 'vue'
+import { onMounted, onUnmounted, ref, readonly } from 'vue'
 import { getSupabase, isSupabaseConfigured } from '~/lib/supabase'
 import { DISPLAY_ID } from '~/lib/heartbeat'
 import {
@@ -13,105 +13,176 @@ import {
  *
  * Subscribes to Supabase Realtime INSERTs on `display_commands`
  * filtered by `display_id = DISPLAY_ID`. For every new row:
- *   1. Skip if already executed (Realtime can fire the same row
- *      twice on reconnect)
- *   2. Run the matching executor
- *   3. Write executed_at = now() back to the row
+ *   1. Skip if already executed (Realtime can deliver the same
+ *      row twice on reconnect).
+ *   2. Run the matching executor.
+ *   3. Write executed_at = now() back to the row.
  *
- * Failures are logged but never throw — a flaky network must
- * never bring down the kiosk UI.
+ * Diagnostics: the composable exposes `status`, `lastReceived`,
+ * `lastError`, `receivedCount`, `lastAckId`, `lastAckError` so the
+ * debug overlay (components/CommandDebugOverlay.vue) can render
+ * the live state of the listener without console-only output.
+ *
+ * Failure modes we handle explicitly:
+ *   - Supabase not configured → status='disabled', no subscription
+ *   - Realtime subsystem rejects subscribe → status='error'
+ *   - Channel CLOSED / CHANNEL_ERROR → status='closed'
+ *   - payload missing → handler returns early (no ack written)
+ *   - ackCommand() failure → logged + surfaced via lastAckError
+ *     but the executor still ran (so the kiosk action happened)
  */
 
-type CommandRow = {
+export type CommandName =
+  | 'reload' | 'go_home' | 'blackout' | 'emergency_message'
+
+export type ListenerStatus =
+  | 'idle'
+  | 'subscribing'
+  | 'subscribed'
+  | 'closed'
+  | 'error'
+  | 'disabled'
+
+export type CommandRow = {
   id: string
   display_id: string
-  command: 'reload' | 'go_home' | 'blackout' | 'emergency_message'
+  command: CommandName
   payload: Record<string, unknown> | null
   created_at: string
   executed_at: string | null
 }
 
+/* -----------------------------------------------------------------
+ * Shared reactive state — singleton across the app. Multiple calls
+ * to useCommandListener() are de-duplicated via _started so HMR /
+ * navigation doesn't open duplicate channels.
+ * ----------------------------------------------------------------- */
+
+const status = ref<ListenerStatus>('idle')
 const lastReceived = ref<CommandRow | null>(null)
 const lastError = ref<string | null>(null)
 const receivedCount = ref(0)
+const lastAckId = ref<string | null>(null)
+const lastAckError = ref<string | null>(null)
+
 let channel: ReturnType<ReturnType<typeof getSupabase>['channel']> | null = null
+let _started = false
 
 export function useCommandListener() {
   onMounted(() => {
-    if (!isSupabaseConfigured()) {
-      if (import.meta.env.DEV) {
-        // eslint-disable-next-line no-console
-        console.warn('[useCommandListener] Supabase not configured — command listener disabled')
-      }
+    if (_started) {
+      log('already started; not opening a second channel')
       return
     }
-    const sb = getSupabase()
-    if (!sb) return
-
-    channel = sb
-      .channel(`commands:${DISPLAY_ID}`)
-      .on(
-        'postgres_changes',
-        {
-          event: 'INSERT',
-          schema: 'public',
-          table: 'display_commands',
-          filter: `display_id=eq.${DISPLAY_ID}`,
-        },
-        async (payload) => {
-          const row = (payload as unknown as { new: CommandRow }).new
-          await handleCommand(row)
-        },
-      )
-      .subscribe()
-
-    if (import.meta.env.DEV) {
-      // eslint-disable-next-line no-console
-      console.log(`[useCommandListener] listening for commands → display_id=${DISPLAY_ID}`)
-    }
+    _started = true
+    start()
   })
 
   onUnmounted(() => {
-    const sb = getSupabase()
-    if (sb && channel) {
-      sb.removeChannel(channel)
-      channel = null
-    }
+    // Intentionally NOT removing the channel — the composable lives
+    // in app.vue which never unmounts during a kiosk session. We
+    // only close it if we explicitly shut down (HMR teardown).
   })
 
-  return { lastReceived, lastError, receivedCount }
+  return {
+    status: readonly(status),
+    lastReceived: readonly(lastReceived),
+    lastError: readonly(lastError),
+    receivedCount: readonly(receivedCount),
+    lastAckId: readonly(lastAckId),
+    lastAckError: readonly(lastAckError),
+  }
+}
+
+async function start() {
+  if (!isSupabaseConfigured()) {
+    status.value = 'disabled'
+    lastError.value = 'Supabase env vars missing'
+    log('Supabase not configured — listener disabled')
+    return
+  }
+  const sb = getSupabase()
+  if (!sb) {
+    status.value = 'disabled'
+    return
+  }
+
+  status.value = 'subscribing'
+  log(`opening channel commands:${DISPLAY_ID} filter=display_id=eq.${DISPLAY_ID}`)
+
+  channel = sb
+    .channel(`commands:${DISPLAY_ID}`)
+    .on(
+      'postgres_changes',
+      {
+        event: 'INSERT',
+        schema: 'public',
+        table: 'display_commands',
+        filter: `display_id=eq.${DISPLAY_ID}`,
+      },
+      (payload) => {
+        const row = (payload as unknown as { new: CommandRow }).new
+        log(`RAW payload received: ${JSON.stringify(payload).slice(0, 200)}`)
+        if (!row) {
+          lastError.value = 'Empty payload'
+          return
+        }
+        void handleCommand(row)
+      },
+    )
+
+  try {
+    const result = await channel.subscribe((subStatus, err) => {
+      log(`subscribe() callback: status=${subStatus} err=${err?.message ?? 'none'}`)
+      if (subStatus === 'SUBSCRIBED') {
+        status.value = 'subscribed'
+        log('Realtime SUBSCRIBED ✓')
+      } else if (subStatus === 'CHANNEL_ERROR') {
+        status.value = 'error'
+        lastError.value = err?.message ?? 'channel error'
+        log(`Realtime CHANNEL_ERROR: ${lastError.value}`)
+      } else if (subStatus === 'CLOSED') {
+        status.value = 'closed'
+        log('Realtime CLOSED')
+      } else if (subStatus === 'TIMED_OUT') {
+        status.value = 'error'
+        lastError.value = 'subscribe timed out'
+        log('Realtime TIMED_OUT')
+      }
+    })
+    log(`subscribe() resolved: ${String(result)}`)
+  } catch (err) {
+    status.value = 'error'
+    lastError.value = err instanceof Error ? err.message : String(err)
+    log(`subscribe() threw: ${lastError.value}`)
+  }
 }
 
 async function handleCommand(row: CommandRow) {
   // Realtime can deliver the same row twice on reconnect; skip if
   // already executed.
-  if (row.executed_at) return
+  if (row.executed_at) {
+    log(`row ${row.id} already executed at ${row.executed_at}; skipping`)
+    return
+  }
   lastReceived.value = row
   receivedCount.value += 1
-
-  if (import.meta.env.DEV) {
-    // eslint-disable-next-line no-console
-    console.log(
-      `[useCommandListener] received #${receivedCount.value} ${row.command} (id=${row.id})`,
-    )
-  }
+  log(`received #${receivedCount.value} ${row.command} (id=${row.id})`)
 
   try {
     switch (row.command) {
       case 'reload':
-        await executeReload()
-        // executeReload() calls window.location.reload() which
-        // never returns. The ack below is for documentation; in
-        // practice the page is destroyed before this line runs.
+        // window.location.reload() tears down the page. ack first
+        // with keepalive so the request survives the navigation.
         await ackCommand(row.id)
+        await executeReload()
         break
       case 'go_home':
-        await executeGoHome()
+        // window.location.href navigation starts immediately; ack
+        // first (keepalive) so the request survives the unload.
         await ackCommand(row.id)
-        if (import.meta.env.DEV) {
-          // eslint-disable-next-line no-console
-          console.log(`[useCommandListener] navigated to home=${window.location.pathname}`)
-        }
+        await executeGoHome()
+        log(`navigated to home=${window.location.pathname}`)
         break
       case 'blackout': {
         const on = Boolean((row.payload as { on?: unknown } | null)?.on ?? true)
@@ -126,15 +197,13 @@ async function handleCommand(row: CommandRow) {
         await ackCommand(row.id)
         break
       }
-      default: {
-        // eslint-disable-next-line no-console
-        console.warn('[useCommandListener] unknown command', row.command)
-      }
+      default:
+        lastError.value = `unknown command: ${row.command}`
+        log(`unknown command ${row.command}`)
     }
   } catch (err) {
     lastError.value = err instanceof Error ? err.message : String(err)
-    // eslint-disable-next-line no-console
-    console.error('[useCommandListener] execution failed', err)
+    log(`execution failed: ${lastError.value}`)
   }
 }
 
@@ -146,7 +215,33 @@ async function ackCommand(id: string): Promise<void> {
     .update({ executed_at: new Date().toISOString() })
     .eq('id', id)
   if (error) {
-    // eslint-disable-next-line no-console
-    console.warn('[useCommandListener] ack failed', error.message)
+    lastAckError.value = `${id.slice(0, 8)}: ${error.message}`
+    log(`ack FAILED for ${id}: ${error.message} (code=${error.code})`)
+  } else {
+    lastAckId.value = id
+    lastAckError.value = null
+    log(`ack OK for ${id}`)
+  }
+}
+
+/* -----------------------------------------------------------------
+ * Logging — always writes to console (Vercel users can inspect via
+ * DevTools) and also mirrors to localStorage so the debug overlay
+ * can show the last N entries even when DevTools is closed.
+ * ----------------------------------------------------------------- */
+const LOG_KEY = `nu-display:${DISPLAY_ID}:cmdLog`
+function log(msg: string): void {
+  const line = `[${new Date().toISOString()}] ${msg}`
+  // eslint-disable-next-line no-console
+  console.log(line)
+  if (typeof window === 'undefined') return
+  try {
+    const prev = window.localStorage.getItem(LOG_KEY)
+    const arr = prev ? (JSON.parse(prev) as string[]) : []
+    arr.push(line)
+    while (arr.length > 50) arr.shift()
+    window.localStorage.setItem(LOG_KEY, JSON.stringify(arr))
+  } catch {
+    // localStorage might be full or disabled — non-fatal
   }
 }

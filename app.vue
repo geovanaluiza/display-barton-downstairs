@@ -22,6 +22,11 @@ useCommandListener()
 import BlackoutOverlay from '~/components/BlackoutOverlay.vue'
 import EmergencyOverlay from '~/components/EmergencyOverlay.vue'
 
+// Diagnostics — visible only when import.meta.env.DEV is true OR
+// the operator sets localStorage 'nu-display:debugOverlay' = '1'
+// on the physical display.
+import CommandDebugOverlay from '~/components/CommandDebugOverlay.vue'
+
 const TARGET_W = 1080
 const TARGET_H = 1920
 const stageEl = ref<HTMLElement | null>(null)
@@ -65,6 +70,11 @@ onUnmounted(() => {
          so an active emergency overlay hides the blackout marker. -->
     <BlackoutOverlay />
     <EmergencyOverlay />
+
+    <!-- Diagnostics: shows the realtime command listener status.
+         Auto-shown in dev; toggleable on the physical display via
+         localStorage('nu-display:debugOverlay') = '1'. -->
+    <CommandDebugOverlay />
   </div>
 </template>
 
