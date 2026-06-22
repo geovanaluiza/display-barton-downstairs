@@ -108,6 +108,10 @@ async function handleCommand(row: CommandRow) {
       case 'go_home':
         await executeGoHome()
         await ackCommand(row.id)
+        if (import.meta.env.DEV) {
+          // eslint-disable-next-line no-console
+          console.log(`[useCommandListener] navigated to home=${window.location.pathname}`)
+        }
         break
       case 'blackout': {
         const on = Boolean((row.payload as { on?: unknown } | null)?.on ?? true)

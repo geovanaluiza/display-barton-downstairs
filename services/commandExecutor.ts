@@ -13,6 +13,7 @@
  */
 
 import { setBlackout, setEmergency } from '../lib/displayState'
+import { WORLDS } from '../composables/useDisplayState'
 
 /**
  * Hard reload the page. The most common command — admin uses
@@ -26,13 +27,54 @@ export async function executeReload(): Promise<void> {
 }
 
 /**
- * Navigate the kiosk back to its home page. Works on both the
- * initial home ('/') and after a user has navigated elsewhere.
+ * Navigate the kiosk back to its home page.
+ *
+ * Resolution order:
+ *   1. The path in VITE_DISPLAY_HOME_PATH (if it's a known route).
+ *   2. The 'home' world route (always present, always valid).
+ *   3. '/'
+ *
+ * Why a hard `window.location.href` and not router.push?
+ *   - Vercel static deploys serve the pre-rendered HTML for each
+ *     prerendered route; a real navigation guarantees the browser
+ *     fetches the correct prerendered index.html.
+ *   - Some kiosk modes (fullscreen, locked-down Chromium) intercept
+ *     router.push() in unexpected ways; a hard navigation is
+ *     rock-solid.
+ *
+ * If we're already on the home path, do a soft reload so the
+ * button press is still satisfying.
  */
 export async function executeGoHome(): Promise<void> {
   if (typeof window === 'undefined') return
-  const router = useRouter()
-  await router.push('/')
+  const home = resolveHomePath()
+  if (home && home !== window.location.pathname) {
+    window.location.href = home
+  } else if (home === window.location.pathname) {
+    window.location.reload()
+  }
+  // If resolveHomePath() somehow returns null we stay put rather
+  // than navigating to a guaranteed-404 root.
+}
+
+/**
+ * Resolve the canonical home path for this kiosk.
+ *
+ * The source of truth is `composables/useDisplayState.ts` — WORLDS
+ * is the single list of routable worlds (auto-generated from the
+ * pages/ directory). We never want a hardcoded '/swoop-shop' or '/'
+ * here because the canonical home can change per project.
+ */
+export function resolveHomePath(): string {
+  const routes = WORLDS.map((w) => w.route)
+  const configured =
+    (typeof import.meta !== 'undefined' &&
+      (import.meta as { env?: Record<string, string> }).env?.VITE_DISPLAY_HOME_PATH) ||
+    '/'
+  if (routes.includes(configured)) return configured
+  const homeWorld = WORLDS.find((w) => w.key === 'home')
+  if (homeWorld) return homeWorld.route
+  return '/'
 }
 
 /**
