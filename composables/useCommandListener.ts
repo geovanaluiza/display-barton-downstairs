@@ -6,6 +6,8 @@ import {
   executeGoHome,
   executeBlackout,
   executeEmergency,
+  executeClearBlackout,
+  executeClearEmergency,
 } from '~/services/commandExecutor'
 
 /**
@@ -34,6 +36,7 @@ import {
 
 export type CommandName =
   | 'reload' | 'go_home' | 'blackout' | 'emergency_message'
+  | 'clear_blackout' | 'clear_emergency'
 
 export type ListenerStatus =
   | 'idle'
@@ -172,15 +175,17 @@ async function handleCommand(row: CommandRow) {
   try {
     switch (row.command) {
       case 'reload':
-        // window.location.reload() tears down the page. ack first
-        // with keepalive so the request survives the navigation.
-        await ackCommand(row.id)
+        // window.location.reload() tears down the page. Use the
+        // keepalive ack so the request survives the navigation.
+        await ackCommandKeepalive(row.id)
         await executeReload()
         break
       case 'go_home':
         // window.location.href navigation starts immediately; ack
-        // first (keepalive) so the request survives the unload.
-        await ackCommand(row.id)
+        // first with keepalive so the request survives the unload.
+        // executeGoHome() also clears blackout + emergency + keys
+        // so this is the universal recovery command.
+        await ackCommandKeepalive(row.id)
         await executeGoHome()
         log(`navigated to home=${window.location.pathname}`)
         break
@@ -197,6 +202,16 @@ async function handleCommand(row: CommandRow) {
         await ackCommand(row.id)
         break
       }
+      case 'clear_blackout':
+        await executeClearBlackout()
+        await ackCommand(row.id)
+        log('blackout cleared')
+        break
+      case 'clear_emergency':
+        await executeClearEmergency()
+        await ackCommand(row.id)
+        log('emergency cleared')
+        break
       default:
         lastError.value = `unknown command: ${row.command}`
         log(`unknown command ${row.command}`)
@@ -221,6 +236,43 @@ async function ackCommand(id: string): Promise<void> {
     lastAckId.value = id
     lastAckError.value = null
     log(`ack OK for ${id}`)
+  }
+}
+
+/**
+ * Fire-and-forget ack that survives navigation. Used by reload
+ * and go_home where the very next line of code starts a hard
+ * navigation that would cancel any in-flight fetch.
+ *
+ * Uses the underlying fetch API directly with `keepalive: true`
+ * so the browser sends the request even if the page is unloading.
+ * The supabase-js client doesn't expose keepalive, so we call
+ * the REST endpoint directly using the anon key from env.
+ */
+async function ackCommandKeepalive(id: string): Promise<void> {
+  const url = (typeof import.meta !== 'undefined'
+    && (import.meta as { env?: Record<string, string> }).env?.VITE_SUPABASE_URL) || ''
+  const key = (typeof import.meta !== 'undefined'
+    && (import.meta as { env?: Record<string, string> }).env?.VITE_SUPABASE_ANON_KEY) || ''
+  if (!url || !key) {
+    log('ackKeepalive: missing env vars')
+    return
+  }
+  try {
+    fetch(`${url}/rest/v1/display_commands?id=eq.${id}`, {
+      method: 'PATCH',
+      headers: {
+        'apikey': key,
+        'Authorization': `Bearer ${key}`,
+        'Content-Type': 'application/json',
+        'Prefer': 'return=minimal',
+      },
+      body: JSON.stringify({ executed_at: new Date().toISOString() }),
+      keepalive: true,
+    }).catch(() => { /* keepalive is best-effort */ })
+    log(`ackKeepalive dispatched for ${id}`)
+  } catch (err) {
+    log(`ackKeepalive threw: ${err instanceof Error ? err.message : String(err)}`)
   }
 }
 

@@ -91,3 +91,26 @@ export function useDisplayStateStore() {
  * ============================================================ */
 
 export { setBlackout, setEmergency }
+
+/**
+ * Universal reset — used by go_home to guarantee a clean
+ * recovery regardless of which overlay is active. Idempotent.
+ */
+export function clearAllStates(): void {
+  setBlackout(false)
+  setEmergency(null)
+  if (typeof window !== 'undefined') {
+    // Belt-and-braces: also nuke any leftover keys (in case the
+    // storage key changes between deployments).
+    try {
+      for (let i = window.localStorage.length - 1; i >= 0; i--) {
+        const k = window.localStorage.key(i)
+        if (k && k.startsWith(`nu-display:${DISPLAY_ID}:`)) {
+          window.localStorage.removeItem(k)
+        }
+      }
+    } catch {
+      // non-fatal
+    }
+  }
+}
