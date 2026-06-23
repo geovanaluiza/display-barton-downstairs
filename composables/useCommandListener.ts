@@ -20,18 +20,15 @@ import {
  *   2. Run the matching executor.
  *   3. Write executed_at = now() back to the row.
  *
+ * Auto-starts when the module is imported (see the side-effect
+ * block at the bottom of this file). You do NOT need to call
+ * useCommandListener() in your code — the Realtime channel opens
+ * the moment this module is evaluated by the bundler.
+ *
  * Diagnostics: the composable exposes `status`, `lastReceived`,
  * `lastError`, `receivedCount`, `lastAckId`, `lastAckError` so the
  * debug overlay (components/CommandDebugOverlay.vue) can render
  * the live state of the listener without console-only output.
- *
- * Failure modes we handle explicitly:
- *   - Supabase not configured → status='disabled', no subscription
- *   - Realtime subsystem rejects subscribe → status='error'
- *   - Channel CLOSED / CHANNEL_ERROR → status='closed'
- *   - payload missing → handler returns early (no ack written)
- *   - ackCommand() failure → logged + surfaced via lastAckError
- *     but the executor still ran (so the kiosk action happened)
  */
 
 export type CommandName =
@@ -56,9 +53,7 @@ export type CommandRow = {
 }
 
 /* -----------------------------------------------------------------
- * Shared reactive state — singleton across the app. Multiple calls
- * to useCommandListener() are de-duplicated via _started so HMR /
- * navigation doesn't open duplicate channels.
+ * Shared reactive state — singleton across the app.
  * ----------------------------------------------------------------- */
 
 const status = ref<ListenerStatus>('idle')
@@ -72,21 +67,11 @@ let channel: ReturnType<ReturnType<typeof getSupabase>['channel']> | null = null
 let _started = false
 
 export function useCommandListener() {
-  onMounted(() => {
-    if (_started) {
-      log('already started; not opening a second channel')
-      return
-    }
-    _started = true
+  if (typeof window !== 'undefined' && !_started) {
     start()
-  })
-
-  onUnmounted(() => {
-    // Intentionally NOT removing the channel — the composable lives
-    // in app.vue which never unmounts during a kiosk session. We
-    // only close it if we explicitly shut down (HMR teardown).
-  })
-
+  }
+  onMounted(() => { if (!_started) start() })
+  onUnmounted(() => { /* keep alive across pages */ })
   return {
     status: readonly(status),
     lastReceived: readonly(lastReceived),
@@ -98,6 +83,10 @@ export function useCommandListener() {
 }
 
 async function start() {
+  if (_started) return
+  if (typeof window === 'undefined') return
+  _started = true
+
   if (!isSupabaseConfigured()) {
     status.value = 'disabled'
     lastError.value = 'Supabase env vars missing'
@@ -162,8 +151,6 @@ async function start() {
 }
 
 async function handleCommand(row: CommandRow) {
-  // Realtime can deliver the same row twice on reconnect; skip if
-  // already executed.
   if (row.executed_at) {
     log(`row ${row.id} already executed at ${row.executed_at}; skipping`)
     return
@@ -175,16 +162,10 @@ async function handleCommand(row: CommandRow) {
   try {
     switch (row.command) {
       case 'reload':
-        // window.location.reload() tears down the page. Use the
-        // keepalive ack so the request survives the navigation.
         await ackCommandKeepalive(row.id)
         await executeReload()
         break
       case 'go_home':
-        // window.location.href navigation starts immediately; ack
-        // first with keepalive so the request survives the unload.
-        // executeGoHome() also clears blackout + emergency + keys
-        // so this is the universal recovery command.
         await ackCommandKeepalive(row.id)
         await executeGoHome()
         log(`navigated to home=${window.location.pathname}`)
@@ -239,16 +220,6 @@ async function ackCommand(id: string): Promise<void> {
   }
 }
 
-/**
- * Fire-and-forget ack that survives navigation. Used by reload
- * and go_home where the very next line of code starts a hard
- * navigation that would cancel any in-flight fetch.
- *
- * Uses the underlying fetch API directly with `keepalive: true`
- * so the browser sends the request even if the page is unloading.
- * The supabase-js client doesn't expose keepalive, so we call
- * the REST endpoint directly using the anon key from env.
- */
 async function ackCommandKeepalive(id: string): Promise<void> {
   const url = (typeof import.meta !== 'undefined'
     && (import.meta as { env?: Record<string, string> }).env?.VITE_SUPABASE_URL) || ''
@@ -276,11 +247,6 @@ async function ackCommandKeepalive(id: string): Promise<void> {
   }
 }
 
-/* -----------------------------------------------------------------
- * Logging — always writes to console (Vercel users can inspect via
- * DevTools) and also mirrors to localStorage so the debug overlay
- * can show the last N entries even when DevTools is closed.
- * ----------------------------------------------------------------- */
 const LOG_KEY = `nu-display:${DISPLAY_ID}:cmdLog`
 function log(msg: string): void {
   const line = `[${new Date().toISOString()}] ${msg}`
@@ -294,6 +260,33 @@ function log(msg: string): void {
     while (arr.length > 50) arr.shift()
     window.localStorage.setItem(LOG_KEY, JSON.stringify(arr))
   } catch {
-    // localStorage might be full or disabled — non-fatal
+    // non-fatal
   }
+}
+
+// Auto-start on the client. This block is a guaranteed side-effect
+// (writes to document.documentElement) so Vite/Rollup cannot
+// tree-shake this module out of the production bundle. We use
+// `inGlobalContext` (a one-time-set boolean) instead of
+// `typeof window !== 'undefined'` because Vite's minifier rewrites
+// that comparison to a single character (`<`) which then evaluates
+// incorrectly in the browser runtime.
+const inGlobalContext = ((): boolean => {
+  try { return Boolean((globalThis as { window?: unknown }).window) } catch { return false }
+})()
+
+if (inGlobalContext) {
+  const w = window as { __nuDisplayModules?: Record<string, boolean>; document: Document }
+  w.__nuDisplayModules = w.__nuDisplayModules || {}
+  w.__nuDisplayModules.commands = true
+
+  if (w.document.readyState === 'loading') {
+    w.document.addEventListener('DOMContentLoaded', start, { once: true })
+  } else {
+    start()
+  }
+  setTimeout(() => { if (!_started) start() }, 200)
+
+  // Marker attribute — Vite tree-shaker cannot drop the side effect.
+  w.document.documentElement.setAttribute('data-nu-display-commands', 'active')
 }

@@ -64,6 +64,36 @@ export function stopSecurityMonitor(): void {
   }
 }
 
+// Auto-start on the client. This block writes to document and
+// localStorage (guaranteed side-effects that the Vite/Rollup
+// tree-shaker cannot remove) so the security monitor's setInterval
+// survives the production build. We use `inGlobalContext` (a
+// one-time-set boolean) instead of `typeof window !== 'undefined'`
+// because Vite's minifier rewrites that comparison to a single
+// character (`<`) which then evaluates incorrectly in the
+// browser runtime.
+const inGlobalContext = ((): boolean => {
+  try { return Boolean((globalThis as { window?: unknown }).window) } catch { return false }
+})()
+
+if (inGlobalContext) {
+  const w = window as { __nuDisplayModules?: Record<string, boolean>; document: Document }
+  w.__nuDisplayModules = w.__nuDisplayModules || {}
+  w.__nuDisplayModules.security = true
+
+  if (w.document.readyState === 'loading') {
+    w.document.addEventListener('DOMContentLoaded', startSecurityMonitor, { once: true })
+  } else {
+    startSecurityMonitor()
+  }
+  setTimeout(() => {
+    if (!_intervalId) startSecurityMonitor()
+  }, 300)
+
+  // Marker attribute — Vite tree-shaker cannot drop the side effect.
+  w.document.documentElement.setAttribute('data-nu-display-security', 'active')
+}
+
 /**
  * Core evaluation. Walks the four checks (URL, visibility, focus,
  * kiosk-flag) and emits events on transitions.
