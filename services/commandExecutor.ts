@@ -136,6 +136,56 @@ export async function executeEmergency(
 }
 
 /**
+ * Phase 5C — Power Management (hardware-agnostic abstraction).
+ *
+ * These two functions are the ONLY places in the codebase that
+ * know how a display is actually powered on and off. Every
+ * other layer (dashboard, command listener, Realtime) treats
+ * power as an opaque two-state abstraction.
+ *
+ * First implementation: a console-logging stub that just
+ * records the requested action. Real backends can be plugged
+ * in here without changing the dashboard UI:
+ *
+ *   - Samsung VXT (Samsung MagicINFO cloud) → REST API call
+ *   - LG webOS Signage → webOS.service.request('luna://...')
+ *   - BrightSign → SSDP / BrightScript via the player's API
+ *   - Wake-on-LAN → magic packet to the kiosk's MAC
+ *   - HDMI CEC → cec-client / libCEC to the TV
+ *   - Raspberry Pi GPIO relay → fetch() to the relay controller
+ *   - Smart PDU outlet → SNMP or vendor API
+ *
+ * The function returns a promise so the command listener can
+ * await it before writing executed_at. Hardware errors should
+ * be caught and logged by the caller, not re-thrown.
+ */
+export async function executePowerOff(): Promise<void> {
+  if (typeof window === 'undefined') return
+  logRecovery('power_off → stub (no hardware backend wired yet)')
+  if (import.meta.env.DEV) {
+    // eslint-disable-next-line no-console
+    console.warn(
+      '[commandExecutor] power_off: no hardware backend wired. ' +
+      'Plug a real implementation into executePowerOff() to actually ' +
+      'turn off the display (VXT, webOS, BrightSign, WoL, CEC, etc).',
+    )
+  }
+}
+
+export async function executePowerOn(): Promise<void> {
+  if (typeof window === 'undefined') return
+  logRecovery('power_on → stub (no hardware backend wired yet)')
+  if (import.meta.env.DEV) {
+    // eslint-disable-next-line no-console
+    console.warn(
+      '[commandExecutor] power_on: no hardware backend wired. ' +
+      'Plug a real implementation into executePowerOn() to actually ' +
+      'turn on the display (VXT, webOS, BrightSign, WoL, CEC, etc).',
+    )
+  }
+}
+
+/**
  * Resolve the canonical home path for this kiosk.
  *
  * The source of truth is `composables/useDisplayState.ts` — WORLDS

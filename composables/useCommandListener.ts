@@ -8,6 +8,9 @@ import {
   executeEmergency,
   executeClearBlackout,
   executeClearEmergency,
+  // Phase 5C — Power Management (hardware-agnostic)
+  executePowerOff,
+  executePowerOn,
 } from '~/services/commandExecutor'
 
 /**
@@ -34,6 +37,8 @@ import {
 export type CommandName =
   | 'reload' | 'go_home' | 'blackout' | 'emergency_message'
   | 'clear_blackout' | 'clear_emergency'
+  // Phase 5C — Power Management (hardware-agnostic)
+  | 'power_off' | 'power_on'
 
 export type ListenerStatus =
   | 'idle'
@@ -193,6 +198,24 @@ async function handleCommand(row: CommandRow) {
         await ackCommand(row.id)
         log('emergency cleared')
         break
+      // Phase 5C — Power Management
+      // Hardware-agnostic. The executor dispatches to whatever
+      // backend is wired (Samsung VXT, LG webOS, BrightSign, WoL,
+      // CEC, GPIO relay, etc). Dashboard does not know or care.
+      case 'power_off':
+        await executePowerOff()
+        // Update the displays row so the dashboard reflects the
+        // new power_state without waiting for the next heartbeat.
+        await writePowerState('off')
+        await ackCommand(row.id)
+        log('power_off executed')
+        break
+      case 'power_on':
+        await executePowerOn()
+        await writePowerState('on')
+        await ackCommand(row.id)
+        log('power_on executed')
+        break
       default:
         lastError.value = `unknown command: ${row.command}`
         log(`unknown command ${row.command}`)
@@ -244,6 +267,27 @@ async function ackCommandKeepalive(id: string): Promise<void> {
     log(`ackKeepalive dispatched for ${id}`)
   } catch (err) {
     log(`ackKeepalive threw: ${err instanceof Error ? err.message : String(err)}`)
+  }
+}
+
+/**
+ * Phase 5C — Update the displays row with the new power_state
+ * immediately after the executor runs. This is best-effort:
+ * the next heartbeat (≤30s) will also write the same field,
+ * so a failure here just delays the dashboard's view by
+ * at most one heartbeat interval.
+ */
+async function writePowerState(state: 'on' | 'off'): Promise<void> {
+  const sb = getSupabase()
+  if (!sb) return
+  try {
+    await sb.from('displays').update({
+      power_state: state,
+      power_changed_at: new Date().toISOString(),
+      updated_at: new Date().toISOString(),
+    }).eq('id', DISPLAY_ID)
+  } catch {
+    /* swallow — heartbeat will reconcile */
   }
 }
 
