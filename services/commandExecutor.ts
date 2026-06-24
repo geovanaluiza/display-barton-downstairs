@@ -15,6 +15,16 @@
 
 import { setBlackout, setEmergency, clearAllStates } from '../lib/displayState'
 import { WORLDS } from '../composables/useDisplayState'
+import { captureNow } from '../composables/useScreenshotCapture'
+
+/**
+ * Phase 5 helper: trigger a fresh screenshot capture after a
+ * command's DOM effects have rendered. Wrapped in try/catch so a
+ * screenshot pipeline failure can never abort the command.
+ */
+function captureSoon(): void {
+  try { captureNow() } catch { /* never block command execution */ }
+}
 
 /**
  * Hard reload the page. The most common command — admin uses
@@ -60,6 +70,7 @@ export async function executeGoHome(): Promise<void> {
   forceRemoveOverlayDOM()
   const home = resolveHomePath()
   logRecovery(`go_home → ${home} (from ${window.location.pathname})`)
+  captureSoon()
   if (home && home !== window.location.pathname) {
     window.location.href = home
   } else if (home === window.location.pathname) {
@@ -79,6 +90,7 @@ export async function executeClearBlackout(): Promise<void> {
   if (typeof window === 'undefined') return
   setBlackout(false)
   forceRemoveOverlayDOM()
+  captureSoon()
   logRecovery('clear_blackout → blackout removed')
 }
 
@@ -89,6 +101,7 @@ export async function executeClearEmergency(): Promise<void> {
   if (typeof window === 'undefined') return
   setEmergency(null)
   forceRemoveOverlayDOM()
+  captureSoon()
   logRecovery('clear_emergency → emergency removed')
 }
 
@@ -97,6 +110,7 @@ export async function executeClearEmergency(): Promise<void> {
  */
 export async function executeBlackout(on: boolean): Promise<void> {
   setBlackout(on)
+  captureSoon()
 }
 
 /**
@@ -118,6 +132,7 @@ export async function executeEmergency(
   } else {
     setEmergency(null)
   }
+  captureSoon()
 }
 
 /**

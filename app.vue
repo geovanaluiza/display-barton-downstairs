@@ -10,6 +10,7 @@ import { ref, onMounted, onUnmounted } from 'vue'
 import BlackoutOverlay from '~/components/BlackoutOverlay.vue'
 import EmergencyOverlay from '~/components/EmergencyOverlay.vue'
 import CommandDebugOverlay from '~/components/CommandDebugOverlay.vue'
+import '~/composables/useScreenshotCapture'
 
 const TARGET_W = 1080
 const TARGET_H = 1920
