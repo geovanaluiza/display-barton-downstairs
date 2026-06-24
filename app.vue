@@ -41,7 +41,7 @@ onUnmounted(() => {
 
 <template>
   <div class="app-root">
-    <div ref="stageEl" class="stage">
+    <div ref="stageEl" class="stage kiosk-stage">
       <NuxtLayout>
         <NuxtPage />
       </NuxtLayout>
