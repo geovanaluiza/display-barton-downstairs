@@ -317,6 +317,69 @@ a { color: var(--nu-blue); }
 .page-leave-to   { transform: translateX(-60px); opacity: 0; }
 
 /* =========================================================
+   Kiosk-iframe rendering guard
+   -------------------------------------------------------------
+   These displays are kiosk apps locked to a 1080x1920 logical
+   canvas. app.vue scales the .stage via transform: scale() to
+   fit the host window. When the display is embedded inside the
+   admin dashboard's preview iframe, the iframe's window is
+   ~302x540px — narrower than the @media (max-width: 720px)
+   breakpoint on several pages, which collapses fullscreen
+   containers to height: auto and produces a blank-looking
+   preview.
+
+   The kiosk is NOT a responsive website. The mobile breakpoint
+   exists only as a dev-time convenience. This block re-asserts
+   the desktop values with !important so the layout always
+   renders the 1080x1920 design, regardless of how the host
+   viewport sizes the iframe.
+
+   It does NOT change the visual scale — app.vue's transform
+   still scales the whole 1080x1920 stage to fit the iframe.
+   ========================================================= */
+
+.hero,
+.barton > .hero,
+section.hero {
+  height: 1920px !important;
+  min-height: 1920px !important;
+  padding-bottom: 0 !important;
+}
+
+.hero-content,
+.hero-title,
+.hero-blurb,
+.hero-eyebrow,
+.hero-meta,
+.big-arrow,
+.you-are-here,
+.info,
+.info-grid,
+.contact-modal,
+.contact-modal-card,
+.modal-value,
+.modal-icon-big,
+.help-modal-title,
+.help-modal-summary,
+.help-modal-icon,
+.help-bullets li {
+  /* Force the desktop values — the @media (max-width: 720px)
+     overrides are intentionally bypassed for kiosk rendering. */
+  font-size: revert !important;
+  padding: revert !important;
+  max-width: revert !important;
+  grid-template-columns: revert !important;
+  gap: revert !important;
+  display: revert !important;
+  top: revert !important;
+  bottom: revert !important;
+  left: revert !important;
+}
+
+.big-arrow { display: block !important; }
+.you-are-here { top: auto; bottom: 7%; left: 4%; }
+
+/* =========================================================
    Misc
    ========================================================= */
 
