@@ -40,6 +40,18 @@ function closeHelp() {
 
 // === Office Hours — compact status first, full schedule on tap ===
 const hoursExpanded = ref(false)
+const isHoursOpen = ref(false)
+
+function openHoursModal() {
+  isHoursOpen.value = true
+}
+function closeHoursModal() {
+  isHoursOpen.value = false
+}
+function isToday(day: string): boolean {
+  const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
+  return days[new Date().getDay()] === day
+}
 
 // === Hero photo (First Day — students arriving) ===
 const lobbyPhoto = '250825FirstDayEdited (11).jpg'
@@ -259,6 +271,39 @@ const admission = {
               </button>
             </div>
           </template>
+        </div>
+      </div>
+    </transition>
+
+    <!-- ============================================================== -->
+    <!-- HOURS MODAL — shows office hours when visitor taps the clock icon -->
+    <!-- ============================================================== -->
+    <transition name="modal">
+      <div v-if="isHoursOpen" class="contact-modal" @click="closeHoursModal">
+        <div class="contact-modal-card" @click.stop>
+          <button class="modal-close" type="button" @click="closeHoursModal" aria-label="Close">
+            <span class="close-line close-line--1" />
+            <span class="close-line close-line--2" />
+          </button>
+          <div class="modal-content">
+            <div class="modal-eyebrow">Office of Admissions</div>
+            <div class="modal-icon-big">🕐</div>
+            <div class="modal-label">Office Hours</div>
+            <div class="hours-list">
+              <div
+                v-for="row in admission.hours"
+                :key="row.day"
+                class="hours-row"
+                :class="{ 'is-today': isToday(row.day) }"
+              >
+                <span class="hours-row-day">{{ row.day }}</span>
+                <span class="hours-row-time">{{ row.time }}</span>
+              </div>
+            </div>
+            <button class="help-modal-cta" type="button" @click="closeHoursModal">
+              Got it
+            </button>
+          </div>
         </div>
       </div>
     </transition>
@@ -1183,6 +1228,46 @@ const admission = {
   transform: translateY(-2px);
   background: var(--nu-navy);
   box-shadow: 0 10px 22px rgba(0, 38, 61, 0.32);
+}
+
+/* === Hours list in the hours modal === */
+.hours-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 20px 0 28px;
+  padding: 24px 20px;
+  background: rgba(0, 38, 61, 0.30);
+  border-radius: 16px;
+  border: 1px solid rgba(251, 217, 69, 0.20);
+}
+.hours-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 12px;
+  border-radius: 8px;
+  transition: background 0.2s;
+}
+.hours-row.is-today {
+  background: rgba(251, 217, 69, 0.12);
+  border: 1px solid rgba(251, 217, 69, 0.30);
+}
+.hours-row-day {
+  font-family: var(--font-serif);
+  font-size: 22px;
+  color: var(--nu-wisp);
+  letter-spacing: 0.02em;
+}
+.hours-row.is-today .hours-row-day {
+  color: var(--nu-tour);
+  font-weight: 700;
+}
+.hours-row-time {
+  font-family: var(--font-mono);
+  font-size: 18px;
+  color: var(--nu-skylight);
+  letter-spacing: 0.04em;
 }
 
 /* === Info "i" badge on What to Expect icons === */
