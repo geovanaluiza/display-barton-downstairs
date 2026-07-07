@@ -618,15 +618,15 @@ const admission = {
   max-width: calc(100% - 64px);
   box-sizing: border-box;
   padding: 64px 72px 56px;
-  /* Gold background for contrast on the light cream screen */
-  background: linear-gradient(180deg,
-    rgba(var(--nu-tour), 0.92) 0%,
-    rgba(251, 217, 69, 0.96) 100%);
+  /* Glass + gold background — same style as bottom icon cards */
+  background: rgba(251, 217, 69, 0.55);
+  backdrop-filter: blur(16px) saturate(140%);
+  -webkit-backdrop-filter: blur(16px) saturate(140%);
   border-radius: 32px;
-  border: 1.5px solid rgba(255, 255, 255, 0.30);
+  border: 1.5px solid rgba(255, 255, 255, 0.40);
   box-shadow:
-    0 30px 80px rgba(0, 38, 61, 0.30),
-    inset 0 1px 0 rgba(255, 255, 255, 0.25);
+    0 30px 80px rgba(0, 38, 61, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.35);
   text-align: center;
   /* fadeUpCentered preserves translateX(-50%) so the card stays
      horizontally centered. Regular fadeUp would override the
@@ -647,24 +647,24 @@ const admission = {
 .wayfinding-eyebrow {
   font-size: 18px; font-weight: 700;
   letter-spacing: 0.42em; text-transform: uppercase;
-  color: var(--nu-midnight);
+  color: var(--nu-navy);
   margin-bottom: 18px;
 }
 .wayfinding-title {
   font-family: var(--font-serif);
   font-size: 88px; line-height: 1;
-  color: var(--nu-midnight);
+  color: var(--nu-navy);
   margin: 0 0 28px;
   letter-spacing: -0.01em;
   font-weight: 700;
-  text-shadow: 0 2px 8px rgba(0, 38, 61, 0.15);
+  text-shadow: 0 2px 8px rgba(3, 76, 135, 0.12);
 }
 .wayfinding-divider {
   width: 80px;
   height: 1px;
   background: linear-gradient(90deg,
     transparent 0%,
-    var(--nu-midnight) 50%,
+    var(--nu-navy) 50%,
     transparent 100%);
   margin: 0 auto 24px;
 }
@@ -672,14 +672,14 @@ const admission = {
   display: flex; align-items: center;
   justify-content: center;
   gap: 12px;
-  color: var(--nu-midnight);
+  color: var(--nu-navy);
 }
 .wayfinding-floor {
   font-family: var(--font-serif);
   font-size: 36px; font-weight: 700;
   letter-spacing: 0.02em;
   line-height: 1;
-  color: var(--nu-midnight);
+  color: var(--nu-navy);
 }
 
 /* ================================================================ */
