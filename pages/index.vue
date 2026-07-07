@@ -314,7 +314,7 @@ const admission = {
 .barton {
   position: absolute; inset: 0;
   overflow: hidden;
-  background: var(--nu-midnight);
+  background: #FBF3D9;
   opacity: 0;
   transform: translateY(8px);
   transition: opacity 0.6s var(--ease-out-soft), transform 0.6s var(--ease-out-soft);
@@ -327,12 +327,12 @@ const admission = {
   width: 100%;
   height: 1920px;
   overflow: hidden;
-  background: var(--nu-midnight);
+  background: #FBF3D9;
 }
 .hero-photo {
   position: absolute; inset: 0;
-  filter: blur(2px) brightness(0.7) saturate(0.85);
-  transform: scale(1.04);
+  filter: brightness(1.0) saturate(1.1);
+  transform: scale(1.02);
 }
 .hero-photo img {
   width: 100%; height: 100%;
@@ -346,15 +346,15 @@ const admission = {
 .hero-veil {
   position: absolute; inset: 0;
   background:
-    linear-gradient(90deg, rgba(0, 38, 61, 0.88) 0%, rgba(0, 38, 61, 0.60) 40%, rgba(0, 38, 61, 0.30) 70%, rgba(0, 38, 61, 0.12) 100%),
-    linear-gradient(180deg, rgba(0, 38, 61, 0.45) 0%, rgba(0, 38, 61, 0.08) 22%, rgba(0, 38, 61, 0.08) 42%, rgba(0, 38, 61, 0.35) 62%, rgba(0, 38, 61, 0.82) 84%, rgba(10, 15, 30, 0.96) 100%);
+    linear-gradient(90deg, rgba(251, 243, 217, 0.78) 0%, rgba(251, 243, 217, 0.65) 40%, rgba(251, 243, 217, 0.45) 70%, rgba(251, 243, 217, 0.20) 100%),
+    linear-gradient(180deg, rgba(251, 243, 217, 0.50) 0%, rgba(251, 243, 217, 0.15) 22%, rgba(251, 243, 217, 0.15) 42%, rgba(251, 243, 217, 0.35) 62%, rgba(251, 243, 217, 0.72) 84%, rgba(245, 239, 217, 0.90) 100%);
 }
-/* Bottom gradient — extra dark anchor for the floating cards */
+/* Bottom gradient — light cream anchor for the floating cards */
 .hero-bottom-grad {
   position: absolute;
   left: 0; right: 0; bottom: 0;
   height: 58%;
-  background: linear-gradient(180deg, transparent 0%, rgba(0, 38, 61, 0.60) 48%, rgba(8, 12, 24, 0.94) 100%);
+  background: linear-gradient(180deg, transparent 0%, rgba(251, 243, 217, 0.55) 48%, rgba(251, 243, 217, 0.85) 100%);
   z-index: 2;
   pointer-events: none;
 }
@@ -384,13 +384,11 @@ const admission = {
   position: relative;
   display: flex; align-items: center; justify-content: center;
   padding: 32px 16px;
-  /* Sutil glassmorphism — transparente, sem competir com a seta */
-  background: rgba(255, 255, 255, 0.06);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  border: 1px solid rgba(255, 255, 255, 0.18);
+  /* Solid navy background for contrast on the light cream screen */
+  background: var(--nu-navy);
+  border: 1px solid rgba(251, 217, 69, 0.40);
   border-radius: 22px;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.18);
+  box-shadow: 0 6px 20px rgba(0, 38, 61, 0.20);
   color: var(--nu-wisp);
   cursor: pointer;
   font-family: inherit;
@@ -419,7 +417,7 @@ const admission = {
   width: 50%; height: 100%;
   background: linear-gradient(115deg,
     transparent 0%,
-    rgba(255, 255, 255, 0.18) 50%,
+    rgba(251, 217, 69, 0.15) 50%,
     transparent 100%);
   transform: skewX(-20deg);
   transition: left 0.8s var(--ease-out-soft);
@@ -427,11 +425,11 @@ const admission = {
 }
 .quick-card:hover {
   transform: translateY(-6px) scale(1.03);
-  background: rgba(255, 255, 255, 0.14);
-  border-color: rgba(251, 217, 69, 0.5);
+  background: var(--nu-midnight);
+  border-color: rgba(251, 217, 69, 0.7);
   box-shadow:
-    0 14px 32px rgba(0, 0, 0, 0.28),
-    0 0 0 1px rgba(251, 217, 69, 0.35);
+    0 14px 32px rgba(0, 38, 61, 0.35),
+    0 0 0 1.5px rgba(251, 217, 69, 0.45);
 }
 .quick-card:hover::before { left: 130%; }
 .quick-card:active { transform: translateY(-2px) scale(1.0); }
@@ -441,8 +439,8 @@ const admission = {
   width: 64px;
   height: 64px;
   color: var(--nu-tour);
-  opacity: 0.85;
-  filter: drop-shadow(0 2px 6px rgba(251, 217, 69, 0.28));
+  opacity: 0.90;
+  filter: drop-shadow(0 2px 6px rgba(251, 217, 69, 0.20));
   transition: transform 0.4s var(--ease-out-soft),
               opacity 0.3s,
               filter 0.3s,
@@ -452,7 +450,7 @@ const admission = {
   transform: scale(1.12) rotate(-6deg);
   opacity: 1;
   color: var(--nu-amber);
-  filter: drop-shadow(0 3px 10px rgba(255, 188, 45, 0.4));
+  filter: drop-shadow(0 3px 10px rgba(255, 188, 45, 0.35));
 }
 
 /* "You are here" pin — positioned at the TOP-LEFT, with enough
@@ -467,13 +465,11 @@ const admission = {
   z-index: 5;
   display: flex; align-items: center; gap: 12px;
   animation: fadeUp 0.8s var(--ease-out-soft) 0.4s both;
-  background: rgba(0, 38, 61, 0.7);
+  background: var(--nu-navy);
   padding: 8px 18px 8px 10px;
   border-radius: 999px;
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(251, 217, 69, 0.5);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+  border: 1.5px solid rgba(251, 217, 69, 0.60);
+  box-shadow: 0 8px 24px rgba(0, 38, 61, 0.25);
   max-width: 280px;
 }
 /* Static location dot (no animation rings — those created a
@@ -490,8 +486,6 @@ const admission = {
 }
 .here-label {
   display: flex; flex-direction: column;
-  color: var(--nu-wisp);
-  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
 }
 .here-eyebrow {
   font-size: 15px; font-weight: 700;
@@ -518,13 +512,13 @@ const admission = {
   align-items: center;
   text-align: center;
   width: min(900px, 86%);
-  color: var(--nu-wisp);
+  color: var(--nu-midnight);
   pointer-events: none;
   animation: fadeUpCentered 0.9s var(--ease-out-soft) 0.1s both;
 }
 .hero-eyebrow {
   display: inline-flex; align-items: center; gap: 12px;
-  color: var(--nu-tour);
+  color: var(--nu-navy);
   font-size: 24px; font-weight: 700;
   letter-spacing: 0.28em; text-transform: uppercase;
   margin-bottom: 24px;
@@ -533,38 +527,37 @@ const admission = {
   width: 14px; height: 14px;
   border-radius: 50%;
   background: var(--nu-tour);
-  box-shadow: 0 0 0 5px rgba(251, 217, 69, 0.25);
+  box-shadow: 0 0 0 5px rgba(251, 217, 69, 0.30);
   animation: pulse 1.8s ease-in-out infinite;
 }
 @keyframes pulse {
-  0%, 100% { box-shadow: 0 0 0 5px rgba(251, 217, 69, 0.25); }
+  0%, 100% { box-shadow: 0 0 0 5px rgba(251, 217, 69, 0.30); }
   50%      { box-shadow: 0 0 0 16px rgba(251, 217, 69, 0); }
 }
 .hero-title {
   font-family: var(--font-serif);
   font-size: 112px;
   line-height: 0.98;
-  color: var(--nu-wisp);
+  color: var(--nu-midnight);
   margin: 0 0 24px;
   letter-spacing: -0.02em;
-  text-shadow: 0 4px 24px rgba(0, 0, 0, 0.5);
 }
 .hero-accent {
-  color: var(--nu-tour);
+  color: var(--nu-navy);
   font-style: italic;
 }
 .hero-blurb {
   font-size: 30px;
   line-height: 1.4;
-  color: var(--nu-skylight);
+  color: var(--nu-navy);
+  opacity: 0.72;
   margin: 0 0 24px;
   max-width: 48ch;
-  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.5);
 }
 .hero-meta {
   display: inline-flex; align-items: center; gap: 16px;
   font-size: 22px; font-weight: 600;
-  color: var(--nu-wisp);
+  color: var(--nu-navy);
   margin-top: 4px;
 }
 .hero-meta-label {
@@ -699,12 +692,10 @@ const admission = {
   align-items: center;
   gap: 10px;
   padding: 10px 28px;
-  background: rgba(0, 38, 61, 0.55);
-  border: 1px solid rgba(251, 217, 69, 0.35);
+  background: var(--nu-navy);
+  border: 1px solid rgba(251, 217, 69, 0.45);
   border-radius: 999px;
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.20);
+  box-shadow: 0 4px 12px rgba(0, 38, 61, 0.20);
   animation: fadeUpCentered 0.9s var(--ease-out-soft) 0.7s both;
 }
 .hours-dot {
