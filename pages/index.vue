@@ -723,7 +723,7 @@ const admission = {
   font-size: 22px;
   font-weight: 400;
   letter-spacing: 0.05em;
-  color: var(--nu-skylight);
+  color: var(--nu-wisp);
 }
 
 @keyframes floatY {
@@ -1266,7 +1266,7 @@ const admission = {
 .hours-row-time {
   font-family: var(--font-mono);
   font-size: 18px;
-  color: var(--nu-skylight);
+  color: var(--nu-navy);
   letter-spacing: 0.04em;
 }
 

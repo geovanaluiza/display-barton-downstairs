@@ -39,7 +39,6 @@ const photos = [
       </div>
     </section>
 
-    <h2 class="h2 sect">Follow Your Faith. <span class="italic">Find Your Future.</span></h2>
     <div class="mosaic stagger">
       <div
         v-for="p in photos.slice(0, 4)"
