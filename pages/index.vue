@@ -619,7 +619,7 @@ const admission = {
   box-sizing: border-box;
   padding: 64px 72px 56px;
   /* Glass + gold background — same style as bottom icon cards */
-  background: rgba(251, 217, 69, 0.55);
+  background: rgba(251, 217, 69, 0.85);
   backdrop-filter: blur(16px) saturate(140%);
   -webkit-backdrop-filter: blur(16px) saturate(140%);
   border-radius: 32px;
