@@ -131,7 +131,7 @@ const admission = {
           Welcome to Northwest. We are waiting for you.
         </p>
         <div class="hero-meta">
-          <span>Office of Admissions</span>
+          <span class="hero-meta-label">Office of Admissions</span>
         </div>
       </div>
 
@@ -143,6 +143,15 @@ const admission = {
         <div class="wayfinding-location">
           <span class="wayfinding-floor">Admissions Office</span>
         </div>
+      </div>
+
+      <!-- OFFICE HOURS — discreet gold strip between card and icons -->
+      <div class="hours-strip">
+        <span class="hours-dot" />
+        <span class="hours-label">Mon–Fri</span>
+        <span class="hours-sep">·</span>
+        <span class="hours-label">8 AM – 5 PM</span>
+        <span class="hours-dot" />
       </div>
 
       <!-- FLOATING CARDS OVERLAY — 5 equal icon-only cards at bottom -->
@@ -292,15 +301,15 @@ const admission = {
 .hero-veil {
   position: absolute; inset: 0;
   background:
-    linear-gradient(90deg, rgba(0, 38, 61, 0.85) 0%, rgba(0, 38, 61, 0.55) 40%, rgba(0, 38, 61, 0.25) 70%, rgba(0, 38, 61, 0.10) 100%),
-    linear-gradient(180deg, rgba(0, 38, 61, 0.40) 0%, rgba(0, 38, 61, 0.05) 25%, rgba(0, 38, 61, 0.05) 45%, rgba(0, 38, 61, 0.30) 65%, rgba(0, 38, 61, 0.80) 85%, rgba(0, 38, 61, 0.95) 100%);
+    linear-gradient(90deg, rgba(0, 38, 61, 0.88) 0%, rgba(0, 38, 61, 0.60) 40%, rgba(0, 38, 61, 0.30) 70%, rgba(0, 38, 61, 0.12) 100%),
+    linear-gradient(180deg, rgba(0, 38, 61, 0.45) 0%, rgba(0, 38, 61, 0.08) 22%, rgba(0, 38, 61, 0.08) 42%, rgba(0, 38, 61, 0.35) 62%, rgba(0, 38, 61, 0.82) 84%, rgba(10, 15, 30, 0.96) 100%);
 }
 /* Bottom gradient — extra dark anchor for the floating cards */
 .hero-bottom-grad {
   position: absolute;
   left: 0; right: 0; bottom: 0;
-  height: 60%;
-  background: linear-gradient(180deg, transparent 0%, rgba(0, 38, 61, 0.55) 50%, rgba(0, 38, 61, 0.92) 100%);
+  height: 58%;
+  background: linear-gradient(180deg, transparent 0%, rgba(0, 38, 61, 0.60) 48%, rgba(8, 12, 24, 0.94) 100%);
   z-index: 2;
   pointer-events: none;
 }
@@ -511,17 +520,38 @@ const admission = {
   display: inline-flex; align-items: center; gap: 16px;
   font-size: 22px; font-weight: 600;
   color: var(--nu-wisp);
-  background: rgba(0, 38, 61, 0.55);
-  padding: 16px 26px;
-  border-radius: 999px;
-  border: 1.5px solid rgba(251, 217, 69, 0.5);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
   margin-top: 4px;
 }
+.hero-meta-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--nu-navy);
+  background: var(--nu-tour);
+  padding: 14px 28px;
+  border-radius: 999px;
+  border: 2px solid rgba(255, 255, 255, 0.25);
+  box-shadow: 0 6px 20px rgba(251, 217, 69, 0.35), 0 2px 8px rgba(0, 0, 0, 0.25);
+  cursor: pointer;
+  transition: transform 0.25s var(--ease-out-soft),
+              box-shadow 0.25s var(--ease-out-soft),
+              background 0.2s;
+}
+.hero-meta-label:hover {
+  transform: translateY(-2px) scale(1.03);
+  background: #f0c830;
+  box-shadow: 0 10px 28px rgba(251, 217, 69, 0.45), 0 4px 12px rgba(0, 0, 0, 0.30);
+}
+.hero-meta-label:active {
+  transform: translateY(0) scale(0.99);
+  box-shadow: 0 2px 8px rgba(251, 217, 69, 0.25), 0 1px 4px rgba(0, 0, 0, 0.20);
+}
 .hero-meta strong {
-  color: var(--nu-tour);
+  color: var(--nu-navy);
   font-family: var(--font-serif);
   font-size: 30px;
   margin-right: 4px;
@@ -529,8 +559,8 @@ const admission = {
 .hero-meta .dot {
   width: 4px; height: 4px;
   border-radius: 50%;
-  background: var(--nu-tour);
-  opacity: 0.7;
+  background: var(--nu-navy);
+  opacity: 0.6;
 }
 
 /* ================================================================ */
@@ -610,6 +640,45 @@ const admission = {
   font-size: 36px; font-weight: 700;
   letter-spacing: 0.02em;
   line-height: 1;
+}
+
+/* ================================================================ */
+/*  HOURS STRIP — gold bar between wayfinding card and icons       */
+/* ================================================================ */
+.hours-strip {
+  position: absolute;
+  top: 74%; left: 50%;
+  transform: translateX(-50%);
+  z-index: 5;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 28px;
+  background: rgba(0, 38, 61, 0.55);
+  border: 1px solid rgba(251, 217, 69, 0.35);
+  border-radius: 999px;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.20);
+  animation: fadeUpCentered 0.9s var(--ease-out-soft) 0.7s both;
+}
+.hours-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--nu-tour);
+  opacity: 0.7;
+}
+.hours-sep {
+  color: var(--nu-tour);
+  opacity: 0.5;
+  font-size: 18px;
+}
+.hours-label {
+  font-family: var(--font-serif);
+  font-size: 22px;
+  font-weight: 400;
+  letter-spacing: 0.05em;
+  color: var(--nu-skylight);
 }
 
 @keyframes floatY {
