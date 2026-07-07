@@ -436,13 +436,13 @@ const admission = {
 .quick-card:hover::before { left: 130%; }
 .quick-card:active { transform: translateY(-2px) scale(1.0); }
 
-/* === Uniform SVG icons — navy on the light glass cards === */
+/* === Uniform SVG icons — navy matching the 2nd Floor wayfinding card === */
 .icon-svg {
   width: 64px;
   height: 64px;
-  color: var(--nu-midnight);
-  opacity: 0.85;
-  filter: drop-shadow(0 2px 6px rgba(0, 38, 61, 0.20));
+  color: var(--nu-navy);
+  opacity: 0.88;
+  filter: drop-shadow(0 2px 6px rgba(3, 76, 135, 0.22));
   transition: transform 0.4s var(--ease-out-soft),
               opacity 0.3s,
               filter 0.3s,
