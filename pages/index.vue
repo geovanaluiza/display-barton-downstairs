@@ -1266,7 +1266,7 @@ const admission = {
 .hours-row-time {
   font-family: var(--font-mono);
   font-size: 18px;
-  color: var(--nu-navy);
+  color: #0a1e3d;
   letter-spacing: 0.04em;
 }
 

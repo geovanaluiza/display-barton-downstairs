@@ -48,7 +48,6 @@ const photos = [
       >
         <img :src="`/images/${p.src}`" :alt="p.name" loading="lazy" decoding="async" />
         <div class="tile-veil" />
-        <div class="tile-label">{{ p.name }}</div>
       </div>
     </div>
 
@@ -154,7 +153,7 @@ const photos = [
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 420px 420px;
   gap: 16px;
-  margin-bottom: 8px;
+  margin: 48px 0 8px;
 }
 .mosaic-tile {
   position: relative;
