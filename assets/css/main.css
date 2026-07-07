@@ -8,6 +8,11 @@
   --nu-blue:       #0068bb;
   --nu-navy:       #034c87;
   --nu-midnight:   #00263d;
+
+  /* RGB triplets for use with rgba() — keeps all navy/blue
+     shade choices in CSS variables instead of hardcoded hex */
+  --nu-midnight-rgb: 0, 38, 61;
+  --nu-navy-rgb:     3, 76, 135;
   --nu-alt:        #148dcd;
   --nu-sky:        #95c5ea;
   --nu-skylight:   #b4d4f0;

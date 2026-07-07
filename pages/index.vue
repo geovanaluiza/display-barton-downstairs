@@ -384,11 +384,13 @@ const admission = {
   position: relative;
   display: flex; align-items: center; justify-content: center;
   padding: 32px 16px;
-  /* Solid navy background for contrast on the light cream screen */
-  background: var(--nu-navy);
-  border: 1px solid rgba(251, 217, 69, 0.40);
+  /* Glassmorphism: translucent white over the cream photo background */
+  background: rgba(255, 255, 255, 0.20);
+  backdrop-filter: blur(14px) saturate(140%);
+  -webkit-backdrop-filter: blur(14px) saturate(140%);
+  border: 1px solid rgba(255, 255, 255, 0.38);
   border-radius: 22px;
-  box-shadow: 0 6px 20px rgba(0, 38, 61, 0.20);
+  box-shadow: 0 4px 16px rgba(0, 38, 61, 0.10);
   color: var(--nu-wisp);
   cursor: pointer;
   font-family: inherit;
@@ -409,7 +411,7 @@ const admission = {
   0%, 100% { transform: translateY(0); }
   50%      { transform: translateY(-3px); }
 }
-/* Shine sweep on hover (discreto) */
+/* Subtle white shine sweep on hover */
 .quick-card::before {
   content: '';
   position: absolute;
@@ -417,7 +419,7 @@ const admission = {
   width: 50%; height: 100%;
   background: linear-gradient(115deg,
     transparent 0%,
-    rgba(251, 217, 69, 0.15) 50%,
+    rgba(255, 255, 255, 0.22) 50%,
     transparent 100%);
   transform: skewX(-20deg);
   transition: left 0.8s var(--ease-out-soft);
@@ -425,22 +427,22 @@ const admission = {
 }
 .quick-card:hover {
   transform: translateY(-6px) scale(1.03);
-  background: var(--nu-midnight);
-  border-color: rgba(251, 217, 69, 0.7);
+  background: rgba(255, 255, 255, 0.28);
+  border-color: rgba(255, 255, 255, 0.55);
   box-shadow:
-    0 14px 32px rgba(0, 38, 61, 0.35),
-    0 0 0 1.5px rgba(251, 217, 69, 0.45);
+    0 14px 32px rgba(0, 38, 61, 0.18),
+    0 0 0 1px rgba(255, 255, 255, 0.25);
 }
 .quick-card:hover::before { left: 130%; }
 .quick-card:active { transform: translateY(-2px) scale(1.0); }
 
-/* === Uniform SVG icons (same size + color across all 5 quick cards + meta) === */
+/* === Uniform SVG icons — navy on the light glass cards === */
 .icon-svg {
   width: 64px;
   height: 64px;
-  color: var(--nu-tour);
-  opacity: 0.90;
-  filter: drop-shadow(0 2px 6px rgba(251, 217, 69, 0.20));
+  color: var(--nu-midnight);
+  opacity: 0.85;
+  filter: drop-shadow(0 2px 6px rgba(0, 38, 61, 0.20));
   transition: transform 0.4s var(--ease-out-soft),
               opacity 0.3s,
               filter 0.3s,
@@ -449,8 +451,8 @@ const admission = {
 .quick-card:hover .icon-svg {
   transform: scale(1.12) rotate(-6deg);
   opacity: 1;
-  color: var(--nu-amber);
-  filter: drop-shadow(0 3px 10px rgba(255, 188, 45, 0.35));
+  color: var(--nu-navy);
+  filter: drop-shadow(0 3px 10px rgba(3, 76, 135, 0.30));
 }
 
 /* "You are here" pin — positioned at the TOP-LEFT, with enough
@@ -581,7 +583,7 @@ const admission = {
 }
 .hero-meta-label:hover {
   transform: translateY(-2px) scale(1.03);
-  background: #f0c830;
+  background: var(--nu-amber);
   box-shadow: 0 10px 28px rgba(251, 217, 69, 0.45), 0 4px 12px rgba(0, 0, 0, 0.30);
 }
 .hero-meta-label:active {
@@ -615,10 +617,10 @@ const admission = {
   max-width: calc(100% - 64px);
   box-sizing: border-box;
   padding: 64px 72px 56px;
-  /* Glassmorphism: dark navy with subtle transparency */
+  /* Same navy as the bottom icon cards and hours strip — unified contrast element */
   background: linear-gradient(180deg,
-    rgba(0, 38, 61, 0.78) 0%,
-    rgba(0, 38, 61, 0.88) 100%);
+    rgba(var(--nu-navy-rgb), 0.82) 0%,
+    rgba(var(--nu-navy-rgb), 0.90) 100%);
   backdrop-filter: blur(20px) saturate(160%);
   -webkit-backdrop-filter: blur(20px) saturate(160%);
   border-radius: 32px;
@@ -1228,7 +1230,7 @@ const admission = {
   gap: 10px;
   margin: 20px 0 28px;
   padding: 24px 20px;
-  background: rgba(0, 38, 61, 0.30);
+  background: rgba(var(--nu-midnight-rgb), 0.30);
   border-radius: 16px;
   border: 1px solid rgba(251, 217, 69, 0.20);
 }
@@ -1257,7 +1259,7 @@ const admission = {
 .hours-row-time {
   font-family: var(--font-mono);
   font-size: 18px;
-  color: #0a1e3d;
+  color: var(--nu-midnight);
   letter-spacing: 0.04em;
 }
 
@@ -1267,7 +1269,7 @@ const admission = {
   top: 8px; right: 8px;
   width: 18px; height: 18px;
   border-radius: 50%;
-  background: rgba(0, 38, 61, 0.08);
+  background: rgba(var(--nu-midnight-rgb), 0.08);
   color: var(--nu-navy);
   font-family: var(--font-serif);
   font-size: 11px; font-weight: 700;
