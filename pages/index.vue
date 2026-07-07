@@ -120,15 +120,6 @@ const admission = {
       <div class="hero-veil" />
       <div class="hero-bottom-grad" />
 
-      <!-- "You are here" pin (Main Lobby) — static dot, no animation rings -->
-      <div class="you-are-here">
-        <div class="here-dot" />
-        <div class="here-label">
-          <span class="here-eyebrow">You are here</span>
-          <span class="here-name">Barton Main Lobby</span>
-        </div>
-      </div>
-
       <!-- HERO TEXT (top of the screen, above the wayfinding card) -->
       <div class="hero-content">
         <div class="hero-eyebrow">
@@ -460,48 +451,6 @@ const admission = {
    eyebrow (which starts at top: 8% = 154px). The badge sits at
    top: 4.5% and ends at ~230px, leaving 100+px before the
    eyebrow starts. */
-.you-are-here {
-  position: absolute;
-  top: 4.5%;
-  left: 3%;
-  z-index: 10;
-  display: flex; align-items: center; gap: 12px;
-  animation: fadeUp 0.8s var(--ease-out-soft) 0.4s both;
-  background: var(--nu-navy);
-  padding: 8px 18px 8px 10px;
-  border-radius: 999px;
-  border: 1.5px solid rgba(251, 217, 69, 0.60);
-  box-shadow: 0 8px 24px rgba(0, 38, 61, 0.25);
-  max-width: 280px;
-  overflow: visible;
-}
-/* Static location dot (no animation rings — those created a
-   distracting halo/circle artifact on top of the text) */
-.here-dot {
-  position: relative;
-  flex-shrink: 0;
-  width: 14px; height: 14px;
-  border-radius: 50%;
-  background: var(--nu-tour);
-  border: 2px solid var(--nu-wisp);
-  box-shadow: 0 0 0 3px rgba(251, 217, 69, 0.25);
-  z-index: 2;
-}
-.here-label {
-  display: flex; flex-direction: column;
-}
-.here-eyebrow {
-  font-size: 15px; font-weight: 700;
-  letter-spacing: 0.32em; text-transform: uppercase;
-  color: var(--nu-tour);
-  margin-bottom: 3px;
-}
-.here-name {
-  font-family: var(--font-serif);
-  font-size: 28px;
-  color: var(--nu-wisp);
-}
-
 /* ================================================================ */
 /*  HERO TEXT (above the wayfinding card)                           */
 /* ================================================================ */
@@ -618,15 +567,15 @@ const admission = {
   max-width: calc(100% - 64px);
   box-sizing: border-box;
   padding: 64px 72px 56px;
-  /* Glass + gold background — same style as bottom icon cards */
-  background: rgba(251, 217, 69, 0.85);
-  backdrop-filter: blur(16px) saturate(140%);
-  -webkit-backdrop-filter: blur(16px) saturate(140%);
+  /* Navy background — high contrast anchor on the light cream screen */
+  background: linear-gradient(180deg,
+    rgba(var(--nu-navy-rgb), 0.82) 0%,
+    rgba(var(--nu-navy-rgb), 0.90) 100%);
   border-radius: 32px;
-  border: 1.5px solid rgba(255, 255, 255, 0.40);
+  border: 1.5px solid rgba(251, 217, 69, 0.45);
   box-shadow:
-    0 30px 80px rgba(0, 38, 61, 0.18),
-    inset 0 1px 0 rgba(255, 255, 255, 0.35);
+    0 30px 80px rgba(0, 38, 61, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
   text-align: center;
   /* fadeUpCentered preserves translateX(-50%) so the card stays
      horizontally centered. Regular fadeUp would override the
@@ -637,7 +586,7 @@ const admission = {
   width: 120px;
   height: 120px;
   margin-bottom: 32px;
-  filter: drop-shadow(0 8px 20px rgba(0, 38, 61, 0.25));
+  filter: drop-shadow(0 8px 20px rgba(251, 217, 69, 0.4));
   animation: floatY 3s ease-in-out infinite;
 }
 .wayfinding-arrow-up svg {
@@ -647,24 +596,23 @@ const admission = {
 .wayfinding-eyebrow {
   font-size: 18px; font-weight: 700;
   letter-spacing: 0.42em; text-transform: uppercase;
-  color: var(--nu-navy);
+  color: var(--nu-tour);
   margin-bottom: 18px;
 }
 .wayfinding-title {
   font-family: var(--font-serif);
   font-size: 88px; line-height: 1;
-  color: var(--nu-navy);
+  color: var(--nu-wisp);
   margin: 0 0 28px;
   letter-spacing: -0.01em;
-  font-weight: 700;
-  text-shadow: 0 2px 8px rgba(3, 76, 135, 0.12);
+  text-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
 }
 .wayfinding-divider {
   width: 80px;
   height: 1px;
   background: linear-gradient(90deg,
     transparent 0%,
-    var(--nu-navy) 50%,
+    var(--nu-tour) 50%,
     transparent 100%);
   margin: 0 auto 24px;
 }
@@ -672,14 +620,14 @@ const admission = {
   display: flex; align-items: center;
   justify-content: center;
   gap: 12px;
-  color: var(--nu-navy);
+  color: var(--nu-tour);
 }
 .wayfinding-floor {
   font-family: var(--font-serif);
   font-size: 36px; font-weight: 700;
   letter-spacing: 0.02em;
   line-height: 1;
-  color: var(--nu-navy);
+  color: var(--nu-wisp);
 }
 
 /* ================================================================ */
