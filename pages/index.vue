@@ -135,6 +135,16 @@ const admission = {
         </div>
       </div>
 
+      <!-- CENTERED WAYFINDING CARD — take elevator to 2nd floor -->
+      <div class="wayfinding-card">
+        <div class="wayfinding-eyebrow">Take the elevator to</div>
+        <h2 class="wayfinding-title">2nd Floor</h2>
+        <div class="wayfinding-divider" />
+        <div class="wayfinding-location">
+          <span class="wayfinding-floor">Admissions Office</span>
+        </div>
+      </div>
+
       <!-- FLOATING CARDS OVERLAY — 5 equal icon-only cards at bottom -->
       <div class="cards-overlay">
         <div class="quick-grid">
