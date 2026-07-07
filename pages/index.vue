@@ -50,7 +50,7 @@ const admission = {
   tagline: 'Welcome to Northwest. We are so glad you are here.',
   building: 'Barton Hall',
   room: '',
-  direction: 'The Office of Admissions is on the 2nd floor — go up one level.',
+  direction: 'The Office of Admissions is on the ground floor.',
   hours: [
     { day: 'Monday',     time: '8:00 AM – 5:00 PM' },
     { day: 'Tuesday',    time: '8:00 AM – 5:00 PM' },
@@ -131,34 +131,7 @@ const admission = {
           Welcome to Northwest. We are waiting for you.
         </p>
         <div class="hero-meta">
-          <span><strong>↗</strong> Up one floor</span>
-          <span class="dot" />
           <span>Office of Admissions</span>
-        </div>
-      </div>
-
-      <!-- CENTERED WAYFINDING CARD — go up one floor -->
-      <div class="wayfinding-card">
-        <div class="wayfinding-arrow-up">
-          <svg viewBox="0 0 320 320" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <defs>
-              <linearGradient id="upGrad" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%"   stop-color="#fbd945" />
-                <stop offset="100%" stop-color="#ffbc2d" />
-              </linearGradient>
-            </defs>
-            <!-- Up-pointing triangle -->
-            <polygon
-              points="160,40 40,200 100,200 100,280 220,280 220,200 280,200"
-              fill="url(#upGrad)"
-            />
-          </svg>
-        </div>
-        <div class="wayfinding-eyebrow">This way to</div>
-        <h2 class="wayfinding-title">Admissions Office</h2>
-        <div class="wayfinding-divider" />
-        <div class="wayfinding-location">
-          <span class="wayfinding-floor">2nd Floor</span>
         </div>
       </div>
 
