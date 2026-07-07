@@ -326,7 +326,7 @@ const admission = {
   position: relative;
   width: 100%;
   height: 1920px;
-  overflow: hidden;
+  overflow: visible;
   background: #FBF3D9;
 }
 .hero-photo {
@@ -464,7 +464,7 @@ const admission = {
   position: absolute;
   top: 4.5%;
   left: 3%;
-  z-index: 5;
+  z-index: 10;
   display: flex; align-items: center; gap: 12px;
   animation: fadeUp 0.8s var(--ease-out-soft) 0.4s both;
   background: var(--nu-navy);
@@ -473,6 +473,7 @@ const admission = {
   border: 1.5px solid rgba(251, 217, 69, 0.60);
   box-shadow: 0 8px 24px rgba(0, 38, 61, 0.25);
   max-width: 280px;
+  overflow: visible;
 }
 /* Static location dot (no animation rings — those created a
    distracting halo/circle artifact on top of the text) */
@@ -617,18 +618,15 @@ const admission = {
   max-width: calc(100% - 64px);
   box-sizing: border-box;
   padding: 64px 72px 56px;
-  /* Same navy as the bottom icon cards and hours strip — unified contrast element */
+  /* Gold background for contrast on the light cream screen */
   background: linear-gradient(180deg,
-    rgba(var(--nu-navy-rgb), 0.82) 0%,
-    rgba(var(--nu-navy-rgb), 0.90) 100%);
-  backdrop-filter: blur(20px) saturate(160%);
-  -webkit-backdrop-filter: blur(20px) saturate(160%);
+    rgba(var(--nu-tour), 0.92) 0%,
+    rgba(251, 217, 69, 0.96) 100%);
   border-radius: 32px;
-  /* Thin gold border */
-  border: 1.5px solid rgba(251, 217, 69, 0.45);
+  border: 1.5px solid rgba(255, 255, 255, 0.30);
   box-shadow:
-    0 30px 80px rgba(0, 0, 0, 0.5),
-    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    0 30px 80px rgba(0, 38, 61, 0.30),
+    inset 0 1px 0 rgba(255, 255, 255, 0.25);
   text-align: center;
   /* fadeUpCentered preserves translateX(-50%) so the card stays
      horizontally centered. Regular fadeUp would override the
@@ -639,7 +637,7 @@ const admission = {
   width: 120px;
   height: 120px;
   margin-bottom: 32px;
-  filter: drop-shadow(0 8px 20px rgba(251, 217, 69, 0.4));
+  filter: drop-shadow(0 8px 20px rgba(0, 38, 61, 0.25));
   animation: floatY 3s ease-in-out infinite;
 }
 .wayfinding-arrow-up svg {
@@ -649,23 +647,24 @@ const admission = {
 .wayfinding-eyebrow {
   font-size: 18px; font-weight: 700;
   letter-spacing: 0.42em; text-transform: uppercase;
-  color: var(--nu-tour);
+  color: var(--nu-midnight);
   margin-bottom: 18px;
 }
 .wayfinding-title {
   font-family: var(--font-serif);
   font-size: 88px; line-height: 1;
-  color: var(--nu-wisp);
+  color: var(--nu-midnight);
   margin: 0 0 28px;
   letter-spacing: -0.01em;
-  text-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+  font-weight: 700;
+  text-shadow: 0 2px 8px rgba(0, 38, 61, 0.15);
 }
 .wayfinding-divider {
   width: 80px;
   height: 1px;
   background: linear-gradient(90deg,
     transparent 0%,
-    var(--nu-tour) 50%,
+    var(--nu-midnight) 50%,
     transparent 100%);
   margin: 0 auto 24px;
 }
@@ -673,13 +672,14 @@ const admission = {
   display: flex; align-items: center;
   justify-content: center;
   gap: 12px;
-  color: var(--nu-tour);
+  color: var(--nu-midnight);
 }
 .wayfinding-floor {
   font-family: var(--font-serif);
   font-size: 36px; font-weight: 700;
   letter-spacing: 0.02em;
   line-height: 1;
+  color: var(--nu-midnight);
 }
 
 /* ================================================================ */
