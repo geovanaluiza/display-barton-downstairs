@@ -407,7 +407,7 @@ export const TEAMS: TeamItem[] = [
     record: 'Season begins Nov 1',
     nextGame: 'Sat, Nov 1',
     nextOpponent: 'Home opener',
-    image: '251027MensBasketballMediaDay-6502.jpg'
+    image: '251027MensBasketballMediaDay--2.jpg'
   },
   {
     id: 't-wb',
