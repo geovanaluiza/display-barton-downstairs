@@ -40,7 +40,7 @@ export const FEATURED_PHOTOS: Photo[] = [
   { src: '250918BridalTrails-5034.jpg',                 name: 'The Way Service',         category: 'faith' },
   { src: '251106PeabodConcert-7092.jpg',            name: 'PEABOD Concert',         category: 'events' },
   { src: '251106PeabodConcert-7127.jpg',            name: 'Music at NU',             category: 'events' },
-  { src: '250918BridalTrails-5038.jpg', name: 'Women\u2019s Basketball', category: 'athletics' },
+  { src: '251027MensBasketballMediaDay--2.jpg', name: 'Men\u2019s Basketball', category: 'athletics' },
   { src: '250918BridalTrails-5073.jpg',                   name: 'Womens Worship',          category: 'faith' },
   { src: '250920VolleyballGame-2010.jpg',                   name: 'Worship Conference',      category: 'faith' },
   { src: '250920VolleyballGame-2036.jpg',                   name: 'Conference',              category: 'faith' },
