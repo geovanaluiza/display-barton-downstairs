@@ -392,13 +392,49 @@ export const TEAMS: TeamItem[] = [
     image: '250828WomensSoccer-1763.jpg'
   },
   {
-    id: 't-cc',
-    sport: 'Cross Country',
+    id: 't-wbv',
+    sport: 'Women\u2019s Beach Volleyball',
+    season: 'Spring 2027',
+    record: 'Season begins Mar 1',
+    nextGame: 'Fri, Mar 1',
+    nextOpponent: 'Home opener',
+    image: '260403_BeachVolleyball-5857.jpg'
+  },
+  {
+    id: 't-mcc',
+    sport: 'Men\u2019s Cross Country',
     season: 'Fall 2026',
     record: 'Season begins Sep 6',
     nextGame: 'Sat, Sep 6',
     nextOpponent: 'CCC Invite',
     image: '250818CrossCountryMediaDay--6.jpg'
+  },
+  {
+    id: 't-wcc',
+    sport: 'Women\u2019s Cross Country',
+    season: 'Fall 2026',
+    record: 'Season begins Sep 6',
+    nextGame: 'Sat, Sep 6',
+    nextOpponent: 'CCC Invite',
+    image: '250818CrossCountryMediaDay-2384.jpg'
+  },
+  {
+    id: 't-mtf',
+    sport: 'Men\u2019s Track & Field',
+    season: 'Spring 2027',
+    record: 'Season begins Mar 1',
+    nextGame: 'Fri, Mar 1',
+    nextOpponent: 'Home opener',
+    image: '260115_TrackAndField-.jpg'
+  },
+  {
+    id: 't-wtf',
+    sport: 'Women\u2019s Track & Field',
+    season: 'Spring 2027',
+    record: 'Season begins Mar 1',
+    nextGame: 'Fri, Mar 1',
+    nextOpponent: 'Home opener',
+    image: '260115_TrackAndField-9265.jpg'
   },
   {
     id: 't-mb',
