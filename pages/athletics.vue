@@ -23,7 +23,7 @@ const upcomingGames = [
       <img class="hero-photo" src="/images/250811VolleyballMediaDay-1183.jpg" alt="Eagles athlete" />
       <div class="hero-overlay" />
       <div class="hero-content">
-        <h2 class="hero-title">Go Eagles.</h2>
+        <img class="hero-logo" src="/images/eaglelogo.svg" alt="Eagles Logo" />
         <p class="hero-sub">9 teams &middot; Cascade Collegiate Conference</p>
       </div>
     </div>
@@ -103,13 +103,14 @@ const upcomingGames = [
   padding: 40px;
   color: var(--nu-wisp);
   display: flex; flex-direction: column;
-  justify-content: flex-end;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
 }
-.hero-title {
-  font-family: 'Redzone', Georgia, serif;
-  font-size: 64px; line-height: 1.05;
-  color: var(--nu-wisp);
-  margin: 0;
+.hero-logo {
+  max-width: 340px;
+  width: 100%;
+  margin-bottom: 16px;
 }
 
 :deep(.display-2) {
