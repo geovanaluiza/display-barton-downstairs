@@ -76,7 +76,7 @@ onUnmounted(() => { if (timer) clearInterval(timer) })
   z-index: 50;
   cursor: pointer;
   overflow: hidden;
-  background: var(--nu-midnight);
+  background: var(--nu-blue);
 }
 .bg { position: absolute; inset: 0; }
 .bg-img {
