@@ -512,7 +512,7 @@ const mission = [
   animation: fadeUp 0.8s var(--ease-out-soft) 0.3s both;
 }
 .hero-meta strong {
-  font-family: var(--font-serif);
+  font-family: 'Redzone', Georgia, serif;
   font-size: 20px; font-weight: 700;
   color: var(--nu-tour);
   margin-right: 4px;
@@ -571,7 +571,7 @@ const mission = [
   margin-bottom: 10px;
 }
 .feat-name {
-  font-family: var(--font-serif);
+  font-family: 'Redzone', Georgia, serif;
   font-size: 22px; line-height: 1.1;
   color: var(--nu-midnight);
   margin: 0 0 6px;
@@ -612,7 +612,7 @@ const mission = [
   margin-bottom: 12px;
 }
 .find-title {
-  font-family: var(--font-serif);
+  font-family: 'Redzone', Georgia, serif;
   font-size: 48px; line-height: 1.05;
   color: var(--nu-wisp);
   margin: 0 0 12px;
@@ -654,7 +654,7 @@ const mission = [
   margin-bottom: 6px;
 }
 .sect-title {
-  font-family: var(--font-serif);
+  font-family: 'Redzone', Georgia, serif;
   font-size: 48px; line-height: 1.05;
   color: var(--nu-midnight);
   margin: 0;
@@ -736,7 +736,7 @@ const mission = [
   padding: 16px 0;
 }
 .coll-name {
-  font-family: var(--font-serif);
+  font-family: 'Redzone', Georgia, serif;
   font-size: 44px; line-height: 1.05;
   color: var(--nu-midnight);
   margin: 0 0 12px;
