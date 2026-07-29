@@ -132,7 +132,6 @@ const stickers = [
           :class="{ 'is-active': active === c.key }"
           @click="active = c.key"
         >
-          <span class="cat-icon">{{ c.icon }}</span>
           <span class="cat-label">{{ c.label }}</span>
           <span class="cat-count" v-if="c.key === 'All'">{{ CLUBS.length }}</span>
           <span class="cat-count" v-else>{{ CLUBS.filter(x => x.category === c.key).length }}</span>
