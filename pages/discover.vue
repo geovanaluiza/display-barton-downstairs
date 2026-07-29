@@ -253,7 +253,7 @@ const photos = computed(() => PHOTOS_BY_CATEGORY.community?.slice(0, 4) || [])
   margin-bottom: 28px;
 }
 .pillar-modal-title {
-  font-family: 'Redzone', Georgia, serif;
+  font-family: var(--font-serif);
   font-size: 52px;
   color: var(--nu-midnight);
   margin: 0 0 24px;
