@@ -96,7 +96,7 @@ const upcomingGames = [
 }
 .hero-overlay {
   position: absolute; inset: 0;
-  background: linear-gradient(180deg, rgba(0,38,61,0.40) 0%, rgba(0,38,61,0.75) 60%, rgba(0,38,61,0.95) 100%);
+  background: linear-gradient(180deg, rgba(0,104,187,0.40) 0%, rgba(0,104,187,0.75) 60%, rgba(0,104,187,0.95) 100%);
 }
 .hero-content {
   position: absolute; inset: 0;
