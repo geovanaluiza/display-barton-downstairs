@@ -153,7 +153,6 @@ const stickers = [
         <article v-for="(t, i) in traditions" :key="t.title" class="trad-card" :style="{ '--accent': t.accent, animationDelay: `${i * 100}ms` }">
           <img class="trad-img" :src="`/images/${t.img}`" :alt="t.title" />
           <div class="trad-veil" />
-          <div class="trad-icon" :style="{ '--c': t.accent }">{{ t.icon }}</div>
           <div class="trad-content">
             <h3 class="trad-title">{{ t.title }}</h3>
             <p class="trad-blurb">{{ t.blurb }}</p>
