@@ -39,6 +39,18 @@ const visibleClubs = computed(() =>
   active.value === 'All' ? CLUBS : CLUBS.filter(c => c.category === active.value)
 )
 
+const selectedClub = ref<typeof CLUBS[number] | null>(null)
+
+function openClub(club: typeof CLUBS[number]) {
+  selectedClub.value = club
+  nextTick(() => {
+    document.querySelector('.club-modal')?.scrollIntoView({ block: 'start' })
+  })
+}
+function closeClub() {
+  selectedClub.value = null
+}
+
 // === TRADITIONS — featured immersive cards ===
 const traditions = [
   {
@@ -87,14 +99,6 @@ const stickers = [
     <section class="hero">
       <img class="hero-img" src="/images/250821 StudentLeadershipFairEdited5446.jpg" alt="Students gathered at the Leadership Fair on the Northwest campus" />
       <div class="hero-overlay" />
-
-      <!-- Floating delight stickers (top-right) -->
-      <div class="sticker-cluster">
-        <span v-for="(s, i) in stickers" :key="s.label" class="sticker" :style="{ '--c': s.color, animationDelay: `${i * 0.4}s` }">
-          <span class="sticker-icon">{{ s.icon }}</span>
-          <span class="sticker-label">{{ s.label }}</span>
-        </span>
-      </div>
 
       <div class="hero-content">
         <div class="hero-eyebrow">Student Life</div>
@@ -178,6 +182,10 @@ const stickers = [
           class="org-card"
           :class="{ 'is-so': i < 5 }"
           :style="{ animationDelay: `${(i % 12) * 50}ms` }"
+          @click="openClub(c)"
+          role="button"
+          tabindex="0"
+          @keydown.enter="openClub(c)"
         >
           <div class="org-badge" v-if="i < 5">Student Organization</div>
           <div class="org-logo-frame">
@@ -245,6 +253,24 @@ const stickers = [
         <button class="cta-ghost" @click="scrollToOrgs">Find Your Fit →</button>
       </div>
     </section>
+
+    <!-- === CLUB DETAIL MODAL === -->
+    <div v-if="selectedClub" class="club-modal" @click.self="closeClub" role="dialog" aria-modal="true">
+      <div class="club-modal-inner">
+        <button class="modal-close" @click="closeClub" aria-label="Close">✕</button>
+        <div class="modal-logo">
+          <img :src="`/images/${selectedClub.image}`" :alt="selectedClub.name" />
+        </div>
+        <div class="modal-category">{{ selectedClub.category }}</div>
+        <h2 class="modal-name">{{ selectedClub.name }}</h2>
+        <div class="modal-meta">
+          <span class="modal-members">{{ selectedClub.members }} members</span>
+          <span class="modal-dot">·</span>
+          <span class="modal-meeting">{{ selectedClub.meeting }}</span>
+        </div>
+        <p class="modal-blurb">{{ selectedClub.blurb }}</p>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -817,6 +843,92 @@ const stickers = [
 }
 .how-desc {
   font-size: 12px; line-height: 1.4;
+  color: var(--nu-skylight);
+  margin: 0;
+  opacity: 0.9;
+}
+
+/* ===================== CLUB MODAL ===================== */
+.club-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  background: rgba(0, 38, 61, 0.82);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+}
+.club-modal-inner {
+  background: var(--nu-midnight);
+  border-radius: 24px;
+  padding: 56px 64px 64px;
+  max-width: 640px;
+  width: 100%;
+  text-align: center;
+  box-shadow: 0 32px 80px rgba(0,0,0,0.5);
+  position: relative;
+}
+.modal-close {
+  position: absolute;
+  top: 20px; right: 24px;
+  background: none;
+  border: none;
+  color: var(--nu-skylight);
+  font-size: 24px;
+  cursor: pointer;
+  padding: 8px;
+  line-height: 1;
+  opacity: 0.7;
+  transition: opacity 0.2s;
+}
+.modal-close:hover { opacity: 1; }
+.modal-logo {
+  width: 120px; height: 120px;
+  border-radius: 20px;
+  overflow: hidden;
+  margin: 0 auto 24px;
+  border: 3px solid rgba(255,255,255,0.12);
+  background: rgba(255,255,255,0.06);
+}
+.modal-logo img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+}
+.modal-category {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--nu-tour);
+  margin-bottom: 10px;
+}
+.modal-name {
+  font-family: var(--font-serif);
+  font-size: 44px;
+  font-weight: 400;
+  color: var(--nu-wisp);
+  margin: 0 0 16px;
+  line-height: 1.1;
+}
+.modal-meta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 28px;
+}
+.modal-members, .modal-meeting {
+  font-size: 14px;
+  color: var(--nu-skylight);
+  opacity: 0.8;
+}
+.modal-dot { color: var(--nu-skylight); opacity: 0.5; }
+.modal-blurb {
+  font-size: 16px;
+  line-height: 1.65;
   color: var(--nu-skylight);
   margin: 0;
   opacity: 0.9;

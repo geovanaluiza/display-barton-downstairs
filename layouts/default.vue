@@ -86,7 +86,7 @@ const currentWorldLabel = computed(
           <footer class="drawer-foot">
             <div class="foot-line">Tap a world to open</div>
             <div class="foot-line">Swipe ← → to change</div>
-            <div class="foot-line">Press <kbd>M</kbd> to toggle</div>
+
           </footer>
         </aside>
       </div>

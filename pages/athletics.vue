@@ -106,7 +106,7 @@ const upcomingGames = [
   justify-content: flex-end;
 }
 .hero-title {
-  font-family: var(--font-serif);
+  font-family: 'Redzone', Georgia, serif;
   font-size: 64px; line-height: 1.05;
   color: var(--nu-wisp);
   margin: 0;

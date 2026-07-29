@@ -22,6 +22,9 @@ export default defineNuxtConfig({
   app: {
     head: {
       title: 'Northwest University — Interactive Display',
+      link: [
+        { rel: 'stylesheet', href: 'https://use.typekit.net/lsx4kqf.css' }
+      ],
       meta: [
         { charset: 'utf-8' },
         { name: 'viewport', content: 'width=1080, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, viewport-fit=cover' },

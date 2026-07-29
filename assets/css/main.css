@@ -3,6 +3,14 @@
    Global stylesheet. Locked palette. Touch-first.
    ========================================================= */
 
+@font-face {
+  font-family: 'Redzone';
+  src: url('/fonts/Redzone-BlackSemiExtd.otf') format('opentype');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
   /* Brand */
   --nu-blue:       #0068bb;
@@ -24,7 +32,7 @@
   --nu-wisp:       #f9f9f9;
 
   /* Type */
-  --font-serif: "Times New Roman", "Times", "Tinos", serif;
+  --font-serif: 'zenon', Georgia, serif;
   --font-sans:  -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
                 "Helvetica Neue", Arial, sans-serif;
 
