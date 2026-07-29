@@ -15,10 +15,22 @@ const stats = [
 ]
 const mission = 'We, the people of Northwest University, carry the call of God by continually building a learning community dedicated to spiritual vitality, academic excellence, and empowered engagement with human need.'
 const pillars = [
-  { title: 'Spiritual Vitality',     color: 'var(--nu-blue)' },
-  { title: 'Academic Excellence',    color: 'var(--nu-navy)' },
-  { title: 'Empowered Engagement',   color: 'var(--nu-tour)' }
+  { title: 'Spiritual Vitality',   color: 'var(--nu-blue)',  desc: 'A Christ-centered education where faith is not separate from learning but woven into every classroom, conversation, and campus experience. Chapel, worship nights, and spiritual formation are part of daily life.' },
+  { title: 'Academic Excellence',  color: 'var(--nu-navy)',  desc: 'Rigorous liberal arts and professional programs taught by faculty who care deeply about your growth. Over 23 undergraduate majors and graduate degrees designed to prepare you for meaningful work.' },
+  { title: 'Empowered Engagement', color: 'var(--nu-tour)', desc: 'Learning that moves beyond the classroom — service trips, global partnerships, leadership opportunities, and real-world projects that prepare you to make a difference wherever you go.' }
 ]
+
+const selectedPillar = ref<typeof pillars[number] | null>(null)
+
+function openPillar(p: typeof pillars[number]) {
+  selectedPillar.value = p
+  nextTick(() => {
+    document.querySelector('.pillar-modal')?.scrollIntoView({ block: 'start' })
+  })
+}
+function closePillar() {
+  selectedPillar.value = null
+}
 const photos = computed(() => PHOTOS_BY_CATEGORY.community?.slice(0, 4) || [])
 </script>
 
@@ -52,11 +64,29 @@ const photos = computed(() => PHOTOS_BY_CATEGORY.community?.slice(0, 4) || [])
     <!-- Pillars -->
     <h2 class="h2 sect">What Defines Us</h2>
     <div class="pillars stagger">
-      <div v-for="(p, i) in pillars" :key="p.title" class="pillar hover-tilt" :style="{ '--pillar-color': p.color, animationDelay: `${i * 120}ms` }">
+      <div
+        v-for="(p, i) in pillars"
+        :key="p.title"
+        class="pillar hover-tilt"
+        :style="{ '--pillar-color': p.color, animationDelay: `${i * 120}ms` }"
+        @click="openPillar(p)"
+      >
         <div class="pillar-bar" />
         <h3 class="h3">{{ p.title }}</h3>
       </div>
     </div>
+
+    <!-- Pillar Modal -->
+    <Transition name="modal">
+      <div v-if="selectedPillar" class="pillar-modal" @click.self="closePillar" role="dialog" aria-modal="true">
+        <div class="pillar-modal-card">
+          <button class="modal-close" @click="closePillar" aria-label="Close">✕</button>
+          <div class="pillar-modal-bar" :style="{ background: selectedPillar.color }" />
+          <h2 class="pillar-modal-title">{{ selectedPillar.title }}</h2>
+          <p class="pillar-modal-desc">{{ selectedPillar.desc }}</p>
+        </div>
+      </div>
+    </Transition>
 
     <!-- Photo collage -->
     <h2 class="h2 sect">Life at NU</h2>
@@ -179,4 +209,62 @@ const photos = computed(() => PHOTOS_BY_CATEGORY.community?.slice(0, 4) || [])
 }
 .world-pill:hover { background: var(--pill, var(--nu-blue)); color: var(--nu-wisp); }
 .world-pill:active { transform: scale(0.97); }
+
+/* Pillar Modal */
+.pillar-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  background: rgba(0, 38, 61, 0.75);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+}
+.pillar-modal-card {
+  background: var(--nu-wisp);
+  border-radius: 28px;
+  padding: 56px;
+  max-width: 680px;
+  width: 100%;
+  position: relative;
+  box-shadow: 0 32px 80px rgba(0, 38, 61, 0.35);
+}
+.modal-close {
+  position: absolute;
+  top: 24px; right: 28px;
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  background: var(--nu-cloud);
+  border: none;
+  font-size: 22px;
+  color: var(--nu-navy);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
+}
+.modal-close:hover { background: var(--nu-skylight); }
+.pillar-modal-bar {
+  width: 80px; height: 10px;
+  border-radius: 5px;
+  margin-bottom: 28px;
+}
+.pillar-modal-title {
+  font-family: 'Redzone', Georgia, serif;
+  font-size: 52px;
+  color: var(--nu-midnight);
+  margin: 0 0 24px;
+  line-height: 1.05;
+}
+.pillar-modal-desc {
+  font-size: 22px;
+  line-height: 1.5;
+  color: var(--nu-navy);
+  margin: 0;
+}
+.modal-enter-active, .modal-leave-active { transition: opacity 0.3s ease; }
+.modal-enter-from, .modal-leave-to { opacity: 0; }
 </style>
