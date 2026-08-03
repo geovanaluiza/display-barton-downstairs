@@ -28,14 +28,20 @@ function fit() {
   stageEl.value.style.transform = `translate(${x}px, ${y}px) scale(${s})`
 }
 
+let reloadTimer: ReturnType<typeof setInterval> | null = null
+
 onMounted(() => {
   fit()
   window.addEventListener('resize', fit)
   window.addEventListener('orientationchange', fit)
+  reloadTimer = setInterval(() => {
+    window.location.reload()
+  }, 5 * 60 * 1000)
 })
 onUnmounted(() => {
   window.removeEventListener('resize', fit)
   window.removeEventListener('orientationchange', fit)
+  if (reloadTimer) clearInterval(reloadTimer)
 })
 </script>
 
