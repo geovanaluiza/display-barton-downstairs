@@ -28,19 +28,40 @@ function fit() {
   stageEl.value.style.transform = `translate(${x}px, ${y}px) scale(${s})`
 }
 
+// ── Inactivity Return Home ──
+const INACTIVITY_MS = 60 * 1000 // 1 minute
+let inactivityTimer: ReturnType<typeof setTimeout> | null = null
+
+function resetInactivityTimer() {
+  if (inactivityTimer) clearTimeout(inactivityTimer)
+  inactivityTimer = setTimeout(() => {
+    const router = useRouter()
+    router.push('/splash')
+  }, INACTIVITY_MS)
+}
+
+function cleanupInactivityListeners() {
+  const events = ['mousedown', 'touchstart', 'keydown', 'scroll']
+  events.forEach(evt => window.removeEventListener(evt, resetInactivityTimer))
+  if (inactivityTimer) clearTimeout(inactivityTimer)
+}
+
+// ── Auto-reload every 5 minutes ──
 let reloadTimer: ReturnType<typeof setInterval> | null = null
 
 onMounted(() => {
   fit()
   window.addEventListener('resize', fit)
   window.addEventListener('orientationchange', fit)
-  reloadTimer = setInterval(() => {
-    window.location.reload()
-  }, 5 * 60 * 1000)
+  const events = ['mousedown', 'touchstart', 'keydown', 'scroll']
+  events.forEach(evt => window.addEventListener(evt, resetInactivityTimer, { passive: true }))
+  resetInactivityTimer()
+  reloadTimer = setInterval(() => { window.location.reload() }, 5 * 60 * 1000)
 })
 onUnmounted(() => {
   window.removeEventListener('resize', fit)
   window.removeEventListener('orientationchange', fit)
+  cleanupInactivityListeners()
   if (reloadTimer) clearInterval(reloadTimer)
 })
 </script>

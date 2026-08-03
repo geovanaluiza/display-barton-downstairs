@@ -33,10 +33,8 @@ export const FEATURED_PHOTOS: Photo[] = [
   { src: '250826VolleyballTailgateEdited (17).jpg',name: 'Eagles Nation',            category: 'events' },
   { src: '250826VolleyballTailgateEdited (34).jpg',name: 'Pre-Game',                 category: 'events' },
   { src: '250826VolleyballTailgateEdited (44).jpg',name: 'Cheer',                    category: 'events' },
-  { src: '250915LowerCampus-4898.jpg',             name: 'Bridal Trails',           category: 'student-life' },
-  { src: '250915LowerCampus-4926.jpg',             name: 'Traditions',              category: 'student-life' },
   { src: '250903ChurchFair-4482.jpg',               name: 'Church Fair',             category: 'community' },
-  { src: '250915LowerCampus-4946.jpg',                   name: 'The Way',                 category: 'faith' },
+
   { src: '250918BridalTrails-5034.jpg',                 name: 'The Way Service',         category: 'faith' },
   { src: '251106PeabodConcert-7092.jpg',            name: 'PEABOD Concert',         category: 'events' },
   { src: '251106PeabodConcert-7127.jpg',            name: 'Music at NU',             category: 'events' },
