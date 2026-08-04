@@ -103,10 +103,28 @@ const Artcreatio = {
   </svg>`
 }
 
+// Education — open book + lightbulb / growth
+const Arteducation = {
+  template: `<svg class="art-svg" viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+    <g fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round">
+      <path d="M80,180 L200,120 L320,180 L200,240 Z" stroke-width="2"/>
+      <path d="M80,180 L200,240 L320,180"/>
+      <line x1="200" y1="120" x2="200" y2="60"/>
+      <line x1="160" y1="75" x2="200" y2="60" opacity="0.5"/>
+      <line x1="240" y1="75" x2="200" y2="60" opacity="0.5"/>
+      <circle cx="200" cy="50" r="12" fill="currentColor" opacity="0.6"/>
+      <line x1="200" y1="240" x2="200" y2="280"/>
+      <line x1="160" y1="260" x2="240" y2="260"/>
+      <path d="M120,150 L140,170 M280,150 L260,170" opacity="0.5"/>
+    </g>
+  </svg>`
+}
+
 // Map of art components
 const ART: Record<string, any> = {
   cast: Artcast, ministry: Artministry, business: Artbusiness,
-  nursing: Artnursing, medicine: Artmedicine, social: Artsocial, creatio: Artcreatio
+  nursing: Artnursing, medicine: Artmedicine, social: Artsocial, creatio: Artcreatio,
+  education: Arteducation
 }
 
 // === NU palette + visual archetype per college ===
@@ -117,13 +135,15 @@ const palette = [
   { hue: 'leaf',    accent: 'var(--nu-leaf)',     accentSoft: 'rgba(68, 186, 130, 0.14)', short: 'NUR',   art: 'nursing' },
   { hue: 'tour',    accent: 'var(--nu-tour)',     accentSoft: 'rgba(251, 217, 69, 0.16)', short: 'PA',    art: 'medicine'},
   { hue: 'alt',     accent: 'var(--nu-alt)',      accentSoft: 'rgba(20, 141, 205, 0.12)', short: 'SBS',   art: 'social'  },
-  { hue: 'amber',   accent: 'var(--nu-amber)',    accentSoft: 'rgba(255, 188, 45, 0.16)', short: 'CRT',   art: 'creatio' }
+  { hue: 'amber',   accent: 'var(--nu-amber)',    accentSoft: 'rgba(255, 188, 45, 0.16)', short: 'CRT',   art: 'creatio' },
+  { hue: 'sky',    accent: 'var(--nu-sky)',      accentSoft: 'rgba(149, 197, 234, 0.2)', short: 'EDU',   art: 'education' }
 ]
 
 // === Hero stats ===
 const heroStats = [
   { value: '22', label: 'Majors' },
   { value: '6',  label: 'Colleges' },
+  { value: '7',  label: 'Schools' },
   { value: '3',  label: 'Centers' }
 ]
 

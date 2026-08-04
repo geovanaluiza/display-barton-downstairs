@@ -122,7 +122,7 @@ const RAW: RawEvent[] = [
     location: 'Registrar',
     category: 'academic',
     blurb: 'Priority registration for Spring 2027 begins. Meet with your advisor early.',
-    image: '250915LowerCampus-4892.jpg'
+    image: '250903ChurchFair-4473.jpg'
   },
   {
     id: 'evt-withdraw-fall',
@@ -229,7 +229,7 @@ const RAW: RawEvent[] = [
     location: 'Campus',
     category: 'academic',
     blurb: 'No classes. University offices closed.',
-    image: '250915LowerCampus-4941.jpg',
+    image: '250903ChurchFair-4476.jpg',
     allDay: true
   },
   {
@@ -240,7 +240,7 @@ const RAW: RawEvent[] = [
     location: 'Campus',
     category: 'academic',
     blurb: 'No classes Mar 8-12. Travel, rest, serve.',
-    image: '250915LowerCampus-4958.jpg',
+    image: '250903ChurchFair-4488.jpg',
     allDay: true
   },
   {
@@ -534,5 +534,12 @@ export const PROGRAMS: ProgramItem[] = [
     programs: ['Computer Science', 'Film Production', 'Human-Centered Design', 'Music Production', 'Visual Design'],
     tagline: 'Where designers, coders, and makers sharpen their craft.',
     image: '251004FamilyWeekend-5284.jpg'
+  },
+  {
+    id: 'p-edu',
+    college: 'School of Education',
+    programs: ['Elementary Education', 'Secondary Education', 'Special Education', 'Physical Education'],
+    tagline: 'Preparing educators who inspire and empower learners.',
+    image: '251004FamilyWeekend-5275.jpg'
   }
 ]
