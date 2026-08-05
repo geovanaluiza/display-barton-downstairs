@@ -116,12 +116,9 @@ const mission = [
           <span class="ey-dot" /> SwoopShop
         </div>
         <h1 class="hero-title">Show Your Eagle Spirit.</h1>
-        <p class="hero-subtitle">
-          Visit us in the Pecota Student Center to get your official Northwest University spirit gear on Mondays and Fridays. A variety of new apparel, drinkware and accessories have just arrived for the 26-27 academic year!
-        </p>
 
         <div class="hero-meta">
-          <span>Visit us in person at Pecota</span>
+          <span>Visit the SwoopShop</span>
         </div>
       </div>
     </section>
