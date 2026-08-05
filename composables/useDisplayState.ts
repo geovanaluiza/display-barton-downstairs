@@ -24,17 +24,13 @@ export const WORLDS: { key: WorldKey; label: string; short: string; color: strin
   { key: 'athletics',  label: 'Athletics',         short: 'Athletics',  color: 'var(--nu-blue)',     route: '/athletics' },
   { key: 'faith',      label: 'Faith & Community', short: 'Faith',      color: 'var(--nu-navy)',     route: '/faith' },
   { key: 'president',  label: 'Meet the President', short: 'President', color: 'var(--nu-amber)',    route: '/president' },
-  { key: 'swoop-shop', label: 'Swoop Shop',        short: 'Swoop',      color: 'var(--nu-tour)',     route: '/swoop-shop' }
+  { key: 'swoop-shop', label: 'SwoopShop',        short: 'Swoop',      color: 'var(--nu-tour)',     route: '/swoop-shop' }
 ]
 
 const currentWorld = ref<WorldKey>('home')
 const lastInteraction = ref<number>(Date.now())
 const isIdle = ref(false)
-// === Barton 2nd Floor lobby mode: this is a focused wayfinding screen.
-// Idle slideshow is disabled — the page must remain the active, single view.
-const idleTimeoutMs = Infinity
-
-const RETURN_HOME_AFTER_MS = 60_000
+const idleTimeoutMs = 30_000
 
 const IDLE_EVENTS = ['pointerdown', 'pointermove', 'keydown', 'wheel', 'touchstart'] as const
 let idleTimer: ReturnType<typeof setInterval> | null = null
@@ -49,13 +45,8 @@ function startIdleWatcher() {
   stopIdleWatcher()
   for (const ev of IDLE_EVENTS) window.addEventListener(ev, bumpInteraction, { passive: true })
   idleTimer = setInterval(() => {
-    const idle = Date.now() - lastInteraction.value
-    if (idle > idleTimeoutMs) {
+    if (Date.now() - lastInteraction.value > idleTimeoutMs) {
       isIdle.value = true
-    }
-    if (idle > RETURN_HOME_AFTER_MS) {
-      const router = useRouter()
-      if (window.location.pathname !== '/') router.push('/')
     }
   }, 1000)
 }
