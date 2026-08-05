@@ -467,13 +467,13 @@ const mission = [
 }
 .hero-title {
   font-family: 'Redzone', Georgia, serif;
-  font-size: 92px; line-height: 0.96;
+  font-size: 72px; line-height: 1;
   color: var(--nu-wisp);
   margin: 0 0 14px;
   letter-spacing: -0.02em;
   text-shadow: 0 4px 24px rgba(0, 0, 0, 0.45);
   animation: fadeUp 0.8s var(--ease-out-soft) 0.1s both;
-  max-width: 18ch;
+  max-width: 100%;
 }
 .hero-subtitle {
   font-size: 20px; line-height: 1.4;
