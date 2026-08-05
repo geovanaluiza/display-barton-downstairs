@@ -37,48 +37,48 @@ const heroProds: Product[] = [
   { id: 'p-hoodie',   name: 'Hanes Hoodie',        blurb: '',  img: 'products/prod-hoodie-royal.jpg',     collection: 'apparel',    accent: 'var(--nu-navy)' }
 ]
 
-// === COLLECTIONS — 4 destinations (real catalog photos) ===
+// === COLLECTIONS — 3 destinations ===
 const collections = [
   {
     key: 'apparel',
     name: 'Apparel',
-    blurb: 'Hoodies, tees, crewnecks, and hats for the Northwest life.',
+    blurb: 'Hoodies, tees, crewnecks, and polos for the Northwest life.',
     accent: 'var(--nu-navy)',
     cover: 'products/prod-hoodie-royal.jpg',
     items: [
-      { name: 'Hanes Hoodie',     img: 'products/prod-hoodie-royal.jpg' },
-      { name: 'Eagles Crewneck',  img: 'products/prod-crew-bering.jpg' },
-      { name: 'Camo Crewneck',    img: 'products/prod-crew-camo.jpg' },
-      { name: 'Eagle Grey Crew',  img: 'products/prod-crew-eagle-grey.jpg' },
-      { name: 'Eagles Twill Cap', img: 'products/prod-twill-eagles.jpg' }
+      { name: 'Hanes Hoodie',      img: 'products/prod-hoodie-royal.jpg' },
+      { name: 'Eagles Crewneck',   img: 'products/prod-crew-bering.jpg' },
+      { name: 'Eagle Grey Crew',   img: 'products/prod-crew-eagle-grey.jpg' },
+      { name: 'Eagles Tee',        img: 'products/prod-tee-seal-navy.jpg' },
+      { name: 'Polo',             img: 'products/prod-polo-navy.jpg' }
     ]
   },
   {
-    key: 'stickers',
-    name: 'Stickers',
-    blurb: 'Vinyl decals, die-cuts, and faith-forward designs.',
+    key: 'headwear',
+    name: 'Headwear',
+    blurb: 'Beanies, caps, and hats to show your Eagle spirit.',
     accent: 'var(--nu-tour)',
-    cover: 'products/sticker-nu-mountain.png',
+    cover: 'products/prod-beanie-navy.jpg',
     items: [
-      { name: 'NU Vert Bar',     img: 'products/sticker-nu-vertbar.png' },
-      { name: 'Mountain Scene',  img: 'products/sticker-nu-mountain.png' },
-      { name: 'Eagle Wave',      img: 'products/sticker-eagle-wave.png' },
-      { name: 'NU Stacked',      img: 'products/sticker-nu-stacked.png' },
-      { name: 'Seal (White)',    img: 'products/sticker-seal-white.png' }
+      { name: 'Knit Beanie',           img: 'products/prod-beanie-navy.jpg' },
+      { name: 'Pom Beanie',             img: 'products/prod-pom-beanie-navy.jpg' },
+      { name: 'Eagles Twill Cap',       img: 'products/prod-twill-eagles.jpg' },
+      { name: 'Trucker Hat',           img: 'products/prod-trucker-navy.jpg' },
+      { name: 'Sportsman Hat',          img: 'products/prod-hat-navy.jpg' }
     ]
   },
   {
-    key: 'gifts',
-    name: 'Gifts',
-    blurb: 'Bottles, accessories, and keepsakes for the people you love.',
+    key: 'accessories',
+    name: 'Accessories',
+    blurb: 'Bottles, stickers, and more for the Northwest life.',
     accent: 'var(--nu-leaf)',
     cover: 'products/prod-bottle-blue.jpg',
     items: [
-      { name: 'Flair Bottle',         img: 'products/prod-bottle-blue.jpg' },
-      { name: 'Knit Beanie',          img: 'products/prod-beanie-navy.jpg' },
-      { name: 'Pom Beanie',           img: 'products/prod-pom-beanie-navy.jpg' },
-      { name: 'Trucker Hat',          img: 'products/prod-trucker-navy.jpg' },
-      { name: 'Sportsman Hat (Navy)', img: 'products/prod-hat-navy.jpg' }
+      { name: 'Flair Bottle',     img: 'products/prod-bottle-blue.jpg' },
+      { name: 'Mountain Sticker',  img: 'products/sticker-nu-mountain.png' },
+      { name: 'Eagle Wave',       img: 'products/sticker-eagle-wave.png' },
+      { name: 'NU Vert Bar',      img: 'products/sticker-nu-vertbar.png' },
+      { name: 'Seal Sticker',     img: 'products/sticker-seal-white.png' }
     ]
   }
 ]
@@ -110,7 +110,7 @@ const mission = [
       <img
         class="hero-photo"
         src="/images/swoopshop/hero-main.jpg"
-        alt="Northwest Eagles apparel on display at the Swoop Shop"
+        alt="Northwest Eagles apparel on display at the SwoopShop"
       />
       <div class="hero-gradient" />
       <div class="hero-radial" />
@@ -119,7 +119,7 @@ const mission = [
         <div class="hero-eyebrow">
           <span class="ey-dot" /> SwoopShop
         </div>
-        <h1 class="hero-title">Wear Your Eagle Pride.</h1>
+        <h1 class="hero-title">Show Your Eagle Spirit.</h1>
         <p class="hero-subtitle">
           Visit us in the Pecota Student Center to get your official Northwest University spirit gear on Mondays and Fridays. A variety of new apparel, drinkware and accessories have just arrived for the 26-27 academic year!
         </p>
@@ -147,19 +147,15 @@ const mission = [
         </div>
         <div class="find-content">
           <div class="find-eyebrow">Find the Shop</div>
-          <h2 class="find-title">Visit the Swoop Shop in person.</h2>
+          <h2 class="find-title">Visit the SwoopShop in person.</h2>
           <p class="find-detail">
             Visit us in the Pecota Student Center on the Kirkland campus.
             Get your official Northwest University spirit gear today!
           </p>
           <div class="find-meta">
             <div class="find-meta-item">
-              <div class="find-meta-label">Location</div>
-              <div class="find-meta-value">Pecota Student Center</div>
-            </div>
-            <div class="find-meta-item">
               <div class="find-meta-label">Hours</div>
-              <div class="find-meta-value">Mon 10am-2pm &middot; Fri 11:15am-2pm</div>
+              <div class="find-meta-value">Mon 10:00 AM - 2:00 PM &middot; Fri 11:15 AM - 2:00 PM</div>
             </div>
             <div class="find-meta-item">
               <div class="find-meta-label">Contact</div>
