@@ -288,6 +288,20 @@ const discover = [
                 <line x1="165" y1="185" x2="145" y2="205" opacity="0.3"/><line x1="235" y1="185" x2="255" y2="205" opacity="0.3"/>
               </g>
             </svg>
+            <!-- Education — open book + lightbulb / growth -->
+            <svg v-else-if="palette[i].art === 'education'" class="art-svg" viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+              <g fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round">
+                <path d="M80,180 L200,120 L320,180 L200,240 Z" stroke-width="2"/>
+                <path d="M80,180 L200,240 L320,180"/>
+                <line x1="200" y1="120" x2="200" y2="60"/>
+                <line x1="160" y1="75" x2="200" y2="60" opacity="0.5"/>
+                <line x1="240" y1="75" x2="200" y2="60" opacity="0.5"/>
+                <circle cx="200" cy="50" r="12" fill="currentColor" opacity="0.6"/>
+                <line x1="200" y1="240" x2="200" y2="280"/>
+                <line x1="160" y1="260" x2="240" y2="260"/>
+                <path d="M120,150 L140,170 M280,150 L260,170" opacity="0.5"/>
+              </g>
+            </svg>
             <div class="art-shade" />
             <div class="art-stamp">
               <span class="art-num">0{{ i + 1 }}</span>
