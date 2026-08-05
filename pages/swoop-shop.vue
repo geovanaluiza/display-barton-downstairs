@@ -64,7 +64,6 @@ const collections = [
       { name: 'Pom Beanie',             img: 'products/prod-pom-beanie-navy.jpg' },
       { name: 'Eagles Twill Cap',       img: 'products/prod-twill-eagles.jpg' },
       { name: 'Trucker Hat',           img: 'products/prod-trucker-navy.jpg' },
-      { name: 'Sportsman Hat',          img: 'products/prod-hat-navy.jpg' }
     ]
   },
   {
