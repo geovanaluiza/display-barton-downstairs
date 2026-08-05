@@ -121,8 +121,7 @@ const mission = [
         </div>
         <h1 class="hero-title">Wear Your Eagle Pride.</h1>
         <p class="hero-subtitle">
-          Official Northwest University merchandise. Visit us in person
-          at the Pecota Student Center, Mondays and Fridays.
+          Visit us in the Pecota Student Center to get your official Northwest University spirit gear on Mondays and Fridays. A variety of new apparel, drinkware and accessories have just arrived for the 26-27 academic year!
         </p>
 
         <div class="hero-meta">
@@ -150,8 +149,8 @@ const mission = [
           <div class="find-eyebrow">Find the Shop</div>
           <h2 class="find-title">Visit the Swoop Shop in person.</h2>
           <p class="find-detail">
-            Stop by the Pecota Student Center on the Kirkland campus.
-            Pick up a hoodie, hat, or sticker pack. The Eagles are waiting.
+            Visit us in the Pecota Student Center on the Kirkland campus.
+            Get your official Northwest University spirit gear today!
           </p>
           <div class="find-meta">
             <div class="find-meta-item">
