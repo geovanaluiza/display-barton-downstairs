@@ -31,8 +31,8 @@ function closeLightbox() {
 
 // === BEST SELLERS — 4 top products ===
 const heroProds: Product[] = [
+  { id: 'p-hat',      name: 'Richardson 112 Trucker',    blurb: '',  img: 'products/prod-trucker-navy.jpg',    collection: 'apparel',    accent: 'var(--nu-navy)' },
   { id: 'p-crew',     name: 'Eagles Crewneck',      blurb: '',  img: 'products/prod-crew-bering.jpg',      collection: 'apparel',    accent: 'var(--nu-blue)' },
-  { id: 'p-hat',      name: 'Eagles Twill Cap',    blurb: '',  img: 'products/prod-twill-eagles.jpg',    collection: 'apparel',    accent: 'var(--nu-navy)' },
   { id: 'p-beanie',   name: 'Knit Beanie',         blurb: '',  img: 'products/prod-beanie-navy.jpg',     collection: 'apparel',    accent: 'var(--nu-navy)' },
   { id: 'p-hoodie',   name: 'Hanes Hoodie',        blurb: '',  img: 'products/prod-hoodie-royal.jpg',     collection: 'apparel',    accent: 'var(--nu-navy)' }
 ]
@@ -70,15 +70,11 @@ const collections = [
   {
     key: 'accessories',
     name: 'Accessories',
-    blurb: 'Bottles, stickers, and more for the Northwest life.',
+    blurb: 'Bottles and more for the Northwest life.',
     accent: 'var(--nu-leaf)',
     cover: 'products/prod-bottle-blue.jpg',
     items: [
-      { name: 'Flair Bottle',     img: 'products/prod-bottle-blue.jpg' },
-      { name: 'Mountain Sticker',  img: 'products/sticker-nu-mountain.png' },
-      { name: 'Eagle Wave',       img: 'products/sticker-eagle-wave.png' },
-      { name: 'NU Vert Bar',      img: 'products/sticker-nu-vertbar.png' },
-      { name: 'Seal Sticker',     img: 'products/sticker-seal-white.png' }
+      { name: 'Flair Bottle',     img: 'products/prod-bottle-blue.jpg' }
     ]
   }
 ]
@@ -104,7 +100,7 @@ const mission = [
 <template>
   <div class="world-body-inner swoop-page">
     <!-- ============================================================== -->
-    <!-- HERO — single full-width real Swoop Shop photo                  -->
+    <!-- HERO — single full-width real SwoopShop photo                  -->
     <!-- ============================================================== -->
     <section class="hero">
       <img
@@ -125,10 +121,6 @@ const mission = [
         </p>
 
         <div class="hero-meta">
-          <span><strong>4</strong> curated collections</span>
-          <span class="dot" />
-          <span><strong>20+</strong> Northwest classics</span>
-          <span class="dot" />
           <span>Visit us in person at Pecota</span>
         </div>
       </div>
@@ -315,7 +307,6 @@ const mission = [
           <div class="sect-eyebrow">Why we do it</div>
           <h2 class="sect-title">More than merchandise.</h2>
         </div>
-        <p class="sect-subtitle">Every Eagle, every piece, every purpose.</p>
       </div>
 
       <div class="mission-grid stagger">
@@ -349,7 +340,7 @@ const mission = [
 .world-body-inner::-webkit-scrollbar { display: none; }
 
 /* ================================================================ */
-/*  HERO — single full-width real Swoop Shop photo                    */
+/*  HERO — single full-width real SwoopShop photo                    */
 /* ================================================================ */
 .hero {
   position: relative;
