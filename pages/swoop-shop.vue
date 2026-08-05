@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 
-// === Northwest Swoop Shop — real product images from the official catalog ===
+// === Northwest SwoopShop — real product images from the official catalog ===
 // All products are organized in 3 collections. Each product card uses the
 // actual photo, real name, and short blurb. No fake prices.
 
@@ -29,13 +29,12 @@ function closeLightbox() {
   lightbox.value = null
 }
 
-// === FEATURED — 4 Swoop Shop products (real catalog photos) ===
-// All other sections also use real product images from the catalog.
+// === BEST SELLERS — 4 top products ===
 const heroProds: Product[] = [
-  { id: 'p-hoodie',   name: 'Hanes Hoodie',          blurb: 'Royal blue with embroidered shield.',  img: 'products/prod-hoodie-royal.jpg',     collection: 'apparel',    accent: 'var(--nu-navy)' },
-  { id: 'p-crew',     name: 'Eagles Crewneck',      blurb: 'Bering Sea with Eagle wordmark.',      img: 'products/prod-crew-bering.jpg',      collection: 'apparel',    accent: 'var(--nu-blue)' },
-  { id: 'p-bottle',   name: 'Flair Water Bottle',   blurb: 'NU Classic Blue, 32 oz.',              img: 'products/prod-bottle-blue.jpg',      collection: 'gifts',      accent: 'var(--nu-alt)' },
-  { id: 'p-sticker',  name: 'Mountain Scene Sticker', blurb: 'Vinyl die-cut, white.',              img: 'products/sticker-nu-mountain.png',   collection: 'stickers',   accent: 'var(--nu-tour)' }
+  { id: 'p-crew',     name: 'Eagles Crewneck',      blurb: '',  img: 'products/prod-crew-bering.jpg',      collection: 'apparel',    accent: 'var(--nu-blue)' },
+  { id: 'p-hat',      name: 'Eagles Twill Cap',    blurb: '',  img: 'products/prod-twill-eagles.jpg',    collection: 'apparel',    accent: 'var(--nu-navy)' },
+  { id: 'p-beanie',   name: 'Knit Beanie',         blurb: '',  img: 'products/prod-beanie-navy.jpg',     collection: 'apparel',    accent: 'var(--nu-navy)' },
+  { id: 'p-hoodie',   name: 'Hanes Hoodie',        blurb: '',  img: 'products/prod-hoodie-royal.jpg',     collection: 'apparel',    accent: 'var(--nu-navy)' }
 ]
 
 // === COLLECTIONS — 4 destinations (real catalog photos) ===
@@ -77,7 +76,7 @@ const collections = [
     items: [
       { name: 'Flair Bottle',         img: 'products/prod-bottle-blue.jpg' },
       { name: 'Knit Beanie',          img: 'products/prod-beanie-navy.jpg' },
-      { name: 'Pom Beanie',           img: 'products/prod-pom-beanie-ivory.jpg' },
+      { name: 'Pom Beanie',           img: 'products/prod-pom-beanie-navy.jpg' },
       { name: 'Trucker Hat',          img: 'products/prod-trucker-navy.jpg' },
       { name: 'Sportsman Hat (Navy)', img: 'products/prod-hat-navy.jpg' }
     ]
@@ -118,7 +117,7 @@ const mission = [
 
       <div class="hero-content">
         <div class="hero-eyebrow">
-          <span class="ey-dot" /> The Swoop Shop
+          <span class="ey-dot" /> SwoopShop
         </div>
         <h1 class="hero-title">Wear Your Eagle Pride.</h1>
         <p class="hero-subtitle">
@@ -179,9 +178,8 @@ const mission = [
       <div class="section-head">
         <div>
           <div class="sect-eyebrow">Featured</div>
-          <h2 class="sect-title">Four you should not miss.</h2>
+          <h2 class="sect-title">Best Sellers</h2>
         </div>
-        <p class="sect-subtitle">A closer look at four crowd favorites, all in the shop right now.</p>
       </div>
 
       <div class="featured-grid stagger">
@@ -199,7 +197,6 @@ const mission = [
               {{ p.collection }}
             </div>
             <h3 class="feat-name">{{ p.name }}</h3>
-            <p class="feat-blurb">{{ p.blurb }}</p>
           </div>
         </article>
       </div>
@@ -483,7 +480,7 @@ const mission = [
   animation: pulse 1.8s ease-in-out infinite;
 }
 .hero-title {
-  font-family: var(--font-serif);
+  font-family: 'Redzone', Georgia, serif;
   font-size: 92px; line-height: 0.96;
   color: var(--nu-wisp);
   margin: 0 0 14px;
