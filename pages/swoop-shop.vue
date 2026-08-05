@@ -31,7 +31,7 @@ function closeLightbox() {
 
 // === BEST SELLERS — 4 top products ===
 const heroProds: Product[] = [
-  { id: 'p-hat',      name: 'Richardson 112 Trucker',    blurb: '',  img: 'products/prod-trucker-navy.jpg',    collection: 'apparel',    accent: 'var(--nu-navy)' },
+  { id: 'p-hat',      name: 'Richardson\u00A0112\u00A0Trucker',    blurb: '',  img: 'products/prod-trucker-navy.jpg',    collection: 'apparel',    accent: 'var(--nu-navy)' },
   { id: 'p-crew',     name: 'Eagles Crewneck',      blurb: '',  img: 'products/prod-crew-bering.jpg',      collection: 'apparel',    accent: 'var(--nu-blue)' },
   { id: 'p-beanie',   name: 'Knit Beanie',         blurb: '',  img: 'products/prod-beanie-navy.jpg',     collection: 'apparel',    accent: 'var(--nu-navy)' },
   { id: 'p-hoodie',   name: 'Hanes Hoodie',        blurb: '',  img: 'products/prod-hoodie-royal.jpg',     collection: 'apparel',    accent: 'var(--nu-navy)' }
