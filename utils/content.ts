@@ -538,7 +538,7 @@ export const PROGRAMS: ProgramItem[] = [
   {
     id: 'p-edu',
     college: 'School of Education',
-    programs: ['Elementary Education', 'Secondary Education', 'Special Education', 'Physical Education'],
+    programs: ['Educational Studies (BA)', 'Teaching (MIT)'],
     tagline: 'Preparing educators who inspire and empower learners.',
     image: '251004FamilyWeekend-5275.jpg'
   }
