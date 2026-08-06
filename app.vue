@@ -36,7 +36,7 @@ function resetInactivityTimer() {
   if (inactivityTimer) clearTimeout(inactivityTimer)
   inactivityTimer = setTimeout(() => {
     const router = useRouter()
-    router.push('/splash')
+    router.push('/')
   }, INACTIVITY_MS)
 }
 
