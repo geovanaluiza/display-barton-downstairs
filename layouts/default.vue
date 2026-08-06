@@ -1,105 +1,19 @@
 <script setup lang="ts">
-import { ref, computed, onMounted } from 'vue'
-import { useDisplayState, WORLDS } from '~/composables/useDisplayState'
+import { useDisplayState } from '~/composables/useDisplayState'
 import { useLocation } from '~/composables/useLocation'
 import { useOrientation } from '~/composables/useOrientation'
 
-const { currentWorld, go, next, prev, isIdle } = useDisplayState()
+const { go, isIdle } = useDisplayState()
 const { label: locationLabel } = useLocation()
 const { isPortrait } = useOrientation()
-
-const drawerOpen = ref(false)
-
-function toggleDrawer() { drawerOpen.value = !drawerOpen.value }
-function closeDrawer()  { drawerOpen.value = false }
-function pickWorld(w: typeof WORLDS[number]) {
-  go(w.key as any)
-  closeDrawer()
-}
-
-// Horizontal swipe on the shell still navigates between worlds.
-import { useSwipe } from '~/composables/useSwipe'
-useSwipe({
-  onLeft:  () => { if (!drawerOpen.value) next() },
-  onRight: () => { if (!drawerOpen.value) prev() },
-  enabled: () => !isIdle.value
-})
-
-function onKey(e: KeyboardEvent) {
-  if (isIdle.value) return
-  if (e.key === 'ArrowRight' && !drawerOpen.value) next()
-  if (e.key === 'ArrowLeft'  && !drawerOpen.value) prev()
-  if (e.key === 'Escape') closeDrawer()
-  if (e.key === 'm' || e.key === 'M') toggleDrawer()
-}
-onMounted(() => window.addEventListener('keydown', onKey))
-
-const currentWorldLabel = computed(
-  () => WORLDS.find(w => w.key === currentWorld.value)?.label ?? 'Campus Map'
-)
 </script>
 
 <template>
   <div class="shell" :class="{ 'is-portrait': isPortrait, 'is-landscape': !isPortrait }">
     <IdleOverlay v-if="isIdle" @wake="() => {}" />
 
-    <!-- Slide-in drawer with world navigation -->
-    <transition name="drawer">
-      <div v-if="drawerOpen" class="drawer-root" @click.self="closeDrawer">
-        <aside class="drawer" :aria-label="'World navigation drawer'">
-          <div class="drawer-head">
-            <div class="brand">
-              <img
-                class="brand-shield"
-                src="/images/northwest_shield.png"
-                alt="Northwest University shield"
-                width="76"
-                height="80"
-              />
-              <div>
-                <div class="brand-name">Northwest University</div>
-                <div class="brand-sub">Where to?</div>
-              </div>
-            </div>
-            <button class="close-btn" aria-label="Close menu" @click="closeDrawer">×</button>
-          </div>
-
-          <nav class="drawer-list">
-            <button
-              v-for="(w, i) in WORLDS"
-              :key="w.key"
-              class="drawer-item hover-lift"
-              :class="{ 'is-active': w.key === currentWorld }"
-              :style="{ animationDelay: `${60 + i * 40}ms`, '--item-color': w.color }"
-              :aria-label="`Open ${w.label}`"
-              @click="pickWorld(w)"
-            >
-              <span class="di-bar" />
-              <span class="di-num">{{ String(i).padStart(2, '0') }}</span>
-              <span class="di-text">
-                <span class="di-label">{{ w.label }}</span>
-                <span class="di-arrow">→</span>
-              </span>
-            </button>
-          </nav>
-
-          <footer class="drawer-foot">
-            <div class="foot-line">Tap a world to open</div>
-            <div class="foot-line">Swipe ← → to change</div>
-
-          </footer>
-        </aside>
-      </div>
-    </transition>
-
     <!-- TOP BAR -->
     <header class="topbar">
-      <button class="hamburger" :class="{ 'is-open': drawerOpen }" aria-label="Open menu" @click="toggleDrawer">
-        <span class="bar" />
-        <span class="bar" />
-        <span class="bar" />
-      </button>
-
       <button
         class="brand"
         type="button"
@@ -115,7 +29,7 @@ const currentWorldLabel = computed(
         />
         <div class="brand-text">
           <div class="brand-name">Northwest University</div>
-          <div class="brand-sub">Interactive Display · {{ currentWorldLabel }} · {{ locationLabel }}</div>
+          <div class="brand-sub">Wayfinding · {{ locationLabel }}</div>
         </div>
       </button>
 
@@ -129,13 +43,6 @@ const currentWorldLabel = computed(
     <main class="page-area">
       <NuxtPage />
     </main>
-
-    <!-- BOTTOM HINT -->
-    <footer class="bottom-hint">
-      <span>Tap <strong>☰</strong> to explore worlds</span>
-      <span class="dot-sep" />
-      <span>Swipe <kbd>←</kbd> <kbd>→</kbd> to change</span>
-    </footer>
   </div>
 </template>
 
