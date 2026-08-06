@@ -34,7 +34,7 @@ const heroProds: Product[] = [
   { id: 'p-hat',      name: 'Richardson\u00A0112\u00A0Trucker',    blurb: '',  img: 'products/prod-trucker-navy.jpg',    collection: 'apparel',    accent: 'var(--nu-navy)' },
   { id: 'p-crew',     name: 'Eagles Crewneck',      blurb: '',  img: 'products/prod-crew-bering.jpg',      collection: 'apparel',    accent: 'var(--nu-blue)' },
   { id: 'p-cap',      name: 'Eagles Twill\u00A0Cap', blurb: '',  img: 'products/prod-twill-eagles.jpg',    collection: 'apparel',    accent: 'var(--nu-navy)' },
-  { id: 'p-hoodie',   name: 'Hanes Hoodie',        blurb: '',  img: 'products/prod-hoodie-royal.jpg',     collection: 'apparel',    accent: 'var(--nu-navy)' }
+  { id: 'p-champion', name: 'Champion Crew\u00A0Royal', blurb: '',  img: 'products/prod-crew-royal-champion.jpg', collection: 'apparel',    accent: 'var(--nu-blue)' }
 ]
 
 // === COLLECTIONS — 3 destinations ===
