@@ -123,6 +123,11 @@ const mission = [
       </div>
     </section>
 
+    <!-- Eagle badge — overlaps the bottom edge of the hero photo -->
+    <div class="eagle-badge-wrap" aria-hidden="true">
+      <img class="eagle-badge" src="/images/eaglelogo.svg" alt="" />
+    </div>
+
     <!-- ============================================================== -->
     <!-- VISIT US — physical location block (anchored near the top)      -->
     <!-- ============================================================== -->
@@ -502,6 +507,28 @@ const mission = [
   border-radius: 50%;
   background: var(--nu-skylight);
   opacity: 0.6;
+}
+
+/* === EAGLE BADGE — straddles the hero photo's bottom edge === */
+.eagle-badge-wrap {
+  position: relative;
+  z-index: 6;
+  display: flex;
+  justify-content: flex-end;
+  margin-top: -160px;
+  margin-right: 72px;
+  margin-bottom: 40px;
+  pointer-events: none;
+}
+.eagle-badge {
+  width: 200px;
+  height: 200px;
+  padding: 30px;
+  border-radius: 50%;
+  background: var(--nu-navy);
+  border: 3px solid var(--nu-tour);
+  box-shadow: 0 18px 48px rgba(0, 38, 61, 0.40);
+  animation: fadeUp 0.9s var(--ease-out-soft) 0.35s both;
 }
 
 /* === FEATURED — 4 products grid below hero === */
