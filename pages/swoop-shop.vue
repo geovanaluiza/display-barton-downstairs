@@ -50,6 +50,7 @@ const collections = [
       { name: 'Eagles Crewneck',   img: 'products/prod-crew-bering.jpg' },
       { name: 'Eagle Grey Crew',   img: 'products/prod-crew-eagle-grey.jpg' },
       { name: 'Eagles Tee',        img: 'products/prod-tee-seal-navy.jpg' },
+      { name: 'White Box Tee',     img: 'products/prod-tee-white.jpg' },
       { name: 'Polo',             img: 'products/prod-polo-navy.jpg' }
     ]
   },
