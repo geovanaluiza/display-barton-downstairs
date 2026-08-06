@@ -34,7 +34,7 @@ const heroProds: Product[] = [
   { id: 'p-hat',      name: 'Richardson\u00A0112\u00A0Trucker',    blurb: '',  img: 'products/prod-trucker-navy.jpg',    collection: 'apparel',    accent: 'var(--nu-navy)' },
   { id: 'p-crew',     name: 'Eagles Crewneck',      blurb: '',  img: 'products/prod-crew-bering.jpg',      collection: 'apparel',    accent: 'var(--nu-blue)' },
   { id: 'p-cap',      name: 'Eagles Twill\u00A0Cap', blurb: '',  img: 'products/prod-twill-eagles.jpg',    collection: 'apparel',    accent: 'var(--nu-navy)' },
-  { id: 'p-hoodie',   name: 'Northwest\u00A0Hoodie', blurb: '',  img: 'products/prod-hoodie-northwest-navy.png', collection: 'apparel', accent: 'var(--nu-navy)' }
+  { id: 'p-hoodie',   name: 'Northwest\nHoodie', blurb: '',  img: 'products/prod-hoodie-northwest-navy.png', collection: 'apparel', accent: 'var(--nu-navy)' }
 ]
 
 // === COLLECTIONS — 3 destinations ===
@@ -556,6 +556,7 @@ const mission = [
   color: var(--nu-midnight);
   margin: 0 0 6px;
   letter-spacing: -0.01em;
+  white-space: pre-line;
 }
 .feat-blurb {
   font-size: 13px; line-height: 1.45;

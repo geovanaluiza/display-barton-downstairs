@@ -41,7 +41,6 @@ const currentWorldLabel = computed(
 
 <template>
   <div class="shell" :class="{ 'is-portrait': isPortrait, 'is-landscape': !isPortrait }">
-    <IdleOverlay v-if="isIdle" @wake="() => {}" />
 
     <!-- Slide-in drawer with world navigation -->
     <transition name="drawer">
