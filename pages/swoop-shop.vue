@@ -125,7 +125,7 @@ const mission = [
 
     <!-- Eagle badge — overlaps the bottom edge of the hero photo -->
     <div class="eagle-badge-wrap" aria-hidden="true">
-      <img class="eagle-badge" src="/images/eaglelogo.svg" alt="" />
+      <img class="eagle-badge" src="/images/swoopshop-eagle-badge.png" alt="" />
     </div>
 
     <!-- ============================================================== -->
